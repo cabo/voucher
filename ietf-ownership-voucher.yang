@@ -1,0 +1,114 @@
+module ietf-ownership-voucher {
+  yang-version 1.1;
+
+  namespace
+    "urn:ietf:params:xml:ns:yang:ietf-ownership-voucher";
+  prefix "ov";
+
+  import ietf-yang-types { prefix yang; }
+
+  organization
+   "IETF NETCONF (Network Configuration) Working Group";
+
+  contact
+   "WG Web:   <http://tools.ietf.org/wg/netconf/>
+    WG List:  <mailto:netconf@ietf.org>
+    Author:   Kent Watsen
+              <mailto:kwatsen@juniper.net>
+    Author:   Max Pritikin
+              <mailto:pritikin@cisco.com>
+    Author:   Michael Richardson
+              <mailto:mcr+ietf@sandelman.ca>";
+
+  description
+   "This module defines the format for an ownership voucher,
+    which is produced by manufacturers to assign a device to an
+    'owner', so that it may establish secure connections to the
+    owner's network infrastructure (e.g., controller).";
+
+  revision "YYYY-MM-DD" {
+    description
+     "Initial version";
+    reference
+     "RFC XXXX: Ownership Vouchers for Bootstrapping Protocols";
+  }
+
+  // top-level container
+  container voucher {
+    description
+      "A voucher, containing an owner's identifier, a list of 
+       device's unique identifiers, and potentially some other
+       fields described herein.  The voucher must be signed,
+       but each solution using this voucher needs to specify
+       how the signature is generated and communicated.";
+
+    leaf assertion {
+      mandatory true;
+      type enumeration {
+        enum verified {
+          description "fixme";
+        }
+        enum logged {
+          description "fixme";
+        }
+      }
+      description
+        "The assertion is a statement from the manufacturer that it
+         knows the device by looking into a database or by simply
+         adding a log entry (open bootstrapping).  This allows the
+         device to know what assurance the manufacturer provides, 
+         which supports more detailed policy checks such as 'I only
+         want to allow verified devices, not just logged devices'.";
+    }
+
+    leaf owner-id {
+      type string;
+      mandatory true;
+      description
+        "A manufacturer-assigned value for the owner of the
+         devices enumerated by this voucher.";
+    }
+
+    leaf-list unique-id {
+      type string;
+      min-elements 1;
+      description
+        "A regular expression identifying one more more device
+         unique identifiers.  For instance, the expression could
+         match just a single serial number, or it might match a
+         range of serial numbers.  Devices use this value to 
+         determine if the voucher applies to it.";
+    }
+
+    leaf created-on {
+      type yang:date-and-time;
+      mandatory true;
+      description
+        "The date this voucher was created";
+    }
+
+    leaf expires-on {
+      type yang:date-and-time;
+      description
+        "An optional date value for when this voucher expires.
+         In order for the expiration to be honored, devices must
+         have access to a trusted real time clock.";
+    }
+
+    leaf nonce {
+      type string;  // unit64?
+      description
+        "what can be said about this that's ANIMA-neutral?";
+    }
+
+    anydata additional-data {
+      description
+        "Additional data signed by the manufacturer.  The manufacturer
+         might put additional data into its vouchers, for human 
+         consumption or for device-consumption, for their devices
+         only. [Ed. or is this per RFC standards, should we use YANG
+         'augment' instead?].";
+    }
+
+  }
+}
