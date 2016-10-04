@@ -37,12 +37,23 @@
                 <email>pritikin@cisco.com</email>
             </address>
         </author>
-        <author initials="M.R." surname="Richardson" fullname="Michael Richardson">
-            <organization>Cisco</organization>
-            <address>
-                <email>mcr+ietf@sandelman.ca</email>
-            </address>
+        <author fullname="Michael C. Richardson" initials="M."
+                surname="Richardson">
+          <organization abbrev="SSW">Sandelman Software Works</organization>
+
+          <address>
+            <postal>
+              <street>470 Dawson Avenue</street>
+              <city>Ottawa</city>
+              <region>ON</region>
+              <code>K1Z 5V7</code>
+              <country>CA</country>
+            </postal>
+            <email>mcr+ietf@sandelman.ca</email>
+        <uri>http://www.sandelman.ca/</uri>
+          </address>
         </author>
+
         <date/>
         <area>Operations</area>
         <workgroup>NETCONF Working Group</workgroup>
