@@ -32,25 +32,16 @@
             </address>
         </author>
         <author initials="M.P." surname="Pritikin" fullname="Max Pritikin">
-            <organization>Cisco</organization>
+            <organization>Cisco Systems</organization>
             <address>
                 <email>pritikin@cisco.com</email>
             </address>
         </author>
-        <author fullname="Michael C. Richardson" initials="M."
-                surname="Richardson">
+        <author fullname="Michael C. Richardson" initials="M." surname="Richardson">
           <organization abbrev="SSW">Sandelman Software Works</organization>
-
           <address>
-            <postal>
-              <street>470 Dawson Avenue</street>
-              <city>Ottawa</city>
-              <region>ON</region>
-              <code>K1Z 5V7</code>
-              <country>CA</country>
-            </postal>
             <email>mcr+ietf@sandelman.ca</email>
-        <uri>http://www.sandelman.ca/</uri>
+            <uri>http://www.sandelman.ca/</uri>
           </address>
         </author>
 
@@ -170,6 +161,21 @@ INSERT_TEXT_FROM_FILE(refs/ietf-ownership-voucher-tree.txt)
         </section>  <!-- overview -->
 
         <section title="Examples" anchor="examples">
+
+          <t>The following illustrates a NETCONF voucher:</t>
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-file-ownership-voucher.xml)
+]]></artwork>
+          </figure>
+
+          <t>The following illustrates an ANIMA voucher:</t>
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(refs/ex-file-ownership-voucher.json)
+]]></artwork>
+          </figure>
+
         </section>  <!-- examples -->
 
         <section title="YANG Module" anchor="yang-module">
