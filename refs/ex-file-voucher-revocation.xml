@@ -1,0 +1,13 @@
+<voucher-revocation
+   xmlns="urn:ietf:params:xml:ns:yang:ietf-voucher-revocation">
+  <revocation-type>issuer-wide</revocation-type>
+  <created-on>2016-10-31T23:59:59Z</created-on>
+  <expires-on>2016-12-31T23:59:59Z</expires-on>
+  <issuer-wide>
+    <blacklist>
+      <voucher-identifier>some fingerprint</voucher-identifier>
+      <voucher-identifier>some fingerprint</voucher-identifier>
+      <voucher-identifier>some fingerprint</voucher-identifier>
+    </blacklist>
+  </issuer-wide>
+</voucher>

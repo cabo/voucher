@@ -1,9 +1,9 @@
-module ietf-ownership-voucher {
+module ietf-voucher {
   yang-version 1.1;
 
   namespace
-    "urn:ietf:params:xml:ns:yang:ietf-ownership-voucher";
-  prefix "ov";
+    "urn:ietf:params:xml:ns:yang:ietf-voucher";
+  prefix "vch";
 
   import ietf-yang-types { prefix yang; }
 
@@ -21,7 +21,7 @@ module ietf-ownership-voucher {
               <mailto:mcr+ietf@sandelman.ca>";
 
   description
-   "This module defines the format for an ownership voucher,
+   "This module defines the format for an voucher,
     which is produced by manufacturers to assign a device to an
     'owner', so that it may establish secure connections to the
     owner's network infrastructure (e.g., controller).";
@@ -30,7 +30,8 @@ module ietf-ownership-voucher {
     description
      "Initial version";
     reference
-     "RFC XXXX: Ownership Vouchers for Bootstrapping Protocols";
+     "RFC XXXX: Voucher and Voucher Revocation Profiles
+      for Bootstrapping Protocols";
   }
 
   // top-level container

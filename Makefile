@@ -39,7 +39,8 @@ clean:
 	-rm -f $(draft).txt $(draft).html index.html
 	-rm -f $(next).txt $(next).html
 	-rm -f $(draft)-[0-9][0-9].xml
-	-rm -r ietf-ownership-voucher\@*.yang
+	-rm -r ietf-voucher\@*.yang
+	-rm -r ietf-voucher-revocation\@*.yang
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
 endif
@@ -50,7 +51,8 @@ endif
 
 $(next).xml: $(draft).xml
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-ownership-voucher.yang > ietf-ownership-voucher\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-voucher.yang > ietf-voucher\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-voucher-revocation.yang > ietf-voucher-revocation\@$(shell date +%Y-%m-%d).yang
 	cd refs; ./gen-trees.sh; cd ..;
 	./.insert-figures.sh $@ > tmp
 	mv tmp $@
