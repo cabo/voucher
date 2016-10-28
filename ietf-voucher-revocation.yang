@@ -21,11 +21,9 @@ module ietf-voucher-revocation {
               <mailto:mcr+ietf@sandelman.ca>";
 
   description
-   "This module defines the format for a voucher revocation
-    which is produced by a manufacturer or a delegate to the
-    manufacturer to assign a device to an 'owner', so that
-    it may establish a secure connection to the owner's 
-    network infrastructure.";
+   "This module defines the format for a voucher revocation,
+    which is produced by a manufacturer or delegate to indicate
+    the revocation status of vouchers.";
 
   revision "YYYY-MM-DD" {
     description
@@ -38,7 +36,8 @@ module ietf-voucher-revocation {
   // top-level container
   container voucher-revocation {
     description
-      "A voucher revocation, containing...FIXME ";
+      "A voucher revocation that can provide revocation status
+       information for one or more devices.";
 
     leaf revocation-type {
       mandatory true;
@@ -72,9 +71,7 @@ module ietf-voucher-revocation {
     leaf expires-on {
       type yang:date-and-time;
       description
-        "An optional date value for when this voucher expires.
-         In order for the expiration to be honored, devices must
-         have access to a trusted real time clock.";
+        "An optional date value for when this voucher expires.";
     }
 
     choice voucher-revocation-type {
@@ -82,35 +79,30 @@ module ietf-voucher-revocation {
       container issuer-wide {
 
         choice list-type {
+
           container whitelist {
-
             leaf-list voucher-identifier {
               type string;
               description
-                "A fingerprint over the voucher artifact.
-                 Missing if list is empty.";
+                "A fingerprint over the voucher artifact.";
             }
-
             description
-              "Indicates that the listed of vouchers
-               are known to be good.  If a voucher is
-               not listed, then it is considered
-               revoked.";
+              "Indicates that the listed of vouchers are known
+               to be good.  If a voucher is not listed, then
+               it is considered revoked.";
           }
-          container blacklist {
 
+          container blacklist {
             leaf-list voucher-identifier {
               type string;
               description
                 "A fingerprint over the voucher artifact.
                  Missing if list is empty.";
             }
-
             description
-              "Indicates that the list of vouchers
-               have been revoked.  If a voucher is
-               not listed, then it is considered
-               good.";
+              "Indicates that the list of vouchers have been
+               revoked.  If a voucher is not listed, then it
+               is considered good.";
           }
 
         } // end list-type
@@ -124,7 +116,7 @@ module ietf-voucher-revocation {
           type string;
           mandatory true;
           description
-            "A fingerprint over the voucher artifact?";
+            "A fingerprint over the voucher artifact.";
         }
 
         leaf voucher-status {
@@ -214,9 +206,12 @@ module ietf-voucher-revocation {
       description
         "Additional data signed by the manufacturer.  The manufacturer
          might put additional data into its voucher revocations, for
-         human or device consumption, for their devices only.
-         [FIXME - or is this per RFC standards, should we use YANG
-         'augment' instead?].";
+         human or device consumption.";
+
+         // Ed. is the additional data normative? - if so, should we
+         // remove this free-form field, and assume it will be formally
+         // extended later?  Note: the zerotouch draft doesn't need this
+         // field...
     }
 
   }

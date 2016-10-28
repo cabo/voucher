@@ -21,10 +21,11 @@ module ietf-voucher {
               <mailto:mcr+ietf@sandelman.ca>";
 
   description
-   "This module defines the format for an voucher,
-    which is produced by manufacturers to assign a device to an
-    'owner', so that it may establish secure connections to the
-    owner's network infrastructure (e.g., controller).";
+   "This module defines the format for a voucher, which is
+    produced by a device's manufacturer or delegate to securely
+    assign one or more devices to an 'owner', so that the
+    devices may establish a secure connection to the owner's
+    network infrastructure.";
 
   revision "YYYY-MM-DD" {
     description
@@ -37,48 +38,106 @@ module ietf-voucher {
   // top-level container
   container voucher {
     description
-      "A voucher, containing an owner's identifier, a list of 
-       device's unique identifiers, and potentially some other
-       fields described herein.  The voucher must be signed,
-       but each solution using this voucher needs to specify
-       how the signature is generated and communicated.";
+      "A voucher that can be used to assign one or more devices to
+       an owner.";
 
     leaf assertion {
       mandatory true;
       type enumeration {
         enum verified {
-          description "fixme";
+          description
+            "Indicates that the ownership has been positively
+             verified by the device's manufacturer or delegate
+             (e.g., through sales channel integration).";
         }
         enum logged {
-          description "fixme";
+          description
+            "Indicates that this ownership assignment has been
+             logged into a database maintained by the device's
+             manufacturer or delegate (voucher transparency).";
         }
       }
       description
-        "The assertion is a statement from the manufacturer that it
-         knows the device by looking into a database or by simply
-         adding a log entry (open bootstrapping).  This allows the
-         device to know what assurance the manufacturer provides, 
-         which supports more detailed policy checks such as 'I only
-         want to allow verified devices, not just logged devices'.";
+        "The assertion is a statement from the manufacturer or 
+         delegate regarding the nature of this voucher.  This
+         allows the device to know what assurance the manufacturer
+         provides, which supports more detailed policy checks
+         such as 'I only want to allow verified devices, not
+         just logged devices'.";
     }
 
-    leaf owner-id {
-      type string;
-      mandatory true;
+    leaf trusted-ca-certificate {
+      type binary;
       description
-        "A manufacturer-assigned value for the owner of the
-         devices enumerated by this voucher.";
+        "An X.509 v3 certificate structure as specified by RFC 5280,
+         Section 4 encoded using the ASN.1 distinguished encoding
+         rules (DER), as specified in ITU-T X.690.
+
+         This certificate is used by a bootstrapping device to 
+         trust another public key infrastructure, in order to 
+         verify another certificate supplied to the device 
+         separately by the bootstrapping protocol, the other
+         certificate must have this certificate somewhere in
+         its chain of certificates.";
+
+         // Ed. why isn't the hash of the certificate sufficient?
+         // From zerotouch POV, the owner certificate is a pkcs7
+         // containing the entire chain, so it already has all
+         // the certs and so can find the matchig hash, right?
+
+      reference
+        "RFC 5280:
+           Internet X.509 Public Key Infrastructure Certificate
+           and Certificate Revocation List (CRL) Profile.
+         ITU-T X.690:
+            Information technology – ASN.1 encoding rules:
+            Specification of Basic Encoding Rules (BER),
+            Canonical Encoding Rules (CER) and Distinguished
+            Encoding Rules (DER).";
     }
 
+    container certificate-id {
+      description
+        "When provided, the device MUST also perform RFC 6125
+         style validation of the certificate supplied to the
+         device separately by the bootstrapping protocol
+         against all the provided ids.";
+      leaf cn-id {
+        type string;
+        description
+          "The common name field in the cetificate must match
+           this value.";
+      }
+      leaf dns-id {
+        type string;
+        description
+          "A subjectAltName entry of type dNSName in the
+           certificate must match this value.";
+      }
+    }
+  
     leaf-list unique-id {
       type string;
       min-elements 1;
       description
         "A regular expression identifying one more more device
-         unique identifiers.  For instance, the expression could
-         match just a single serial number, or it might match a
-         range of serial numbers.  Devices use this value to 
-         determine if the voucher applies to it.";
+         unique identifiers (e.g., serial numbers).  For instance,
+         the expression could match just a single serial number,
+         or it might match a range of serial numbers.  Devices
+         use this value to determine if the voucher applies to
+         them.";
+
+         // Ed. both the zerotouch and brwski solutions are devid
+         // oriented, and so renaming this field to 'serial-number'
+         // wouldn't be crazy.  But devid/serial-number (typically)
+         // assumes physical // chassis, is it worth using this
+         // term which might extend to e.g. virtual appliances?
+    }
+
+    leaf nonce {
+      type string;  // unit64?
+      description
+        "what can be said about this that's ANIMA-neutral?";
     }
 
     leaf created-on {
@@ -91,25 +150,19 @@ module ietf-voucher {
     leaf expires-on {
       type yang:date-and-time;
       description
-        "An optional date value for when this voucher expires.
-         In order for the expiration to be honored, devices must
-         have access to a trusted real time clock.";
-    }
-
-    leaf nonce {
-      type string;  // unit64?
-      description
-        "what can be said about this that's ANIMA-neutral?";
+        "An optional date value for when this voucher expires.";
     }
 
     anydata additional-data {
       description
         "Additional data signed by the manufacturer.  The manufacturer
          might put additional data into its vouchers, for human 
-         consumption or for device-consumption, for their devices
-         only. [Ed. or is this per RFC standards, should we use YANG
-         'augment' instead?].";
-    }
+         consumption or device consumption.";
 
+         // Ed. is the additional data normative? - if so, should we
+         // remove this free-form field, and assume it will be formally
+         // extended later?  Note: the zerotouch draft doesn't need this
+         // field...
+    }
   }
 }

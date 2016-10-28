@@ -1,7 +1,13 @@
 <voucher
-   xmlns="urn:ietf:params:xml:ns:yang:ietf-ownership-voucher">
+   xmlns="urn:ietf:params:xml:ns:yang:ietf-voucher">
   <assertion>verified</assertion>
-  <owner-id>owner-23452345</owner-id>
+  <trusted-ca-certificate>
+    base64-encoded X.509 DER
+  </trusted-ca-certificate>
+  <certificate-id>
+    <cn-id>Example Inc.</cn-id>  <!-- maybe this should be a DN? -->
+    <dns-id>example.com</dns-id>
+  </certificate-id>
   <unique-id>AAA123456789</unique-id>
   <unique-id>BBB123456789</unique-id>
   <unique-id>CCC123456789</unique-id>

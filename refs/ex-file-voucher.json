@@ -1,9 +1,10 @@
 {
-  "ietf-ownership-voucher:voucher": {
+  "ietf-voucher:voucher": {
     "assertion": "logged",
+    "trusted-ca-certificate": "base64-encoded X.509 DER",
     "owner-id": "Registrar3245",
     "unique-id": "JADA123456789",
-    "created-on": "2016-10-07T19:31:42Z"
-    "nonce": "987987623489567",
+    "created-on": "2016-10-07T19:31:42Z",
+    "nonce": "987987623489567"
   }
 }
