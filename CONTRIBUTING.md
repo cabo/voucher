@@ -1,14 +1,11 @@
 # Contributing
 
-Before submitting feedback, please familiarize yourself with our current issues
-list and review the [working group home page](http://datatracker.ietf.org/wg/netconf/charter/). If you're new to this, you may also want to read the [Tao of the
-IETF](https://www.ietf.org/tao.html).
+Before submitting feedback, please familiarize yourself with our current issues list and review the [working group home page](http://datatracker.ietf.org/wg/anima/charter/). If you're new to this, you may also want to read the [Tao of the IETF](https://www.ietf.org/tao.html).
 
 Be aware that all contributions to the specification fall under the "NOTE WELL"
 terms outlined below.
 
-1. The best way to provide feedback (editorial or design) and ask questions is
-sending an e-mail to [our mailing list](https://www.ietf.org/mailman/listinfo/netconf). This will ensure that the entire Working Group sees your input in a timely fashion.
+1. The best way to provide feedback (editorial or design) and ask questions is sending an e-mail to [our mailing list](https://www.ietf.org/mailman/listinfo/anima). This will ensure that the entire Working Group sees your input in a timely fashion.
 
 2. If you have **editorial** suggestions (i.e., those that do not change the
 meaning of the specification), you can either:

@@ -9,11 +9,11 @@ module ietf-voucher {
   import ietf-inet-types { prefix inet; }
 
   organization
-   "IETF NETCONF (Network Configuration) Working Group";
+   "IETF ANIMA Working Group";
 
   contact
-   "WG Web:   <http://tools.ietf.org/wg/netconf/>
-    WG List:  <mailto:netconf@ietf.org>
+   "WG Web:   <http://tools.ietf.org/wg/anima/>
+    WG List:  <mailto:anima@ietf.org>
     Author:   Kent Watsen
               <mailto:kwatsen@juniper.net>
     Author:   Max Pritikin

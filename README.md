@@ -1,26 +1,24 @@
-# draft-ietf-netconf-zero-touch
+# draft-kwatsen-anima-voucher
 
-This repository is for the development of a IETF draft for the [NETCONF working group](http://datatracker.ietf.org/wg/netconf/charter/).
+This repository is for the development of a IETF draft for the [ANIMA working group](http://datatracker.ietf.org/wg/anima/charter/).
 
 ## Links
 
-* IETF Page: https://tools.ietf.org/html/draft-ietf-netconf-zero-touch
-* Mailing List: https://www.ietf.org/mailman/listinfo/netconf
-* Issue Tracking: https://github.com/netconf-wg/zero-touch/issues
+* IETF Page: https://tools.ietf.org/html/draft-ietf-anima-voucher
+* Mailing List: https://www.ietf.org/mailman/listinfo/anima
+* Issue Tracking: https://github.com/anima-wg/voucher/issues
 
 
 
 ## Contributing
 
-Before submitting feedback, please familiarize yourself with our current issues
-list and review the [working group home page](http://datatracker.ietf.org/wg/netconf/charter/). If you're new to this, you may also want to read the [Tao of the
-IETF](https://www.ietf.org/tao.html).
+Before submitting feedback, please familiarize yourself with our current issues list and review the [working group home page](http://datatracker.ietf.org/wg/anima/charter/). If you're new to this, you may also want to read the [Tao of the IETF](https://www.ietf.org/tao.html).
 
 Be aware that all contributions to the specification fall under the "NOTE WELL"
 terms outlined below.
 
 1. The best way to provide feedback (editorial or design) and ask questions is
-sending an e-mail to [our mailing list](https://www.ietf.org/mailman/listinfo/netconf). This will ensure that the entire Working Group sees your input in a timely fashion.
+sending an e-mail to [our mailing list](https://www.ietf.org/mailman/listinfo/anima). This will ensure that the entire Working Group sees your input in a timely fashion.
 
 2. If you have **editorial** suggestions (i.e., those that do not change the
 meaning of the specification), you can either:

@@ -22,7 +22,7 @@
 
 <rfc category="std"
      ipr="trust200902"
-     docName="draft-kwatsen-netconf-voucher-latest">
+     docName="draft-kwatsen-anima-voucher-latest">
     <front>
         <title abbrev="Voucher and Revocation Profiles">Voucher and Voucher Revocation Profiles for Bootstrapping Protocols</title>
         <author initials="K.W." surname="Watsen" fullname="Kent Watsen">
@@ -53,7 +53,7 @@
 
         <date/>
         <area>Operations</area>
-        <workgroup>NETCONF Working Group</workgroup>
+        <workgroup>ANIMA Working Group</workgroup>
         <keyword>voucher</keyword>
         <abstract>
             <t>This memo defines the two artifacts "voucher" and "voucher-revocation",
@@ -327,11 +327,11 @@ INSERT_TEXT_FROM_FILE(ietf-voucher-revocation@YYYY-MM-DD.yang)
             <figure>
                 <artwork><![CDATA[
    URI: urn:ietf:params:xml:ns:yang:ietf-voucher
-   Registrant Contact: The NETCONF WG of the IETF.
+   Registrant Contact: The ANIMA WG of the IETF.
    XML: N/A, the requested URI is an XML namespace.
 
    URI: urn:ietf:params:xml:ns:yang:ietf-voucher-revocation
-   Registrant Contact: The NETCONF WG of the IETF.
+   Registrant Contact: The ANIMA WG of the IETF.
    XML: N/A, the requested URI is an XML namespace.
 ]]></artwork>
             </figure>
