@@ -6,6 +6,7 @@ module ietf-voucher {
   prefix "vch";
 
   import ietf-yang-types { prefix yang; }
+  import ietf-inet-types { prefix inet; }
 
   organization
    "IETF NETCONF (Network Configuration) Working Group";
@@ -37,12 +38,12 @@ module ietf-voucher {
 
   // top-level container
   container voucher {
+    config false;
     description
       "A voucher that can be used to assign one or more devices to
        an owner.";
 
     leaf assertion {
-      mandatory true;
       type enumeration {
         enum verified {
           description
@@ -57,6 +58,7 @@ module ietf-voucher {
              manufacturer or delegate (voucher transparency).";
         }
       }
+      mandatory true;
       description
         "The assertion is a statement from the manufacturer or 
          delegate regarding the nature of this voucher.  This
@@ -80,11 +82,6 @@ module ietf-voucher {
          certificate must have this certificate somewhere in
          its chain of certificates.";
 
-         // Ed. why isn't the hash of the certificate sufficient?
-         // From zerotouch POV, the owner certificate is a pkcs7
-         // containing the entire chain, so it already has all
-         // the certs and so can find the matchig hash, right?
-
       reference
         "RFC 5280:
            Internet X.509 Public Key Infrastructure Certificate
@@ -99,8 +96,8 @@ module ietf-voucher {
     container certificate-id {
       description
         "When provided, the device MUST also perform RFC 6125
-         style validation of the certificate supplied to the
-         device separately by the bootstrapping protocol
+         style validation of another certificate supplied to
+         the device separately by the bootstrapping protocol
          against all the provided ids.";
       leaf cn-id {
         type string;
@@ -130,7 +127,7 @@ module ietf-voucher {
          // Ed. both the zerotouch and brwski solutions are devid
          // oriented, and so renaming this field to 'serial-number'
          // wouldn't be crazy.  But devid/serial-number (typically)
-         // assumes physical // chassis, is it worth using this
+         // assumes physical chassis, is it worth using this
          // term which might extend to e.g. virtual appliances?
     }
 
@@ -142,7 +139,6 @@ module ietf-voucher {
 
     leaf created-on {
       type yang:date-and-time;
-      mandatory true;
       description
         "The date this voucher was created";
     }
@@ -151,6 +147,12 @@ module ietf-voucher {
       type yang:date-and-time;
       description
         "An optional date value for when this voucher expires.";
+    }
+
+    leaf revocation-location {
+      type inet:uri;
+      description
+        "A URI indicating where revocation information may be obtained.";
     }
 
     anydata additional-data {

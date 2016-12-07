@@ -22,7 +22,7 @@
 
 <rfc category="std"
      ipr="trust200902"
-     docName="draft-kwatsen-netconf-voucher-profiles">
+     docName="draft-kwatsen-netconf-voucher-latest">
     <front>
         <title abbrev="Voucher and Revocation Profiles">Voucher and Voucher Revocation Profiles for Bootstrapping Protocols</title>
         <author initials="K.W." surname="Watsen" fullname="Kent Watsen">
@@ -106,7 +106,7 @@
     </front>
 
     <middle>
-      <section title="Introduction">
+      <section title="Introduction" anchor="introduction">
 
         <t>This document defines a strategy to securely assign devices to an owner, using
         an artifact signed, directly or indirectly, by the device's manufacturer.
@@ -119,7 +119,7 @@
         ownership is important to bootstrapping mechanisms so that the booting
         device can authenticate the network that's trying to take control of it.</t>
 
-        <t>The lifetimes of vouchers may vary.  In some bootstrapping protocols,
+        <t>The lifetimes of vouchers may vary.  In some bootstrapping protocols
         the vouchers may be ephemeral, whereas in others the vouchers may be 
         potentially long-lived.  In order to support the second category of vouchers,
         this document also defines a voucher revocation artifact, enabling the
@@ -222,23 +222,44 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
 
       <section title="Voucher Revocation" anchor="voucher-revocation">
 
-        <t>The voucher revocation is used by the device's manufacturer or
-        delegate (i.e. the issuer of the voucher) to revoke vouchers.  The
-        voucher format defined herein supports both issuer-wide (similar
-        to a CRL) or voucher-specific (similar to an OCSP response)
+        <t>The vouchers revocation artifact is used to verify the revocation status
+        of vouchers.  Voucher revocations are signed by the manufacturer or delegate
+        (i.e. the issuer of the voucher).  Vouchers revocation statements MAY be
+        verified by devices during the bootstrapping process, or at any time before
+        or after by any entity (e.g., registrar or equivalent) as needed.
+        Registrars or equivalent SHOULD verify voucher revocation statements
+        and make policy decisions in case devices are not doing so themselves.</t>
+
+        <t>Revocations are generally needed when it is critical
+        for devices to know that assurances implied at the time the voucher was
+        signed are still valid at the time the voucher is being processed.</t>
+
+        <t>As mentioned in <xref target="introduction"/>, the lifetimes of vouchers
+        may vary.  In some bootstrapping protocols the vouchers may be ephemeral,
+        whereas in others the vouchers may be potentially long-lived.  For
+        bootstrapping protocols that support ephemeral vouchers, there is no
+        need to support revocations.  For bootstrapping protocols that support
+        long-lived vouchers, the need to support revoking vouchers is a decision
+        for each manufacturer.</t>
+
+        <t>If revocations are not supported then voucher assignments are essentially
+        forever, which may be acceptable for various kinds of devices. If revocations
+        are supported, then it becomes possible to support various scenarios such as
+        handling a key compromise or change in ownership.</t>
+
+        <t>The voucher revocation format defined herein supports both issuer-wide
+        (similar to a CRL) or voucher-specific (similar to an OCSP response)
         constructs, enabling usage flexibility.</t>
 
-        <t>The voucher revocation is signed by the device's manufacturer or
-        delegate.  NOTE: AT THIS TIME, THE SIGNING STRATEGY HAS NOT BEEN SELECTED.</t>
+        <t>NOTE: AT THIS TIME, THE SIGNING STRATEGY HAS NOT BEEN SELECTED.</t>
 
         <section title="Tree Diagram" anchor="voucher-revocation-tree-diagram">
 
           <t>Following is the tree diagram for the YANG module specified in 
           <xref target="voucher-revocation-yang-module"/>.  Details
           regarding each node in the tree diagram are provided in the
-          YANG module.
-          Please see <xref target="tree-diagram"/> for information
-          on tree diagram notation.</t>
+          YANG module.  Please see <xref target="tree-diagram"/> for
+          information on tree diagram notation.</t>
 
           <figure>
             <artwork><![CDATA[
@@ -278,7 +299,21 @@ INSERT_TEXT_FROM_FILE(ietf-voucher-revocation@YYYY-MM-DD.yang)
 
 
       <section title="Security Considerations" anchor="sec-con">
-        <t>FIXME</t>
+        <section title="Clock Sensitivity">
+          <t>This document defines artifacts containing time values
+          for voucher expirations and revocations, which
+          require an accurate clock in order to be processed
+          correctly.  Implementations MUST ensure devices have an
+          accurate clock when shipped from manufacturing facilities,
+          and take steps to prevent clock tampering.</t>
+          <t>If it is not possible to ensure clock accuracy, it is
+          RECOMMENDED that implementations disable the aspects of the
+          solution having clock sensitivity. In particular, such
+          implementations should assume that vouchers neither ever
+          expire or are revokable.</t>
+          <t>It is important to note that implementations SHOULD NOT
+          rely on NTP for time, as it is not a secure protocol.</t>
+        </section>
       </section>
 
       <section title="IANA Considerations" anchor="iana-considerations">

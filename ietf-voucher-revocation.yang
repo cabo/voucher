@@ -35,12 +35,12 @@ module ietf-voucher-revocation {
 
   // top-level container
   container voucher-revocation {
+    config false;
     description
       "A voucher revocation that can provide revocation status
        information for one or more devices.";
 
     leaf revocation-type {
-      mandatory true;
       type enumeration {
         enum issuer-wide {
           description
@@ -53,6 +53,7 @@ module ietf-voucher-revocation {
              a single voucher.";
         }
       }
+      mandatory true;
       description
         "The revocation-type indicates if the revocation
          is issuer-wide or voucher-specific.  Both variations
@@ -75,10 +76,19 @@ module ietf-voucher-revocation {
     }
 
     choice voucher-revocation-type {
+      description
+        "Identifies the revocation type as being either issuer-wide
+         or voucher-specific.";
 
       container issuer-wide {
+        description
+          "This revocation provides issuer-wide revocation status
+           (similar to a CRL).";
 
         choice list-type {
+          description
+            "Indentifies if this issuer-wide revocation is provided
+             in the form of a whitelist or a blacklist";
 
           container whitelist {
             leaf-list voucher-identifier {
@@ -111,6 +121,9 @@ module ietf-voucher-revocation {
 
 
       container voucher-specific {
+        description
+          "This revocation provides voucher-specific revocation 
+           status (similar to an OCSP response).";
 
         leaf voucher-identifier {
           type string;
@@ -135,6 +148,9 @@ module ietf-voucher-revocation {
             }
           } 
           mandatory true;
+          description
+            "Indicates if the revocation status for the specified
+             voucher.";
         }
 
         container revocation-information {
@@ -194,11 +210,11 @@ module ietf-voucher-revocation {
           } // end revocation reason
 
           description
-            "Only present if the voucher has been revoked.";
+            "Provides details regarding why a voucher's revocation.
+             Modeled after 'ResponseData' in RFC6960.";
+
         } // end revocation-information
 
-        description
-          "Modeled after 'ResponseData' in RFC6960.";
       } // end voucher-specific
     }
 
