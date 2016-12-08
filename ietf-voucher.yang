@@ -152,14 +152,15 @@ module ietf-voucher {
     leaf revocation-location {
       type inet:uri;
       description
-        "A URI indicating where revocation information may be obtained.";
+        "A URI indicating where revocation information may be
+         obtained.";
     }
 
     anydata additional-data {
       description
         "Additional data signed by the manufacturer.  The manufacturer
-         might put additional data into its vouchers, for human 
-         consumption or device consumption.";
+         might put additional data into its vouchers, for human or
+         device consumption.";
 
          // Ed. is the additional data normative? - if so, should we
          // remove this free-form field, and assume it will be formally
