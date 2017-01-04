@@ -22,7 +22,7 @@
 
 <rfc category="std"
      ipr="trust200902"
-     docName="draft-kwatsen-anima-voucher-latest">
+     docName="draft-ietf-anima-voucher-latest">
     <front>
         <title abbrev="Voucher and Revocation Profiles">Voucher and Voucher Revocation Profiles for Bootstrapping Protocols</title>
         <author initials="K.W." surname="Watsen" fullname="Kent Watsen">
@@ -45,7 +45,6 @@
             </address>
         </author>
         <author initials="T.E." surname="Eckert" fullname="Toerless Eckert">
-            <organization>Cisco Systems</organization>
             <address>
                 <email>tte+anima@cs.fau.de</email>
             </address>

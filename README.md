@@ -1,4 +1,4 @@
-# draft-kwatsen-anima-voucher
+# draft-ietf-anima-voucher
 
 This repository is for the development of a IETF draft for the [ANIMA working group](http://datatracker.ietf.org/wg/anima/charter/).
 
