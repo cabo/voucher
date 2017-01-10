@@ -40,8 +40,8 @@ module ietf-voucher {
   container voucher {
     config false;
     description
-      "A voucher that can be used to assign one or more devices to
-       an owner.";
+      "A voucher that can be used to assign one or more
+       devices to an owner.";
 
     leaf assertion {
       type enumeration {
@@ -60,12 +60,11 @@ module ietf-voucher {
       }
       mandatory true;
       description
-        "The assertion is a statement from the manufacturer or 
-         delegate regarding the nature of this voucher.  This
-         allows the device to know what assurance the manufacturer
+        "The assertion is a statement from the manufacturer (or 
+         delegate) regarding what assurance the manufacturer 
          provides, which supports more detailed policy checks
-         such as 'I only want to allow verified devices, not
-         just logged devices'.";
+         by devices.  Devices MUST ensure that the assertion
+         provided is acceptable before processing the voucher.";
     }
 
     leaf trusted-ca-certificate {
@@ -75,12 +74,11 @@ module ietf-voucher {
          Section 4 encoded using the ASN.1 distinguished encoding
          rules (DER), as specified in ITU-T X.690.
 
-         This certificate is used by a bootstrapping device to 
-         trust another public key infrastructure, in order to 
-         verify another certificate supplied to the device 
-         separately by the bootstrapping protocol, the other
-         certificate must have this certificate somewhere in
-         its chain of certificates.";
+         This certificate is used by a bootstrapping device to trust
+         a public key infrastructure, in order to verify a domain
+         certificate supplied to the device separately by the 
+         bootstrapping protocol.  The domain certificate MUST have
+         this certificate somewhere in its chain of certificates.";
 
       reference
         "RFC 5280:
@@ -93,23 +91,39 @@ module ietf-voucher {
             Encoding Rules (DER).";
     }
 
-    container certificate-id {
+    container certificate-identifier {
+      must "../trusted-ca-certificate" {
+        description
+          "A trusted-ca-certificate must be present whenever
+           this node is present"'
+      }
       description
-        "When provided, the device MUST also perform RFC 6125
-         style validation of another certificate supplied to
-         the device separately by the bootstrapping protocol
-         against all the provided ids.";
+        "This container identifies values that a trusted domain
+         certificate MUST contain, in addition to having a chain
+         of trust to the trusted-ca-certificate also provided in
+         this voucher.  This container is optional because not
+         all vouchers identify domain certificates indirectly.
+         When provided, the device MUST also perform RFC 6125 style
+         validation of another certificate supplied to the device 
+         separately by the bootstrapping protocol against all the
+         provided ids.";
+      leaf dn-id {
+        type string;
+        description
+          "The certificate's entire subject field MUST match
+           this value.";
+      }
       leaf cn-id {
         type string;
         description
-          "The common name field in the cetificate must match
-           this value.";
+          "The certificate's subject field's common name value
+           MUST match this value.";
       }
       leaf dns-id {
         type string;
         description
           "A subjectAltName entry of type dNSName in the
-           certificate must match this value.";
+           certificate MUST match this value.";
       }
     }
   
@@ -117,55 +131,76 @@ module ietf-voucher {
       type string;
       min-elements 1;
       description
-        "A regular expression identifying one more more device
-         unique identifiers (e.g., serial numbers).  For instance,
-         the expression could match just a single serial number,
-         or it might match a range of serial numbers.  Devices
-         use this value to determine if the voucher applies to
-         them.";
+        "A non-empty list of regular expressions, each identifying one
+         or more device unique identifiers (e.g., serial numbers).  For
+         instance, the expression could match just a single serial
+         number, or it might match a range of serial numbers.
 
-         // Ed. both the zerotouch and brwski solutions are devid
-         // oriented, and so renaming this field to 'serial-number'
-         // wouldn't be crazy.  But devid/serial-number (typically)
-         // assumes physical chassis, is it worth using this
-         // term which might extend to e.g. virtual appliances?
+         When processing a vouchers, devices MUST ensure that their
+         unique identifier matches at least one regular expression in
+         the list.  If no matching regular expression is found, the
+         device MUST NOT process this voucher.";
     }
 
     leaf nonce {
       type string;  // unit64?
       description
-        "what can be said about this that's ANIMA-neutral?";
+        "A value that can be used by a device in some bootstrapping
+         protocols to enable anti-replay protection.  This node is
+         optional because it is not used by all bootstrapping
+         protocols.
+
+         When present, the device MUST compare the provided nonce
+         value with another value that the device randomly generated
+         and sent to a bootstrap server in an earlier bootstrapping
+         message.  If the values do not match, then the device MUST
+         NOT process this voucher.";
     }
 
     leaf created-on {
       type yang:date-and-time;
       description
-        "The date this voucher was created";
+        "A value indicating the date this voucher was created.  This
+         node is optional because its primary purpose is for human
+         consumption.  However, when present, devices that have
+         reliable clocks SHOULD ensure that this created-on value
+         is not greater than the current time.";
     }
 
     leaf expires-on {
       type yang:date-and-time;
       description
-        "An optional date value for when this voucher expires.";
+        "A value indicating when this voucher expires.  The node is
+         optional as not all devices support expirations, such as
+         devices lacking a reliable clock.
+
+         If the device supports expirations and the expires-on value
+         is less then the current time, then the device MUST not
+         process this voucher.";
     }
 
     leaf revocation-location {
       type inet:uri;
       description
-        "A URI indicating where revocation information may be
-         obtained.";
+        "A URI indicating where revocation information for this 
+         voucher may be obtained.  This node is optional as not
+         all devices may support processing revocations.  The URL
+         may address an issuer-wide revocation document or a
+         voucher-specific revocation.
+
+         A device may also obtain voucher revocation information from
+         the same source where it obtained the voucher.  In this case,
+         the device SHOULD attempt to obtain a potentially newer voucher
+         revocation from the URL but, if it is unable to do so, for
+         whatever reason, the device MUST process the provided voucher
+         revocation.
+
+         If a device processes a voucher revocation that indicates a
+         voucher is no longer invalid, then the device MUST not
+         process the voucher.  If a device is unable to process any
+         voucher revocation, then the device SHOULD NOT process the
+         voucher.";
     }
 
-    anydata additional-data {
-      description
-        "Additional data signed by the manufacturer.  The manufacturer
-         might put additional data into its vouchers, for human or
-         device consumption.";
-
-         // Ed. is the additional data normative? - if so, should we
-         // remove this free-form field, and assume it will be formally
-         // extended later?  Note: the zerotouch draft doesn't need this
-         // field...
-    }
   }
 }
