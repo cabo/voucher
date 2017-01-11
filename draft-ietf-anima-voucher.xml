@@ -113,9 +113,11 @@
 
         <t>A voucher may be useful in several contexts, but the driving
         motivation herein is to support secure bootstrapping mechanisms. This
-        memo only defines the voucher artifact, leaving it to other work such as 
-        <xref target="draft-ietf-netconf-zerotouch"/> and
-        <xref target="draft-ietf-anima-bootstrapping-keyinfra"/> to describe 
+        memo only defines the voucher artifact, leaving it to other work such as
+        <xref target="draft-ietf-netconf-zerotouch"/>,
+        <xref target="I-D.ietf-6tisch-dtsecurity-secure-join"/>
+        and
+        <xref target="draft-ietf-anima-bootstrapping-keyinfra"/> to describe
         specialized protocols for accessing and distributing them.  Assigning
         ownership is important to bootstrapping mechanisms so that the booting
         device can authenticate the network that's trying to take control of it.</t>
@@ -156,7 +158,7 @@
                     can authenticate the Registrar. This might include an indication
                     of the private PKIX trust anchor used by the Registrar, or an indication
                     of a public PKIX trust anchor and additional CN-ID or DNS-ID
-                    information to complete authentication. Symetric key or other
+                    information to complete authentication. Symmetric key or other
                     methods are left for future work.</t>
                 
                 <t hangText="Anti-Replay Protections:">Time or nonce based
@@ -206,14 +208,14 @@ Bearer       |  X |       |   wildcard     | optional    |
                 <t hangText="Nonceless Audit Voucher:">An Audit Voucher without a
                     validity period statement. Fundamentally the same as an Audit
                     Voucher except that it can be issued in advance to support network
-                    partions or to provide a permanent voucher for remote
+                    partitions or to provide a permanent voucher for remote
                     deployments.</t>
                 
                 <t hangText="Ownership Audit Voucher:">An Audit Voucher where the
                     MASA service has verified the Registrar as the authorized owner.
                     The MASA service mitigates a MiTM Registrar by refusing to
                     generate Audit Voucher's for unauthorized Registrars. The
-                    Registrar uses audit techniques to suppliment the MASA. This
+                    Registrar uses audit techniques to supplement the MASA. This
                     provides an ideal sharing of policy decisions and enforcement
                     between the vendor and the owner.</t>
                 
@@ -410,6 +412,12 @@ INSERT_TEXT_FROM_FILE(ietf-voucher-revocation@YYYY-MM-DD.yang)
         </section>  <!-- yang module -->
       </section>  <!-- voucher revocation -->
 
+      <section title="CWT representation of ownership voucher" anchor="cwtvoucher">
+        <t>
+          This section details to use of <xref target="I-D.ietf-ace-cbor-web-token" />
+          as the on-wire format for the vouchers.
+        </t>
+      </section>
 
       <section title="Security Considerations" anchor="sec-con">
         <section title="Clock Sensitivity">
@@ -492,6 +500,9 @@ INSERT_TEXT_FROM_FILE(ietf-voucher-revocation@YYYY-MM-DD.yang)
 
         <references title="Informative References">
             &rfc3688;
+
+            <?rfc include="reference.I-D.ietf-ace-cbor-web-token" ?>
+           <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
 
           <reference anchor='draft-ietf-netconf-zerotouch' target="https://tools.ietf.org/html/draft-ietf-netconf-zerotouch">
             <front>
