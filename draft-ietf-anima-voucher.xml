@@ -65,7 +65,7 @@
 
             <t>The voucher revocation artifact is used by the manufacturer or delegate (i.e.
             the issuer of the voucher) to revoke vouchers, if ever necessary.  The
-            voucher revocation format defined herein supports both issuer-wide and 
+            voucher revocation format defined herein supports both issuer-wide and
             voucher-specific constructs, enabling usage flexibility.</t>
 
             <t>For both artifacts, this memo only defines the artifact, leaving it
@@ -123,7 +123,7 @@
         device can authenticate the network that's trying to take control of it.</t>
 
         <t>The lifetimes of vouchers may vary.  In some bootstrapping protocols
-        the vouchers may be ephemeral, whereas in others the vouchers may be 
+        the vouchers may be ephemeral, whereas in others the vouchers may be
         potentially long-lived.  In order to support the second category of vouchers,
         this document also defines a voucher revocation artifact, enabling the
         manufacturer or delegate to communicate the validity of its vouchers.</t>
@@ -133,45 +133,45 @@
         established mappings to XML and JSON, with mappings to other encodings
         in progress.  Which encodings a particular solution uses is outside the
         scope of this document.</t>
-        
-        <t>This document uses <xref target="draft-ietf-anima-bootstrapping-keyinfra"/> 
-        terminology. The device is known as a "Pledge", which communicates with 
+
+        <t>This document uses <xref target="draft-ietf-anima-bootstrapping-keyinfra"/>
+        terminology. The device is known as a "Pledge", which communicates with
         the "Registrar" of the owner's network, and the voucher is provided by the
-        Manufacturer Authorized Signing Authority (MASA).</t> 
+        Manufacturer Authorized Signing Authority (MASA).</t>
 
         <section title="Secure Imprinting using Vouchers">
             <t>A voucher is a cryptographically protected statement to the Pledge
                 device indicating authorizing a zero-touch "imprint" on the Registrar
                 domain. The voucher imparts the following information to
                 the Pledge:</t>
-            
+
             <t><list style="hanging">
                 <t hangText="Assertion Basis:">Indicates the method that protects
-                    the imprint (this is distinct from the voucher signature that 
-                    protects the voucher itself). This might include manufacturer 
-                    asserted ownership verification, assured logging operations or 
-                    reliance on Pledge endpoint behavior such as secure root of trust 
-                    of measurement. Only some methods are normatively defined in this 
+                    the imprint (this is distinct from the voucher signature that
+                    protects the voucher itself). This might include manufacturer
+                    asserted ownership verification, assured logging operations or
+                    reliance on Pledge endpoint behavior such as secure root of trust
+                    of measurement. Only some methods are normatively defined in this
                     document. Other methods are left for future work.</t>
-                
+
                 <t hangText="Registrar Authentication:">Indicates how the Pledge
                     can authenticate the Registrar. This might include an indication
                     of the private PKIX trust anchor used by the Registrar, or an indication
                     of a public PKIX trust anchor and additional CN-ID or DNS-ID
                     information to complete authentication. Symmetric key or other
                     methods are left for future work.</t>
-                
+
                 <t hangText="Anti-Replay Protections:">Time or nonce based
                     information to constrain the voucher to time periods or bootstrap
                     attempts.</t>
             </list></t>
-            
+
             <t>A number of boostrapping scenarios can be met using differing
                 combinations of this information. All scenarios address the primary
                 threat of a MiTM Registrar gaining control over the Pledge device. The
                 following combinations are referred to within this document by
                 name. Colloqually these are "types" of vouchers:</t>
-            
+
             <figure>
                 <artwork><![CDATA[
              |Assertion   |Registrar ID    | Validity    |
@@ -194,7 +194,7 @@ Bearer       |  X |       |   wildcard     | optional    |
         (Not shown for space reasons)
                 ]]></artwork>
             </figure>
-            
+
             <t><list style="hanging">
                 <t hangText="Audit Voucher:">An Audit Voucher is named after the
                     logging assertion mechanisms that the Registrar then "audits" to
@@ -204,13 +204,13 @@ Bearer       |  X |       |   wildcard     | optional    |
                     response mechanism that ensures the MiTM is unsuccessful. This
                     advantage is that actual ownership knowledge is not required on
                     the MASA service.</t>
-                
+
                 <t hangText="Nonceless Audit Voucher:">An Audit Voucher without a
                     validity period statement. Fundamentally the same as an Audit
                     Voucher except that it can be issued in advance to support network
                     partitions or to provide a permanent voucher for remote
                     deployments.</t>
-                
+
                 <t hangText="Ownership Audit Voucher:">An Audit Voucher where the
                     MASA service has verified the Registrar as the authorized owner.
                     The MASA service mitigates a MiTM Registrar by refusing to
@@ -218,28 +218,28 @@ Bearer       |  X |       |   wildcard     | optional    |
                     Registrar uses audit techniques to supplement the MASA. This
                     provides an ideal sharing of policy decisions and enforcement
                     between the vendor and the owner.</t>
-                
+
                 <t hangText="Ownership ID Voucher:">An Ownership ID Voucher is
                     named after inclusion of the Pledge's CN-ID or DNS-ID within the
                     voucher. An example Ownership Voucher is defined in <xref target="draft-ietf-netconf-zerotouch"/>. The MASA service
                     mitigates a MiTM Registrar by identifying the specific Registrar
                     authorized to own the Pledge.</t>
-                
+
                 <t hangText="Bearer Voucher:">A Bearer Voucher is named after the
-                    inclusion of a Registrar ID wildcard. Because the Registrar identity 
+                    inclusion of a Registrar ID wildcard. Because the Registrar identity
                     is not indicated this voucher type must be treated as a
                     secret and protected from exposure as any 'bearer' of the voucher
                     can claim the Pledge device. Publishing a nonceless
                     bearer voucher effectively turns the specified Pledge into a
                     "TOFU" device with minimal mitigation against MiTM Registrars.</t>
 
-            </list></t> 
+            </list></t>
             <t>[[EDNOTE: Exact definitions of Assertion, ID and Validity
             methods come from the voucher document. Included are normative
             statements on how Registrar and Pledge operate on these informations
                 after verifying the voucher]]</t>
         </section> <!-- end Imprint using Voucher -->
-      </section>  <!-- end Introduction --> 
+      </section>  <!-- end Introduction -->
 
       <section title="Requirements Language">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -271,7 +271,7 @@ Bearer       |  X |       |   wildcard     | optional    |
 
       <section title="Voucher" anchor="voucher">
 
-        <t>The voucher is generated by the device's manufacture or delegate. 
+        <t>The voucher is generated by the device's manufacture or delegate.
         The voucher's purpose is to securely assign one or more devices to
         an owner.  The voucher informs each device which entity it should
         consider to be its owner.</t>
@@ -290,7 +290,7 @@ INSERT_TEXT_FROM_FILE(refs/ietf-voucher-tree.txt)
 ]]></artwork>
         </figure>
 
-       <t>Each field in the voucher is fully described in the YANG module 
+       <t>Each field in the voucher is fully described in the YANG module
        provided in <xref target="voucher-yang-module"/>.  Please see that
        section for details.</t>
 
@@ -365,7 +365,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
 
         <section title="Tree Diagram" anchor="voucher-revocation-tree-diagram">
 
-          <t>Following is the tree diagram for the YANG module specified in 
+          <t>Following is the tree diagram for the YANG module specified in
           <xref target="voucher-revocation-yang-module"/>.  Details
           regarding each node in the tree diagram are provided in the
           YANG module.  Please see <xref target="tree-diagram"/> for
@@ -425,10 +425,10 @@ INSERT_TEXT_FROM_FILE(ietf-voucher-revocation@YYYY-MM-DD.yang)
           for voucher expirations and revocations, which
           require an accurate clock in order to be processed
           correctly.  Vendors planning on issuing vouchers with
-          time values MUST ensure devices have an accurate clock when 
+          time values MUST ensure devices have an accurate clock when
           shipped from manufacturing facilities,
           and take steps to prevent clock tampering.</t>
-          <t>If it is not possible to ensure clock accuracy then 
+          <t>If it is not possible to ensure clock accuracy then
           nonce based validity period vouchers should be used. Such
           implementations SHOULD assume that vouchers never
           expire and are not revokable.</t>
