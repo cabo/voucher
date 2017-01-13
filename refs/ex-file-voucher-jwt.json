@@ -1,0 +1,10 @@
+{
+    "iss":"Registrar3245",
+    "iat": 1478854302,
+    "nbf": 1478824302,
+    "exp": 9999999999,
+    "cti": "987987623489567"
+    "logged": "true",
+    "aud": "base64-encoded X.509 DER",
+    "sub": "JADA123456789",
+}

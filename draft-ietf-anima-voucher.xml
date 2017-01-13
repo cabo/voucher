@@ -417,6 +417,52 @@ INSERT_TEXT_FROM_FILE(ietf-voucher-revocation@YYYY-MM-DD.yang)
           This section details to use of <xref target="I-D.ietf-ace-cbor-web-token" />
           as the on-wire format for the vouchers.
         </t>
+        <t>
+          <xref target="I-D.ietf-ace-cbor-web-token" /> creates a series of
+          standard claims. They are replicated from
+          <xref target="RFC7519"/>.
+          The set is intended to be customized, users of CWT are expected
+          to define which ones are required or optional. (Section 3.1 of <xref
+          target="I-D.ietf-ace-cbor-web-token" />).  They include: iss
+          (Issuer), sub (Subject), aud (Audience), exp (Expiration Time), nbf
+        (Not Before), iat (Issued At), and cti (CWT ID). </t> 
+
+        <t>
+          For ease of reading, this is not in the JWT canonical format.
+          <figure>
+            <artwork><![CDATA[
+            INSERT_TEXT_FROM_FILE(refs/ex-file-voucher-jwt.json)
+            ]]></artwork>
+          </figure>
+        </t>
+        
+        <t>
+          <list style="symbols">
+            <t>The Issuer claim maps directly for the manufacturer.</t>
+            <t>The Subject claim to be the device to which the voucher
+            applies.</t>
+            <t>The Audience claim designtates the Domain and/or Registrar which is to owner
+            the device</t>
+            <t>The Expiration Time is probably not used, but could be in some
+            situations.</t>
+            <t>The Not Before claim is the inception date of the
+            voucher. Time may be unavailable to the pledge to validate it,
+            but it may be ignored.</t>
+            <t>The Issued at claim is the time the voucher has been created.
+            This will not generally be much before Issued at, but could be.
+            The pledge may also assume that the token would not be issued
+            prior to the Issued At time, and so assume that real time is not
+            before that time for the purpose of setting it's clock.</t>
+            <t>The CWT ID may be assumed to be the Nonce.</t>
+            <t>The Logged attribute would represent if the voucher includes
+            a promise to audit the result.</t>
+          </list>
+        </t>
+        
+        <t>
+          TBD: a fully base64 example of the CWT encoded.
+        </t>
+
       </section>
 
       <section title="Security Considerations" anchor="sec-con">
@@ -502,6 +548,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher-revocation@YYYY-MM-DD.yang)
             &rfc3688;
 
             <?rfc include="reference.I-D.ietf-ace-cbor-web-token" ?>
+            <?rfc include="reference.RFC.7519.xml" ?>
            <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
 
           <reference anchor='draft-ietf-netconf-zerotouch' target="https://tools.ietf.org/html/draft-ietf-netconf-zerotouch">
