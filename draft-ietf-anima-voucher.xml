@@ -133,29 +133,60 @@
         established mappings to XML and JSON, with mappings to other encodings
         in progress.  Which encodings a particular solution uses is outside the
         scope of this document.</t>
+        
+        <section title="Terminology">
+            <t>This document uses <xref target="draft-ietf-anima-bootstrapping-keyinfra"/> 
+            terminology. The new device is known as a "Pledge", which communicates with 
+            the "Join Registrar" of the owner's network, and the voucher is provided by the
+            Manufacturer Authorized Signing Authority (MASA).</t> 
+        </section>
 
-        <t>This document uses <xref target="draft-ietf-anima-bootstrapping-keyinfra"/>
-        terminology. The device is known as a "Pledge", which communicates with
-        the "Registrar" of the owner's network, and the voucher is provided by the
-        Manufacturer Authorized Signing Authority (MASA).</t>
+        <section title="Requirements Language">
+            <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
+                "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
+                and "OPTIONAL" in the sections below are to be interpreted
+                as described in RFC 2119 <xref target="RFC2119"/>.</t>
+        </section>
+
+        <section title="Tree Diagram Notation" anchor="tree-diagram">
+            <t>The meaning of the symbols in the YANG module is as follows:</t>
+                <t><list style="symbols">
+                    <t>Brackets "[" and "]" enclose list keys.</t>
+                    <t>Braces "{" and "}" enclose feature names, and indicate
+                        that the named feature must be present for the subtree
+                        to be present.</t>
+                    <t>Abbreviations before data node names: "rw" (read-write)
+                        represents configuration data and "ro" (read-only)
+                        represents state data.</t>
+                    <t>Symbols after data node names: "?" means an optional
+                        node, "!" means a presence container, and "*" denotes a
+                        list and leaf-list.</t>
+                    <t>Parentheses enclose choice and case nodes, and case
+                        nodes are also marked with a colon (":").</t>
+                    <t>Ellipsis ("...") stands for contents of subtrees that
+                        are not shown.</t>
+                </list></t>
+            <t>See <xref target="voucher-yang-module">YANG module</xref>.</t>
+        </section>
 
         <section title="Secure Imprinting using Vouchers">
             <t>A voucher is a cryptographically protected statement to the Pledge
-                device indicating authorizing a zero-touch "imprint" on the Registrar
+                device indicating authorizing a zero-touch "imprint" on the Join Registrar of the 
                 domain. The voucher imparts the following information to
-                the Pledge:</t>
-
+                the Join Registrar and Pledge:</t>
+            
             <t><list style="hanging">
                 <t hangText="Assertion Basis:">Indicates the method that protects
-                    the imprint (this is distinct from the voucher signature that
-                    protects the voucher itself). This might include manufacturer
-                    asserted ownership verification, assured logging operations or
-                    reliance on Pledge endpoint behavior such as secure root of trust
-                    of measurement. Only some methods are normatively defined in this
+                    the imprint (this is distinct from the voucher signature that 
+                    protects the voucher itself). This might include manufacturer 
+                    asserted ownership verification, assured logging operations or 
+                    reliance on Pledge endpoint behavior such as secure root of trust 
+                    of measurement. The Join Registrar might use this information. 
+                    Only some methods are normatively defined in this 
                     document. Other methods are left for future work.</t>
-
-                <t hangText="Registrar Authentication:">Indicates how the Pledge
-                    can authenticate the Registrar. This might include an indication
+                
+                <t hangText="Authentication of Join Registrar:">Indicates how the Pledge
+                    can authenticate the Join Registrar. This might include an indication
                     of the private PKIX trust anchor used by the Registrar, or an indication
                     of a public PKIX trust anchor and additional CN-ID or DNS-ID
                     information to complete authentication. Symmetric key or other
@@ -168,7 +199,7 @@
 
             <t>A number of boostrapping scenarios can be met using differing
                 combinations of this information. All scenarios address the primary
-                threat of a MiTM Registrar gaining control over the Pledge device. The
+                threat of a Man-in-The-Middle Registrar gaining control over the Pledge device. The
                 following combinations are referred to within this document by
                 name. Colloqually these are "types" of vouchers:</t>
 
@@ -232,42 +263,9 @@ Bearer       |  X |       |   wildcard     | optional    |
                     can claim the Pledge device. Publishing a nonceless
                     bearer voucher effectively turns the specified Pledge into a
                     "TOFU" device with minimal mitigation against MiTM Registrars.</t>
-
-            </list></t>
-            <t>[[EDNOTE: Exact definitions of Assertion, ID and Validity
-            methods come from the voucher document. Included are normative
-            statements on how Registrar and Pledge operate on these informations
-                after verifying the voucher]]</t>
+            </list></t> 
         </section> <!-- end Imprint using Voucher -->
       </section>  <!-- end Introduction -->
-
-      <section title="Requirements Language">
-        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
-        "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-        and "OPTIONAL" in the sections below are to be interpreted
-        as described in RFC 2119 <xref target="RFC2119"/>.</t>
-      </section>
-
-      <section title="Tree Diagram Notation" anchor="tree-diagram">
-        <t>The meaning of the symbols in the above diagram is as follows:
-          <list style="symbols">
-            <t>Brackets "[" and "]" enclose list keys.</t>
-            <t>Braces "{" and "}" enclose feature names, and indicate
-            that the named feature must be present for the subtree
-            to be present.</t>
-            <t>Abbreviations before data node names: "rw" (read-write)
-            represents configuration data and "ro" (read-only)
-            represents state data.</t>
-            <t>Symbols after data node names: "?" means an optional
-            node, "!" means a presence container, and "*" denotes a
-            list and leaf-list.</t>
-            <t>Parentheses enclose choice and case nodes, and case
-            nodes are also marked with a colon (":").</t>
-            <t>Ellipsis ("...") stands for contents of subtrees that
-            are not shown.</t>
-          </list>
-        </t>
-      </section>
 
       <section title="Voucher" anchor="voucher">
 
