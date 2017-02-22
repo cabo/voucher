@@ -10,4 +10,4 @@
       <voucher-identifier>some fingerprint</voucher-identifier>
     </blacklist>
   </issuer-wide>
-</voucher>
+</voucher-revocation>

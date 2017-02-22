@@ -13,13 +13,14 @@ module ietf-voucher-revocation {
   import ietf-restconf {
     prefix rc;
     description
-      "This import statement is only to access the yang-data extension,
-       which doesnt itself have anything to do with RESTCONF, but was
-       placed in the this RFC for convenience.  The NETMOD working 
-       group has signaled that an RFC 7950bis would incorporate this
-       statement, or a similar statement, as a core statement.  
-       Regardless which statement is incorporated, there should not be
-       any impact to the voucher revocation encoding.";
+      "This import statement is only present to access the yang-data
+       extension defined in RFC 8040.  The yang-data extension doesn't
+       itself have anything to do with RESTCONF, but was placed in the
+       that RFC for convenience.  This extension is being tracked to
+       be moved to the next version of the YANG modeling language.
+       Regardless where or how this extension statement is defined,
+       there should not be any impact to a voucher revocation's
+       encoding.";
     reference "RFC 8040: RESTCONF Protocol";
   }
 
@@ -37,9 +38,9 @@ module ietf-voucher-revocation {
               <mailto:mcr+ietf@sandelman.ca>";
 
   description
-   "This module defines the format for a voucher revocation,
-    which is produced by a manufacturer or delegate to indicate
-    the revocation status of vouchers.";
+   "This module defines the format for a voucher revocation, which
+    is produced by the pledge's manufacturer or delegate (MASA) to 
+    indicate the revocation status of one or more vouchers.";
 
   revision "YYYY-MM-DD" {
     description
@@ -60,27 +61,28 @@ module ietf-voucher-revocation {
     container voucher-revocation {
       config false;
       description
-        "A voucher revocation that can provide revocation status
-         information for one or more devices.";
+        "A voucher revocation that can provide the revocation
+         status information for one or more pledges.";
   
       leaf revocation-type {
         type enumeration {
           enum issuer-wide {
             description
               "Indicates that this revocation spans all
-               the vouchers the issuer has issued to date";
+               the vouchers under the issuer's scope.";
           }
           enum voucher-specific {
             description
-              "Indicated that this revocation only regards
+              "Indicates that this revocation only regards
                a single voucher.";
           }
         }
         mandatory true;
         description
           "The revocation-type indicates if the revocation
-           is issuer-wide or voucher-specific.  Both variations
-           exist to enable implementations to choose between the
+           is issuer-wide (like a CRL) or voucher-specific
+           (like an OCSP Response).  Both variations exist
+           to enable implementations to choose between the
            number of revocation artifacts generated versus
            individual artifact size.";
       }
@@ -89,13 +91,14 @@ module ietf-voucher-revocation {
         type yang:date-and-time;
         mandatory true;
         description
-          "The date this voucher was created";
+          "The date this voucher revocation was created";
       }
   
       leaf expires-on {
         type yang:date-and-time;
         description
-          "An optional date value for when this voucher expires.";
+          "An optional date value for when this voucher
+           revocation expires.";
       }
   
       choice voucher-revocation-type {
@@ -108,40 +111,18 @@ module ietf-voucher-revocation {
             "This revocation provides issuer-wide revocation status
              (similar to a CRL).";
   
-          choice list-type {
+          container blacklist {
             description
-              "Indentifies if this issuer-wide revocation is provided
-               in the form of a whitelist or a blacklist";
-  
-            container whitelist {
-              leaf-list voucher-identifier {
-                type string;
-                description
-                  "A fingerprint over the voucher artifact.";
-              }
+              "Indicates that the list of vouchers have been
+               revoked.  If a voucher is not listed, then it
+               is considered good.";
+            leaf-list voucher-identifier {
+              type string;
               description
-                "Indicates that the listed of vouchers are known
-                 to be good.  If a voucher is not listed, then
-                 it is considered revoked.";
+                "A fingerprint over the voucher artifact.";
             }
-  
-            container blacklist {
-              leaf-list voucher-identifier {
-                type string;
-                description
-                  "A fingerprint over the voucher artifact.
-                   Missing if list is empty.";
-              }
-              description
-                "Indicates that the list of vouchers have been
-                 revoked.  If a voucher is not listed, then it
-                 is considered good.";
-            }
-  
-          } // end list-type
-   
+          }
         } // end issuer-wide
-  
   
         container voucher-specific {
           description
@@ -186,8 +167,8 @@ module ietf-voucher-revocation {
                 "The date this voucher was revoked";
             }
   
-            leaf revocation-reason {
-              type enumeration {
+            leaf revocation-reason {  // remove, or add to
+              type enumeration {      // issuer-wide also?
                 enum unspecified {
                   description
                     "Indicates that the reason the voucher
@@ -209,7 +190,7 @@ module ietf-voucher-revocation {
                   description
                     "Indicates that the reason the voucher
                      was revoked is because its affiliation
-                     changed (e.g., device assigned to a
+                     changed (e.g., pledge assigned to a
                      new owner.";
                 }
                 enum superseded {
@@ -237,7 +218,6 @@ module ietf-voucher-revocation {
                Modeled after 'ResponseData' in RFC6960.";
   
           } // end revocation-information
-  
         } // end voucher-specific
       } // end voucher-revocation-type
     } // end voucher-revocation
