@@ -33,6 +33,10 @@ next := $(draft)-$(next_ver)
 
 default: $(next).xml $(next).txt $(next).html
 
+showversion:
+	@echo VERSION: ${current_ver}
+	@echo NEXT: ${next_ver}
+
 idnits: $(next).txt
 	$(idnits) $<
 
