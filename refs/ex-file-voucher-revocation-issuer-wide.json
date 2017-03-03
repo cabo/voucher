@@ -1,0 +1,14 @@
+{
+  "ietf-voucher-revocation:voucher-revocation": {
+    "revocation-type": "issuer-wide",
+    "created-on": "2016-10-31T23:59:59Z",
+    "expires-on": "2016-12-31T23:59:59Z",
+    "issuer-wide": {
+      "blacklist": [
+        {"voucher-identifier": "some fingerprint"},
+        {"voucher-identifier": "some fingerprint"},
+        {"voucher-identifier": "some fingerprint"}
+      ]
+    }
+  }
+}

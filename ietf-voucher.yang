@@ -97,6 +97,7 @@ module ietf-voucher {
   
       leaf trusted-ca-certificate {
         type binary;
+        mandatory true;
         description
           "An X.509 v3 certificate structure as specified by RFC 5280,
            Section 4 encoded using the ASN.1 distinguished encoding
@@ -148,18 +149,14 @@ module ietf-voucher {
            domain (i.e.  a private PKI), and hence the trust model
            can be more relaxed.";
 
-        leaf subject-hash {
+        leaf subject {
           type binary;
           description
             "The certificate's entire subject field MUST match
-             this value.  This value is calculated as the SHA-1
-             hash over the TBSCertificate's subject structure, as
-             specified by RFC 5280 Section 4.1.2.6, encoded using
-             the ASN.1 distinguished encoding rules (DER), as
-             specified in ITU-T X.690.
-
-             Note: by using the SHA-1 algorithm, the result can be
-             easily compared to OpenSSL's 'subject_hash' output.";
+             this value.  This value is the Subject structure, as
+             specified by RFC ???? Section ???, encoded using the
+             ASN.1 distinguished encoding rules (DER), as specified
+             in ITU-T X.690.";
         }
         leaf cn-id {
           type string;
@@ -175,15 +172,12 @@ module ietf-voucher {
         }
       }
     
-      leaf-list device-identifier {
+      leaf device-identifier {
         type string;
-        min-elements 1;
+        mandatory true;
         description
-          "A non-empty list of POSIX regular expressions, each
-           identifying one or more device identifiers (e.g., serial
-           numbers). For instance, the expression could match just
-           a single serial number, or it might match a range of 
-           serial numbers.
+          "A unique identifier (e.g., serial number) within the scope
+           of the MASA.
   
            When processing a vouchers, pledges MUST ensure that their
            unique identifier matches at least one regular expression in
@@ -192,7 +186,9 @@ module ietf-voucher {
       }
   
       leaf nonce {
-        type string;  // unit64?
+        type binary {
+          length "8..32";
+        }
         description
           "A value that can be used by a pledge in some bootstrapping
            protocols to enable anti-replay protection.  This node is
@@ -208,6 +204,7 @@ module ietf-voucher {
   
       leaf created-on {
         type yang:date-and-time;
+        mandatory true;
         description
           "A value indicating the date this voucher was created.  This
            node is optional because its primary purpose is for human
