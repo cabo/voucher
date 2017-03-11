@@ -10,11 +10,6 @@ module ietf-voucher {
     reference "RFC 6991: Common YANG Data Types";
   }
 
-  import ietf-inet-types {
-    prefix inet;
-    reference "RFC 6991: Common YANG Data Types";
-  }
-
   import ietf-restconf {
     prefix rc;
     description
@@ -51,8 +46,7 @@ module ietf-voucher {
     description
      "Initial version";
     reference
-     "RFC XXXX: Voucher and Voucher Revocation Profiles
-      for Bootstrapping Protocols";
+     "RFC XXXX: Voucher Profile for Bootstrapping Protocols";
   }
 
   rc:yang-data voucher-artifact {
@@ -69,6 +63,33 @@ module ietf-voucher {
         "A voucher that can be used to assign one or more
          pledges to an owner.";
   
+      leaf created-on {
+        type yang:date-and-time;
+        mandatory true;
+        description
+          "A value indicating the date this voucher was created.  This
+           node is optional because its primary purpose is for human
+           consumption.  However, when present, pledges that have
+           reliable clocks SHOULD ensure that this created-on value
+           is not greater than the current time.";
+      }
+ 
+      // DISCUSS: should this be something like "valitity-duration" 
+      // (e.g., 2-weeks) instead?
+
+      leaf expires-on {
+        must "not ../nonce";
+        type yang:date-and-time;
+        description
+          "A value indicating when this voucher expires.  The node is
+           optional as not all pledges support expirations, such as
+           pledges lacking a reliable clock.
+  
+           If the pledge supports expirations and the expires-on value
+           is less then the current time, then the pledge MUST not
+           process this voucher.";
+      }
+
       leaf assertion {
         type enumeration {
           enum verified {
@@ -186,6 +207,7 @@ module ietf-voucher {
       }
   
       leaf nonce {
+        must "not ../expires-on";
         type binary {
           length "8..32";
         }
@@ -201,54 +223,22 @@ module ietf-voucher {
            message.  If the values do not match, then the pledge MUST
            NOT process this voucher.";
       }
-  
-      leaf created-on {
-        type yang:date-and-time;
-        mandatory true;
-        description
-          "A value indicating the date this voucher was created.  This
-           node is optional because its primary purpose is for human
-           consumption.  However, when present, pledges that have
-           reliable clocks SHOULD ensure that this created-on value
-           is not greater than the current time.";
-      }
-  
-      leaf expires-on {
-        type yang:date-and-time;
-        description
-          "A value indicating when this voucher expires.  The node is
-           optional as not all pledges support expirations, such as
-           pledges lacking a reliable clock.
-  
-           If the pledge supports expirations and the expires-on value
-           is less then the current time, then the pledge MUST not
-           process this voucher.";
-      }
-  
-      leaf-list revocation-location {
-        type inet:uri;
-        description
-          "Zero or more URIs indicating where revocation information for
-           this voucher may be obtained.  This node is optional as not
-           all pledges may support processing revocations.  More than
-           one URI may be provided for high-availability reasons.  The
-           URL may address an issuer-wide revocation document or a
-           voucher-specific revocation document.
-  
-           A pledge may also obtain voucher revocation information from
-           the same source where it obtained the voucher.  In this case,
-           the pledge SHOULD attempt to obtain a potentially newer 
-           voucher revocation but, if it is unable to, for whatever
-           reason, the pledge MUST process the provided voucher
-           revocation.
-  
-           If a pledge processes a voucher revocation that indicates a
-           voucher is no longer valid, then the pledge MUST not
-           process the voucher.  If a pledge is unable to process any
-           voucher revocation, then the pledge SHOULD NOT process the
-           voucher.";
-      }
 
+      leaf last-renewal-date {
+        must "../expires-on";
+        type yang:date-and-time;
+        description
+          "The last date that the MASA projects to be the last date it
+           will renew a voucher on (assuming the same validity duration
+           used in this voucher.  This field is merely infomrative, it
+           is not processed by pledges.
+
+           Circustances may occur after when a voucher was generated
+           that can alter a voucher's validity period.  For instance,
+           a vendor may associate validity periods with support
+           contracts, which may be terminated or extended over time.";
+      }
+  
     } // end voucher
   } // end voucher-grouping
 }
