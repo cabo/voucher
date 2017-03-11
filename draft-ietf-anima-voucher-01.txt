@@ -12,7 +12,7 @@ Expires: September 12, 2017                           Sandelman Software
                                                           March 11, 2017
 
 
-  Voucher and Voucher Revocation Profiles for Bootstrapping Protocols
+              Voucher Profile for Bootstrapping Protocols
                       draft-ietf-anima-voucher-01
 
 Abstract
@@ -55,7 +55,7 @@ Copyright Notice
 
 Watsen, et al.         Expires September 12, 2017               [Page 1]
 
-Internet-Draft       Voucher and Revocation Profiles          March 2017
+Internet-Draft               Voucher Profile                  March 2017
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -77,23 +77,23 @@ Table of Contents
      1.4.  Secure Imprinting using Vouchers  . . . . . . . . . . . .   4
    2.  Voucher . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
      2.1.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .   6
-     2.2.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .   6
-     2.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .   7
-   3.  Voucher Revocation  . . . . . . . . . . . . . . . . . . . . .  12
-   4.  Signing Strategy  . . . . . . . . . . . . . . . . . . . . . .  13
-   5.  Design Considerations . . . . . . . . . . . . . . . . . . . .  14
-     5.1.  Voucher Per Pledge  . . . . . . . . . . . . . . . . . . .  14
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-     6.1.  Clock Sensitivity . . . . . . . . . . . . . . . . . . . .  14
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-     7.1.  The IETF XML Registry . . . . . . . . . . . . . . . . . .  15
-     7.2.  The YANG Module Names Registry  . . . . . . . . . . . . .  15
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  16
-   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  17
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+     2.2.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .   8
+     2.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .   8
+   3.  Voucher Revocation  . . . . . . . . . . . . . . . . . . . . .  14
+   4.  Signing Strategy  . . . . . . . . . . . . . . . . . . . . . .  15
+   5.  Design Considerations . . . . . . . . . . . . . . . . . . . .  16
+     5.1.  Voucher Per Pledge  . . . . . . . . . . . . . . . . . . .  16
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+     6.1.  Clock Sensitivity . . . . . . . . . . . . . . . . . . . .  16
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
+     7.1.  The IETF XML Registry . . . . . . . . . . . . . . . . . .  17
+     7.2.  The YANG Module Names Registry  . . . . . . . . . . . . .  17
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  18
+   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -111,7 +111,7 @@ Table of Contents
 
 Watsen, et al.         Expires September 12, 2017               [Page 2]
 
-Internet-Draft       Voucher and Revocation Profiles          March 2017
+Internet-Draft               Voucher Profile                  March 2017
 
 
    [I-D.ietf-6tisch-dtsecurity-secure-join], and
@@ -122,15 +122,14 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
    The lifetimes of vouchers may vary.  In some bootstrapping protocols
    the vouchers may be ephemeral, whereas in others the vouchers may be
    potentially long-lived.  In order to support the second category of
-   vouchers, this document also defines a voucher revocation artifact,
-   enabling the MASA to communicate the ongoing validity of its
-   vouchers.
+   vouchers, this document recommends using short-life vouchers with
+   programatic renewal, enabling the MASA to communicate the ongoing
+   validity of vouchers.
 
-   This document uses YANG [RFC7950] to define the voucher and voucher
-   revocation formats.  YANG is a data modeling language with
-   established mappings to XML and JSON, with mappings to other
-   encodings in progress.  This document has selected JSON for document
-   encodings.
+   This document uses YANG [RFC7950] to define the voucher format.  YANG
+   is a data modeling language with established mappings to XML and
+   JSON, with mappings to other encodings in progress.  This document
+   has selected JSON for document encodings.
 
 1.1.  Terminology
 
@@ -165,9 +164,10 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
 
 
 
+
 Watsen, et al.         Expires September 12, 2017               [Page 3]
 
-Internet-Draft       Voucher and Revocation Profiles          March 2017
+Internet-Draft               Voucher Profile                  March 2017
 
 
    o  Parentheses enclose choice and case nodes, and case nodes are also
@@ -223,7 +223,7 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
 
 Watsen, et al.         Expires September 12, 2017               [Page 4]
 
-Internet-Draft       Voucher and Revocation Profiles          March 2017
+Internet-Draft               Voucher Profile                  March 2017
 
 
                 |Assertion   |Registrar ID    | Validity    |
@@ -279,7 +279,7 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
 
 Watsen, et al.         Expires September 12, 2017               [Page 5]
 
-Internet-Draft       Voucher and Revocation Profiles          March 2017
+Internet-Draft               Voucher Profile                  March 2017
 
 
    Bearer Voucher:  A Bearer Voucher is named after the inclusion of a
@@ -308,6 +308,92 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
    Section 2.3 for a detailed description of the Voucher format.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Watsen, et al.         Expires September 12, 2017               [Page 6]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
+   module: ietf-voucher
+     +--ro voucher
+        +--ro assertion                 enumeration
+        +--ro trusted-ca-certificate?   binary
+        +--ro certificate-identifier
+        |  +--ro dn-id?    string
+        |  +--ro cn-id?    string
+        |  +--ro dns-id?   string
+        +--ro unique-id*                string
+        +--ro nonce?                    string
+        +--ro created-on?               yang:date-and-time
+        +--ro expires-on?               yang:date-and-time
+        +--ro revocation-location?      inet:uri
+
+   module: ietf-voucher
+     groupings:
+     voucher-grouping
+     +--ro voucher
+        +--ro assertion                 enumeration
+        +--ro trusted-ca-certificate?   binary
+        +--ro certificate-identifier
+        |  +--ro dn-id?    string
+        |  +--ro cn-id?    string
+        |  +--ro dns-id?   string
+        +--ro unique-id*                string
+        +--ro nonce?                    string
+        +--ro created-on?               yang:date-and-time
+        +--ro expires-on?               yang:date-and-time
+        +--ro revocation-location?      inet:uri
+
+   module: ietf-voucher
+     groupings:
+     voucher-grouping
+     +--ro voucher
+        +--ro assertion                        enumeration
+        +--ro trusted-ca-certificate           binary
+        +--ro domain-certificate-identifier
+        |  +--ro subject?   binary
+        |  +--ro cn-id?     string
+        |  +--ro dns-id?    string
+        +--ro device-identifier                string
+        +--ro nonce?                           binary
+        +--ro created-on                       yang:date-and-time
+        +--ro expires-on?                      yang:date-and-time
+        +--ro revocation-location*             inet:uri
+
+
+
+
+
+
+Watsen, et al.         Expires September 12, 2017               [Page 7]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
 2.2.  Examples
 
    This section provides a couple Voucher examples for illustration
@@ -329,14 +415,6 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
        "nonce": "base64-encoded octet string"
      }
    }
-
-
-
-
-Watsen, et al.         Expires September 12, 2017               [Page 6]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
 
    The following illustrates a long-lived voucher (no nonce), encoded in
    XML.  This particular voucher applies to more than one pledge
@@ -364,6 +442,14 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
 <CODE BEGINS> file "ietf-voucher@2017-03-11.yang"
 
 module ietf-voucher {
+
+
+
+Watsen, et al.         Expires September 12, 2017               [Page 8]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
   yang-version 1.1;
 
   namespace
@@ -386,14 +472,6 @@ module ietf-voucher {
       "This import statement is only present to access the yang-data
        extension defined in RFC 8040.  The yang-data extension doesn't
        itself have anything to do with RESTCONF, but was placed in the
-
-
-
-Watsen, et al.         Expires September 12, 2017               [Page 7]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
-
        that RFC for convenience.  This extension is being tracked to
        be moved to the next version of the YANG modeling language.
        Regardless where or how this extension statement is defined,
@@ -420,6 +498,14 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
     or more pledges to an 'owner', so that the pledges may establish a
     secure connection to the owner's network infrastructure.";
 
+
+
+
+Watsen, et al.         Expires September 12, 2017               [Page 9]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
   revision "2017-03-11" {
     description
      "Initial version";
@@ -441,14 +527,6 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
       description
         "A voucher that can be used to assign one or more
          pledges to an owner.";
-
-
-
-
-Watsen, et al.         Expires September 12, 2017               [Page 8]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
 
       leaf assertion {
         type enumeration {
@@ -476,6 +554,14 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
            processing the voucher.";
       }
 
+
+
+
+Watsen, et al.         Expires September 12, 2017              [Page 10]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
       leaf trusted-ca-certificate {
         type binary;
         mandatory true;
@@ -498,14 +584,6 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
 
         reference
           "RFC 5280:
-
-
-
-Watsen, et al.         Expires September 12, 2017               [Page 9]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
-
              Internet X.509 Public Key Infrastructure Certificate
              and Certificate Revocation List (CRL) Profile.
            ITU-T X.690:
@@ -533,6 +611,13 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
            validation of the domain certificate against all of
            the provided values.
 
+
+
+Watsen, et al.         Expires September 12, 2017              [Page 11]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
            This container is optional because it is unneeded when,
            for instance, the trusted CA certificate is owned by the
            domain (i.e.  a private PKI), and hence the trust model
@@ -554,14 +639,6 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
              MUST match this value.";
         }
         leaf dns-id {
-
-
-
-Watsen, et al.         Expires September 12, 2017              [Page 10]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
-
           type string;
           description
             "A subjectAltName entry of type dNSName in the
@@ -589,6 +666,14 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
         description
           "A value that can be used by a pledge in some bootstrapping
            protocols to enable anti-replay protection.  This node is
+
+
+
+Watsen, et al.         Expires September 12, 2017              [Page 12]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
            optional because it is not used by all bootstrapping
            protocols.
 
@@ -609,14 +694,6 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
            reliable clocks SHOULD ensure that this created-on value
            is not greater than the current time.";
       }
-
-
-
-
-Watsen, et al.         Expires September 12, 2017              [Page 11]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
 
       leaf expires-on {
         type yang:date-and-time;
@@ -645,6 +722,14 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
            the pledge SHOULD attempt to obtain a potentially newer
            voucher revocation but, if it is unable to, for whatever
            reason, the pledge MUST process the provided voucher
+
+
+
+Watsen, et al.         Expires September 12, 2017              [Page 13]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
            revocation.
 
            If a pledge processes a voucher revocation that indicates a
@@ -666,14 +751,6 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
    A revocation artifact is generally used to verify the continued
    validity of an assertion such as a PKIX certificate, web token, or a
    "voucher".  Conceptually revocation allows for issuance of assertions
-
-
-
-Watsen, et al.         Expires September 12, 2017              [Page 12]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
-
    using long lifetimes and thereby avoiding ongoing protocol operations
    to renew the assertion.  In practice the use of revocation artifacts
    increases the solution complexity.  Rather than a single protocol, or
@@ -683,34 +760,69 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
 
    The PKIX use of CRLs and OCSP responses provides an illustrative
    example.  Relying parties that verify revocation information must
-   obtain and parse the CRL or OCSCP information.  Each has its own
-   validity period that effectively shortens the certificate validity
-   period (since without valid revocation checks the certificate would
-   be rejected).  In addition to having multiple revocation protocol
-   options the resulting space is further complicated by inline
-   distribution of the revocation information.  The TLS extension
-   "Certificate Status Request" [RFC6066] for when "constrained clients
-   may wish to use a certificate-status protocol" is an example of this.
-   Including revocation information into Cryptographic Message Syntax
-   [RFC5652] is another example.
+   obtain and parse the CRL or OCSCP information.  Each revocation
+   method has its own validity period that effectively shortens the
+   certificate validity period (since without valid revocation checks
+   the certificate would be rejected).  In addition to having multiple
+   revocation protocol options the resulting space is further
+   complicated by inline distribution of the revocation information.
+   The TLS extension "Certificate Status Request" [RFC6066] for when
+   "constrained clients may wish to use a certificate-status protocol"
+   is an example of this.  Including revocation information into
+   Cryptographic Message Syntax [RFC5652] is another example.
 
    If vouchers included revocation similar complexities would propagate
    to all related voucher distribution and assertion protocols.  Instead
-   vouchers DO NOT support revocation.  In all cases where the asserting
-   party, or relying party, would obtain or distribute up to date
-   revocation information instead the asserting party will obtain an up-
-   to-date valid voucher.  The protocol and operations infrastructures
-   for this are expected to be the same as the initial methods used to
-   obtain a voucher in the first place with one important clarification:
-   the MASA services MUST issue updated validity period vouchers to the
-   same Registrar ID with minimal friction.  This is similar to how an
-   OCSP revocation system is always willing to confirm that a
-   certificate is not revoked.
+   vouchers do not support revocation.  Instead of the asserting party,
+   or relying party, obtaining and distributing revocation information
+   the asserting party MUST obtain an up-to-date valid voucher.  The
+   protocol and operations infrastructures for this are expected to be
+   the same as the initial methods used to obtain a voucher in the first
+
+
+
+Watsen, et al.         Expires September 12, 2017              [Page 14]
+
+Internet-Draft               Voucher Profile                  March 2017
+
+
+   place, with one important clarification: the MASA services MUST issue
+   updated validity period vouchers to the same Registrar ID with
+   minimal friction.  This is similar to how an OCSP revocation system
+   is always willing to confirm that a certificate is not revoked.
+   There is no requirement implied that vouchers be contigiously
+   renewed.  For example if a two-week lifetime voucher is not used
+   before it expires there is no requirement that it be still valid when
+   renewed.  The domain MAY renew an expired voucher at any time.  The
+   MASA always has authoritative control and MAY reject such renewals
+   (such as when requested by domain owner's to "block" renewals or if
+   the device has been successfully claimed by an alternate domain).
+   Allowing non-contigous lifetimes significantly reduces the
+   operational load on the domain as it is not required to maintain
+   valid vouchers; only to ensure a valid voucher is available during
+   the time window in which it needs to be used.
+
+   [[EDNOTE: It might be worth including an indication of maxium
+   lifetime for which such automated renewal is available.  If so the
+   language we'd use would be similar to the RFC5280 statement that
+   certificate validity period is "the time interval during which the CA
+   warrents that it will maintain information about the status of the
+   certificate" only here used to inform the Registrar of "the time
+   interval during which the MASA warrents that it will maintain
+   information about the status of the ownership claim".  Such a field
+   would be independent of the actual validity period of the voucher and
+   is not intended for consumption by the Pledge.  A suggested name for
+   this field would be "last-renewal-date".]]
+
+   The communications to the MASA service regarding claiming and
+   blocking of devices is out of scope of this specification.  Similarly
+   if revocation methods had been described the method of reporting a
+   revocation would have been out-of-scope.
 
    The lifetimes of vouchers may vary.  In some bootstrapping protocols
    the vouchers may be ephemeral, whereas in others the vouchers may be
    potentially long-lived.  For bootstrapping protocols that support
-   ephemeral vouchers, there is no need to support revocations.  For
+   ephemeral vouchers, there is no need to support renewal.  For
    bootstrapping protocols that support long-lived vouchers final
    protocol complexity is reduced when short lifetime vouchers are
    easily renewed rather than layering on additional revocation methods.
@@ -719,33 +831,30 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
 
 4.  Signing Strategy
 
-   Both the Voucher and Voucher Revocation are signed using a PKCS#7
-   SignedData structure, as specified by Section 9.1 of RFC 2315, having
+   The Voucher is signed using a PKCS#7 SignedData structure, as
+   specified by Section 9.1 of RFC 2315, having the 'content' be JSON-
 
 
 
 
-Watsen, et al.         Expires September 12, 2017              [Page 13]
+Watsen, et al.         Expires September 12, 2017              [Page 15]
 
-Internet-Draft       Voucher and Revocation Profiles          March 2017
+Internet-Draft               Voucher Profile                  March 2017
 
 
-   the 'content' be JSON-encoded data conforming to the YANG modules
-   described in sections Section 2 and Section 3.
+   encoded data conforming to the YANG modules described in section
+   Section 2.
 
-   Both the Voucher and Voucher Revocation PKCS#7 structures MAY contain
-   additional structures deemed useful.  For instance the Voucher
-   structure MAY also contain all of the certificates leading up to and
-   including a root-level trust anchor certificate.  Likewise, the
-   Voucher Revocation structure MAY also include the CRL or OCSP
-   Response for each of the certificates that MAY be stapled to the
-   Voucher structure.
+   The Voucher PKCS#7 structures MAY contain additional structures
+   deemed useful.  For instance the Voucher structure MAY also contain
+   all of the certificates leading up to and including a root-level
+   trust anchor certificate.
 
    If the Registrar Identity is compromised then any outstanding voucher
    for that Registrar Identity could be used by the attacker.  The
    domain administrator is clearly expected to initiate revocation of
-   any domain identity certificates.  Similarly they are expected to
-   contact the voucher signing authority to indicate that such
+   any domain identity certificates (as in normal in PKI solutions).
+   Similarly they are expected to contact the MASA to indicate that an
    outstanding (presumably short lifetime) voucher be blocked from
    automated renewal.  Protocols for voucher distribution are
    RECOMMENDED to check for revocation of any domain identity
@@ -779,46 +888,37 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
    possible then shorter lifetime vouchers would also have been an
    option).
 
-
-
-Watsen, et al.         Expires September 12, 2017              [Page 14]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
-
    It is important to note that implementations SHOULD NOT rely on NTP
    for time, as it is not a secure protocol.
+
+
+
+Watsen, et al.         Expires September 12, 2017              [Page 16]
+
+Internet-Draft               Voucher Profile                  March 2017
+
 
 7.  IANA Considerations
 
 7.1.  The IETF XML Registry
 
-   This document registers two URIs in the IETF XML registry [RFC3688].
-   Following the format in [RFC3688], the following registrations are
+   This document registers a URIs in the IETF XML registry [RFC3688].
+   Following the format in [RFC3688], the following registration is
    requested:
 
       URI: urn:ietf:params:xml:ns:yang:ietf-voucher
       Registrant Contact: The ANIMA WG of the IETF.
       XML: N/A, the requested URI is an XML namespace.
 
-      URI: urn:ietf:params:xml:ns:yang:ietf-voucher-revocation
-      Registrant Contact: The ANIMA WG of the IETF.
-      XML: N/A, the requested URI is an XML namespace.
-
 7.2.  The YANG Module Names Registry
 
-   This document registers two YANG modules in the YANG Module Names
+   This document registers a YANG module in the YANG Module Names
    registry [RFC6020].  Following the format defined in [RFC6020], the
-   the following registrations are requested:
+   the following registration is requested:
 
       name:         ietf-voucher
       namespace:    urn:ietf:params:xml:ns:yang:ietf-voucher
       prefix:       vch
-      reference:    RFC XXXX
-
-      name:         ietf-voucher-revocation
-      namespace:    urn:ietf:params:xml:ns:yang:ietf-voucher-revocation
-      prefix:       vchr
       reference:    RFC XXXX
 
 8.  Acknowledgements
@@ -835,13 +935,6 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
 
-
-
-Watsen, et al.         Expires September 12, 2017              [Page 15]
-
-Internet-Draft       Voucher and Revocation Profiles          March 2017
-
-
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
               DOI 10.17487/RFC6020, October 2010,
@@ -850,6 +943,16 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <http://www.rfc-editor.org/info/rfc7950>.
+
+
+
+
+
+
+Watsen, et al.         Expires September 12, 2017              [Page 17]
+
+Internet-Draft               Voucher Profile                  March 2017
+
 
 9.2.  Informative References
 
@@ -893,9 +996,18 @@ Internet-Draft       Voucher and Revocation Profiles          March 2017
 
 
 
-Watsen, et al.         Expires September 12, 2017              [Page 16]
+
+
+
+
+
+
+
+
+
+Watsen, et al.         Expires September 12, 2017              [Page 18]
 
-Internet-Draft       Voucher and Revocation Profiles          March 2017
+Internet-Draft               Voucher Profile                  March 2017
 
 
 Appendix A.  Change Log
@@ -949,4 +1061,4 @@ Authors' Addresses
 
 
 
-Watsen, et al.         Expires September 12, 2017              [Page 17]
+Watsen, et al.         Expires September 12, 2017              [Page 19]
