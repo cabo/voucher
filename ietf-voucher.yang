@@ -62,7 +62,17 @@ module ietf-voucher {
       description
         "A voucher that can be used to assign one or more
          pledges to an owner.";
-  
+
+      leaf authority-key-identifier {
+        type binary;
+        description
+         "The Subject Key Identifier of the MASA's leaf certificate.
+          Enables the pledge a definitively identify the voucher's
+          issuer's certificate.  This field is optional as not all
+          vouchers will be signed by a private key associated with
+          an X.509 certificate.";
+      }
+
       leaf created-on {
         type yang:date-and-time;
         mandatory true;
@@ -114,6 +124,19 @@ module ietf-voucher {
            to support more detailed policy checks.  Pledges MUST
            ensure that the assertion provided is acceptable before
            processing the voucher.";
+      }
+  
+      leaf device-identifier {
+        type string;
+        mandatory true;
+        description
+          "A unique identifier (e.g., serial number) within the scope
+           of the MASA.
+  
+           When processing a vouchers, pledges MUST ensure that their
+           unique identifier matches at least one regular expression in
+           the list.  If no matching regular expression is found, the
+           pledge MUST NOT process this voucher.";
       }
   
       leaf trusted-ca-certificate {
@@ -193,19 +216,6 @@ module ietf-voucher {
         }
       }
     
-      leaf device-identifier {
-        type string;
-        mandatory true;
-        description
-          "A unique identifier (e.g., serial number) within the scope
-           of the MASA.
-  
-           When processing a vouchers, pledges MUST ensure that their
-           unique identifier matches at least one regular expression in
-           the list.  If no matching regular expression is found, the
-           pledge MUST NOT process this voucher.";
-      }
-  
       leaf nonce {
         must "not ../expires-on";
         type binary {
