@@ -169,7 +169,10 @@ module ietf-voucher {
               Canonical Encoding Rules (CER) and Distinguished
               Encoding Rules (DER).";
       }
-  
+ 
+      // DISCUSS: do we need this anymore, if short-lived vouchers are
+      //          expected?  - still possible to have a long-lived
+      //          voucher though... 
       container domain-certificate-identifier {
         must "../trusted-ca-certificate" {
           description
@@ -216,6 +219,25 @@ module ietf-voucher {
         }
       }
     
+      leaf assert-certificate-revocations {
+        must "../expires-on";
+        type boolean;
+        description
+          "A processing instruction to the device as to if it should
+           assert being able to also verify the revocation status of the
+           trusted-ca-certificate or domain-certificate.  Assuming the
+           MASA asserts the certificate's revocation status at the time
+           of issuing the voucher, the need for a pledge to also check
+           the revocation status of the certificate is proportional
+           to the length of voucher's validity period.  For instance,
+           a revocation check may not be needed for a voucher that
+           expires in a couple weeks, whereas a check may be a good
+           idea for a voucher that expires in a couple years.";
+
+           // DISCUSS: should there be a number telling the device
+           //          how fresh the revocation needs to be?
+      }
+
       leaf nonce {
         must "not ../expires-on";
         type binary {
