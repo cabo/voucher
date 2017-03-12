@@ -218,15 +218,20 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         The voucher informs the pledge which entity it should consider to be
         its owner.</t>
 
-        <t>The Voucher is signed a PKCS#7
-        SignedData structure, as specified by Section 9.1 of RFC 2315, having
-        the 'content' be JSON-encoded data conforming to the YANG modules
-        described in section <xref target="voucher-yang-module"/>.</t>
+        <t>The voucher is signed a PKCS#7 SignedData structure, as specified
+        by Section 9.1 of <xref target="RFC2315"/>, encoded using ASN.1
+        distinguished encoding rules (DER), as specified in ITU-T X.690.</t>
 
-        <t>The voucher's PKCS#7 structure MAY also contain additional
-        structures deemed useful.  For instance the voucher's PKCS#7
-        structure SHOULD contain all of the certificates leading up
-        to and including a root-level trust anchor certificate.</t>
+        <t>The PKCS#7 structure MUST contain JSON-encoded content conforming
+        to the YANG module specified in <xref target="voucher-yang-module"/>.</t>
+
+        <t>The PKCS#7 structure MUST also contain a 'signerInfo' structure, as
+        described in Section 9.1 of <xref target="RFC2315"/>, containing the
+        signature generated over the content using the MASA's private key.</t>
+
+        <t>The PKCS#7 structure SHOULD also contain all of the certificates 
+        leading up to and including the MASA's trust anchor certificate
+        known to the pledges.</t>
 
         <section title="Tree Diagram" anchor="voucher-tree-diagram">
           <t>The following tree diagram <xref target="I-D.bjorklund-netmod-yang-tree-diagrams"/>
@@ -444,6 +449,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
     <back>
       <references title="Normative References">
         <?rfc include="reference.RFC.2119.xml"?>
+        <?rfc include="reference.RFC.2315.xml"?>
         <?rfc include="reference.RFC.6020.xml"?>
         <?rfc include="reference.RFC.7950.xml"?>
       </references>
