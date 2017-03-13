@@ -84,9 +84,6 @@ module ietf-voucher {
            is not greater than the current time.";
       }
  
-      // DISCUSS: should this be something like "valitity-duration" 
-      // (e.g., 2-weeks) instead?
-
       leaf expires-on {
         must "not ../nonce";
         type yang:date-and-time;
@@ -219,23 +216,24 @@ module ietf-voucher {
         }
       }
     
+
+// DISCUSS: does the transition to 'pinning' model mean we can drop this leaf
+// for now? future proofing allows it to be added if needed but its a edge condition? 
+// DISCUSS: there must be such future proofing. not clear where to add it in the voucher
+// document. This is probably the most important point of these discusses
       leaf assert-certificate-revocations {
         must "../expires-on";
         type boolean;
+        default true;
         description
-          "A processing instruction to the device as to if it should
-           assert being able to also verify the revocation status of the
-           trusted-ca-certificate or domain-certificate.  Assuming the
-           MASA asserts the certificate's revocation status at the time
-           of issuing the voucher, the need for a pledge to also check
-           the revocation status of the certificate is proportional
-           to the length of voucher's validity period.  For instance,
-           a revocation check may not be needed for a voucher that
-           expires in a couple weeks, whereas a check may be a good
-           idea for a voucher that expires in a couple years.";
+          "A processing instruction to the device that it should
+           verify revocation information for the PKIX certificates
+           involved in bootstrapping. This is available only if
+           the pledge has a real-time-clock. This is in addition
+           to any revocation checks performed by the MASA.";
 
-           // DISCUSS: should there be a number telling the device
-           //          how fresh the revocation needs to be?
+          // DISCUSS: should this be a boolean or an enum indicating
+          // "fail open" vs "fail closed" to make the meaning clearer.
       }
 
       leaf nonce {
