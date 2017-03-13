@@ -467,14 +467,17 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
           <t>This document favors using voucher-renewals over needing to
           support voucher-revocations (<xref target="renewal-over-revocation"/>).
           However, a voucher may be signed by a chain of intermediate CAs
-          leading to the trust anchor known to a pledge.  Without revocation
-          checking, it means that there will also not be any revocation
-          checking for any of the CA certificates in the chain.  This leads
-          to scenario whereby a stolen intermediate private key results in
-          the ability for the embezzler to issue vouchers as infinitum without
-          recourse.  For this reason, implementations SHOULD ensure that
+          leading to the trust anchor known to a pledge.  Revocation 
+          checking of these certificates is similarly difficult. The current
+          voucher format supports the existing PKIX revocation information distribution
+          within the limits of the current PKI technology; but pledges MAY accept
+          vouchers without checking X.509 certificate revocation. Without revocation
+          checking a compromized MASA keychain could be used to issue vouchers 
+          ad infinitum without recourse.  For this reason, MASA implementations SHOULD ensure that
           all the CA private keys are protected by hardware security modules
-          (HSMs).</t> 
+          (HSMs). Additionally MASA services are RECOMMENDED to perform
+          certificate revocation checks of domain certificates and only issue vouchers 
+          for a lifetime within those revocation validity periods.</t> 
         </section>
         <section title="Test Certificate Validity when Signing">
           <t>If the Registrar Identity is compromised then any outstanding
