@@ -365,7 +365,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
 
       <section title="Design Considerations" anchor="design-con">
 
-        <section title="Renewals instead of Revocations">
+        <section title="Renewals instead of Revocations" anchor="renewal-over-revocation">
 
           <t>A revocation artifact is generally used to verify the continued validity
           of an assertion such as a PKIX certificate, web token, or a 
@@ -462,6 +462,19 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
           facilities, and take steps to prevent clock tampering.
           If it is not possible to ensure clock accuracy then
           vouchers with expirations SHOULD NOT be issued.</t>
+        </section>
+        <section title="Protect Voucher PKI in HSM">
+          <t>This document favors using voucher-renewals over needing to
+          support voucher-revocations (<xref target="renewal-over-revocation"/>).
+          However, a voucher may be signed by a chain of intermediate CAs
+          leading to the trust anchor known to a pledge.  Without revocation
+          checking, it means that there will also not be any revocation
+          checking for any of the CA certificates in the chain.  This leads
+          to scenario whereby a stolen intermediate private key results in
+          the ability for the embezzler to issue vouchers as infinitum without
+          recourse.  For this reason, implementations SHOULD ensure that
+          all the CA private keys are protected by hardware security modules
+          (HSMs).</t> 
         </section>
         <section title="Test Certificate Validity when Signing">
           <t>If the Registrar Identity is compromised then any outstanding
