@@ -468,28 +468,25 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
           support voucher-revocations (<xref target="renewal-over-revocation"/>).
           However, a voucher may be signed by a chain of intermediate CAs
           leading to the trust anchor known to a pledge.  Revocation 
-          checking of these certificates is similarly difficult. The current
+          checking of these certificates is similarly difficult.  The current
           voucher format supports the existing PKIX revocation information distribution
           within the limits of the current PKI technology; but pledges MAY accept
-          vouchers without checking X.509 certificate revocation. Without revocation
-          checking a compromized MASA keychain could be used to issue vouchers 
-          ad infinitum without recourse.  For this reason, MASA implementations SHOULD ensure that
-          all the CA private keys are protected by hardware security modules
-          (HSMs). Additionally MASA services are RECOMMENDED to perform
-          certificate revocation checks of domain certificates and only issue vouchers 
-          for a lifetime within those revocation validity periods.</t> 
+          vouchers without checking X.509 certificate revocation.  Without revocation
+          checking, a compromized MASA keychain could be used to issue vouchers 
+          ad infinitum without recourse.  For this reason, MASA implementations
+          SHOULD ensure that all the CA private keys are protected by hardware
+          security modules (HSMs).</t>
         </section>
-        <section title="Test Certificate Validity when Signing">
-          <t>If the Registrar Identity is compromised then any outstanding
-              voucher for that Registrar Identity could be used by the 
-              attacker. The domain administrator is clearly expected to
-          initiate revocation of any domain identity certificates (as in
-          normal in PKI solutions). Similarly
-          they are expected to contact the MASA to 
-          indicate that an outstanding (presumably short lifetime) voucher
-          be blocked from automated renewal. Protocols for voucher distribution
-          are RECOMMENDED to check for revocation of any domain identity 
-          certificates before automated renewal of vouchers.</t>
+        <section title="Test Domain Certificate Validity when Signing">
+          <t>If a domain certificate is compromised, then any outstanding
+          vouchers for that domain could be used by the attacker.  The domain
+          administrator is clearly expected to initiate revocation of any
+          domain identity certificates (as in normal in PKI solutions). 
+          Similarly they are expected to contact the MASA to indicate that
+          an outstanding (presumably short lifetime) voucher be blocked from
+          automated renewal. Protocols for voucher distribution are RECOMMENDED
+          to check for revocation of any domain identity certificates before
+          automated renewal of vouchers.</t>
         </section>
       </section>
 
