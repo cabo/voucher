@@ -95,13 +95,81 @@
 
       <section title="Terminology">
 
-          <t>DISCUSS: MAX TO MOVE TERMS TO THIS DRAFT</t>
+        <t>The following terms are defined for clarity:</t>
 <!--
           <t>This document uses <xref target="draft-ietf-anima-bootstrapping-keyinfra"/> 
           terminology. The new device is known as a "Pledge", which communicates with 
           the "Join Registrar" of the owner's network, and the voucher is provided by the
           Manufacturer Authorized Signing Authority (MASA).</t> 
+ 
+    Terminology that is used in this document include:
+        imprint
+        pledge
+        voucher
+        domain
+        domain CA / certificate (kinda)
+        registrar
+        MASA
+        TOFU
 -->
+        <t><list style="hanging">
+
+        <t hangText="Imprint:">The process where a device obtains the
+            cryptographic key material to identify and trust future
+            interactions with a network. This term is taken from Konrad
+            Lorenz's work in biology with new ducklings: during a critical
+            period, the duckling would assume that anything that looks like a
+            mother duck is in fact their mother. An equivalent for a device is
+            to obtain the fingerprint of the network's root certification
+            authority certificate. A device that imprints on an attacker
+            suffers a similar fate to a duckling that imprints on a hungry
+            wolf. Securely imprinting is a primary focus of this
+            document.<xref target="imprinting"></xref>. The analogy to
+            Lorenz's work was first noted in <xref
+                target="Stajano99theresurrecting"></xref>.</t>
+
+        <t hangText="Pledge:">The prospective device attempting
+            to find and join a secure remote key infrastructure. When
+        shipped it only trusts authorized representatives of the 
+        manufacturer.</t>
+
+        <t hangText="Voucher:">A signed statement from the MASA service
+            that indicates to a Pledge the cryptographic identity of the
+            Registrar it should trust. There are different types of vouchers
+            depending on how that trust asserted. This document
+            describes vouchers in detail.</t>
+        
+        <t hangText="Domain:">The set of entities that trust a common key
+            infrastructure trust anchor. This includes the Proxy, Registrar,
+            Domain Certificate Authority, Management components and any
+            existing entity that is already a member of the domain.</t>
+        
+        <t hangText="Domain CA:">The domain Certification Authority (CA)
+            provides certification functionalities to the domain. At a minimum
+            it provides certification functionalities to a Registrar and
+            stores the trust anchor that defines the domain. Optionally, it
+            certifies all elements.</t>
+        
+        <t hangText="Join Registrar (and Coordinator):">A representative of the domain that is
+            configured, perhaps autonomically, to decide whether a new device
+            is allowed to join the domain. The administrator of the domain
+            interfaces with a Join Registrar (and Coordinator) to control this process. Typically a
+            Join Registrar is "inside" its domain. For simplicity this document
+            often refers to this as just "Registrar". The term JRC is used in
+            common with other bootstrap mechanisms.</t>
+
+        <t hangText="MASA Service:">A third-party Manufacturer Authorized
+            Signing Authority (MASA) service on the global Internet. The MASA
+            signs vouchers. It also provides a repository for audit log
+            information of privacy protected bootstrapping events. It does
+            not track ownership. It is trusted by the Pledge.</t>
+
+        <t hangText="TOFU:">Trust on First Use. Used similarly to <xref
+            target="RFC7435" />. This is where a Pledge
+            device makes no security decisions but rather simply trusts the
+            first Registrar it is contacted by. This is also known as the
+            "resurrecting duckling" model.</t>
+        </list></t> 
       </section>
 
       <section title="Requirements Language">
@@ -111,13 +179,14 @@
               as described in RFC 2119 <xref target="RFC2119"/>.</t>
       </section>
 
-      <section title="Secure Imprinting using Vouchers">
-
-        <t>DISCUSS: do we need this section at all?  - or move to appendix?</t>
+      <section title="Survey of Voucher Types">
 
           <t>A voucher is a cryptographically protected statement to the Pledge
-              device indicating authorizing a zero-touch "imprint" on the Join Registrar of the 
-              domain. The voucher imparts the following information to
+              device authorizing a zero-touch "imprint" on the Join Registrar of the 
+              domain. The specific information a voucher provides is influenced by the 
+              bootstrapping use case.</t>
+              
+              <t>The voucher can impart the following information to
               the Join Registrar and Pledge:</t>
           
           <t><list style="hanging">
@@ -142,11 +211,10 @@
                   attempts.</t>
           </list></t>
 
-          <t>A number of boostrapping scenarios can be met using differing
+          <t>A number of bootstrapping scenarios can be met using differing
               combinations of this information. All scenarios address the primary
               threat of a Man-in-The-Middle Registrar gaining control over the Pledge device. The
-              following combinations are referred to within this document by
-              name. Colloqually these are "types" of vouchers:</t>
+              following combinations are "types" of vouchers:</t>
 
           <figure>
               <artwork><![CDATA[
@@ -164,6 +232,7 @@ Owner Audit  |  X |   X   | X     |        | X   | X     |
 Owner ID     |    |   X   | X     |  X     | X   |       |
 -------------|----|-------|----------------|-----|-------|
 Bearer       |  X |       |   wildcard     | optional    |
+out-of-scope |    |       |                |             |
 -------------|----|-------|----------------|-------------|
 
 NOTE: All voucher types include a 'Pledge ID serial number'
@@ -208,7 +277,8 @@ NOTE: All voucher types include a 'Pledge ID serial number'
                   secret and protected from exposure as any 'bearer' of the voucher
                   can claim the Pledge device. Publishing a nonceless
                   bearer voucher effectively turns the specified Pledge into a
-                  "TOFU" device with minimal mitigation against MiTM Registrars.</t>
+                  "TOFU" device with minimal mitigation against MiTM Registrars. Bearer
+                  vouchers are out-of-scope.</t>
           </list></t> 
       </section> <!-- end Imprint using Voucher -->
 
@@ -459,6 +529,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
         <?rfc include="reference.I-D.ietf-netconf-zerotouch" ?>
         <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
         <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
+        <?rfc include="reference.RFC.7435" ?>
 
         <reference anchor="I-D.bjorklund-netmod-yang-tree-diagrams">
           <front>
@@ -472,6 +543,31 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
             <date year='2017' />
           </front>
         </reference>
+        
+        <reference anchor="Stajano99theresurrecting"
+            target="https://www.cl.cam.ac.uk/~fms27/papers/1999-StajanoAnd-duckling.pdf">
+            <front>
+                <title>The resurrecting duckling: security issues for ad-hoc
+                    wireless networks</title>
+                
+                <author fullname="Frank Stajano" initials="F." surname="Stajano"></author>
+                
+                <author fullname="Ross Anderson" initials="R." surname="Anderson"></author>
+                
+                <date year="1999" />
+            </front>
+        </reference>
+        <reference anchor="imprinting"
+            target="https://en.wikipedia.org/wiki/Imprinting_(psychology)">
+            <front>
+                <title>Wikipedia article: Imprinting</title>
+                
+                <author surname="Wikipedia"></author>
+                
+                <date month="July" year="2015" />
+            </front>
+        </reference>
+        
       </references>
       <section title="Acknowledgements">
         <t>The authors would like to thank for following for
