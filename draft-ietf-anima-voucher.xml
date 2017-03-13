@@ -473,7 +473,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
           to scenario whereby a stolen intermediate private key results in
           the ability for the embezzler to issue vouchers as infinitum without
           recourse.  For this reason, implementations SHOULD ensure that
-          all the CA private keys are protect by hardware security modules
+          all the CA private keys are protected by hardware security modules
           (HSMs).</t> 
         </section>
         <section title="Test Certificate Validity when Signing">
