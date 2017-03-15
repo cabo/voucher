@@ -39,10 +39,17 @@
                 <email>pritikin@cisco.com</email>
             </address>
         </author>
-        <author initials="T.E." surname="Eckert" fullname="Toerless Eckert">
-            <address>
-                <email>tte+anima@cs.fau.de</email>
-            </address>
+        <author fullname="Toerless Eckert" initials="T.T.E." surname="Eckert">
+          <organization abbrev="Huawei">Futurewei Technologies Inc.</organization>
+          <address>
+            <postal>
+              <street>2330 Central Expy</street>
+              <city>Santa Clara</city>
+              <code>95050</code>
+              <country>USA</country>
+            </postal>
+            <email>tte+ietf@cs.fau.de</email>
+          </address>
         </author>
 
         <date/>

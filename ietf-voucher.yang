@@ -86,7 +86,7 @@ module ietf-voucher {
  
       leaf expires-on {
         type yang:date-and-time;
-        must "not ../nonce";
+        must "not(../nonce)";
         description
           "A value indicating when this voucher expires.  The node is
            optional as not all pledges support expirations, such as
@@ -243,7 +243,7 @@ module ietf-voucher {
         type binary {
           length "8..32";
         }
-        must "not ../expires-on";
+        must "not(../expires-on)";
         description
           "A value that can be used by a pledge in some bootstrapping
            protocols to enable anti-replay protection.  This node is
