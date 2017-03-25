@@ -1,11 +1,15 @@
 {
   "ietf-voucher:voucher": {
+    "created-on": "2016-10-07T19:31:42Z",
+    "expires-on": "2016-10-21T19:31:42Z",
     "assertion": "verified",
-    "trusted-ca-certificate": "base64-encoded X.509 DER",
-    "domain-certificate-identifier": {
+    "serial-number": "JADA123456789",
+    "serial-number-issuer": "some binary identifier",
+    "domain-cert-trusted-ca": "base64-encoded X.509 DER",
+    "domain-cert-identifier": {
       "subject": "base64-encoded Subject DER"
     },
-    "device-identifier": "JADA123456789",
-    "created-on": "2016-10-07T19:31:42Z"
+    "assert-revocations-on-PKIX-certs": "false",
+    "last-renewal-date": "2017-10-07T19:31:42Z"
   }
 }

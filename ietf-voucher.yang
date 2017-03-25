@@ -63,16 +63,6 @@ module ietf-voucher {
         "A voucher that can be used to assign one or more
          pledges to an owner.";
 
-      leaf authority-key-identifier {
-        type binary;
-        description
-         "The Subject Key Identifier of the MASA's leaf certificate.
-          Enables the pledge a definitively identify the voucher's
-          issuer's certificate.  This field is optional as not all
-          vouchers will be signed by a private key associated with
-          an X.509 certificate.";
-      }
-
       leaf created-on {
         type yang:date-and-time;
         mandatory true;
@@ -123,11 +113,11 @@ module ietf-voucher {
            processing the voucher.";
       }
   
-      leaf device-identifier {
+      leaf serial-number {
         type string;
         mandatory true;
         description
-          "A unique identifier (e.g., serial number) within the scope
+          "FIXME A unique identifier (e.g., serial number) within the scope
            of the MASA.
   
            When processing a vouchers, pledges MUST ensure that their
@@ -136,7 +126,13 @@ module ietf-voucher {
            pledge MUST NOT process this voucher.";
       }
   
-      leaf trusted-ca-certificate {
+      leaf serial-number-issuer {
+        type binary;
+        description
+          "FIXME  Optional because serial-numbers alone are sometimes unique ";
+      }
+
+      leaf domain-cert-trusted-ca {
         type binary;
         mandatory true;
         description
@@ -170,12 +166,7 @@ module ietf-voucher {
       // DISCUSS: do we need this anymore, if short-lived vouchers
       // are expected, shouldn't the leaf certificate be pinned, or
       // perhaps just the immediate issuer CA?
-      container domain-certificate-identifier {
-        must "../trusted-ca-certificate" {
-          description
-            "A trusted-ca-certificate must be present whenever
-             this node is present";
-        }
+      container domain-cert-identifier {
         description
           "This container identifies specific values that a domain
            certificate, provided to the pledge separately by the
@@ -224,7 +215,7 @@ module ietf-voucher {
       // DISCUSS: there must be such future proofing. not clear where
       // to add it in the voucher document. This is probably the most
       // important point of these discusses
-      leaf assert-certificate-revocations {
+      leaf assert-revocations-on-PKIX-certs {
         type boolean;
         must "../expires-on";
         default true;
