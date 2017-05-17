@@ -461,6 +461,19 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
 
       <section title="Security Considerations" anchor="sec-con">
         <section title="Clock Sensitivity">
+          <t>
+            An attacker could use an expired voucher to gain control over
+            a device that has no understand of time.
+          </t>
+          <t>
+            To defend against this there are three things: devices are
+            required to verify that the expires-on field has not yet passed.
+            Devices without access to time can use nonces to
+            get ephermal vouchers.
+            Thirdly, vouchers without expiration times may be used, which
+            will appear in the audit log, informing the security decision.
+          </t>
+
           <t>This document defines artifacts containing time values
           for voucher expirations, which require an accurate clock
           in order to be processed correctly.  Vendors planning on

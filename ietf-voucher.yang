@@ -82,9 +82,8 @@ module ietf-voucher {
            optional as not all pledges support expirations, such as
            pledges lacking a reliable clock.
 
-           If the pledge supports expirations and the expires-on value
-           is less then the current time, then the pledge MUST not
-           process this voucher.";
+           If this field exists, then the the pledges MUST ensure that
+           the expires-on time has not yet passed.
       }
 
       leaf assertion {
