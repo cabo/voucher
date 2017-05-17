@@ -124,9 +124,9 @@
         <t hangText="Imprint:">The process where a device obtains the
             cryptographic key material to identify and trust future
             interactions with a network. This term is taken from Konrad
-            Lorenz's work in biology with new ducklings: during a critical
+            Lorenz's work in biology with new ducklings: "during a critical
             period, the duckling would assume that anything that looks like a
-            mother duck is in fact their mother. An equivalent for a device is
+            mother duck is in fact their mother." An equivalent for a device is
             to obtain the fingerprint of the network's root certification
             authority certificate. A device that imprints on an attacker
             suffers a similar fate to a duckling that imprints on a hungry
