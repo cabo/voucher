@@ -73,7 +73,7 @@ module ietf-voucher {
            reliable clocks SHOULD ensure that this created-on value
            is not greater than the current time.";
       }
- 
+
       leaf expires-on {
         type yang:date-and-time;
         must "not(../nonce)";
@@ -81,7 +81,7 @@ module ietf-voucher {
           "A value indicating when this voucher expires.  The node is
            optional as not all pledges support expirations, such as
            pledges lacking a reliable clock.
-  
+
            If the pledge supports expirations and the expires-on value
            is less then the current time, then the pledge MUST not
            process this voucher.";
@@ -112,20 +112,20 @@ module ietf-voucher {
            ensure that the assertion provided is acceptable before
            processing the voucher.";
       }
-  
+
       leaf serial-number {
         type string;
         mandatory true;
         description
           "FIXME A unique identifier (e.g., serial number) within the scope
            of the MASA.
-  
+
            When processing a vouchers, pledges MUST ensure that their
            unique identifier matches at least one regular expression in
            the list.  If no matching regular expression is found, the
            pledge MUST NOT process this voucher.";
       }
-  
+
       leaf serial-number-issuer {
         type binary;
         description
@@ -139,7 +139,7 @@ module ietf-voucher {
           "An X.509 v3 certificate structure as specified by RFC 5280,
            Section 4 encoded using the ASN.1 distinguished encoding
            rules (DER), as specified in ITU-T X.690.
-  
+
            This certificate is used by a pledge to trust a public key
            infrastructure, in order to verify a domain certificate
            supplied to the pledge separately by the bootstrapping
@@ -151,7 +151,7 @@ module ietf-voucher {
 
            Note: the expiration date of this certificate effectively
                  imposes an upper limit on the voucher's expiration.";
-  
+
         reference
           "RFC 5280:
              Internet X.509 Public Key Infrastructure Certificate
@@ -162,7 +162,7 @@ module ietf-voucher {
               Canonical Encoding Rules (CER) and Distinguished
               Encoding Rules (DER).";
       }
- 
+
       // DISCUSS: do we need this anymore, if short-lived vouchers
       // are expected, shouldn't the leaf certificate be pinned, or
       // perhaps just the immediate issuer CA?
@@ -176,7 +176,7 @@ module ietf-voucher {
            reissued periodically.
 
            When provided, the pledge MUST perform RFC 6125 style
-           validation of the domain certificate against all of 
+           validation of the domain certificate against all of
            the provided values.
 
            This container is optional because it is unneeded when,
@@ -206,11 +206,11 @@ module ietf-voucher {
              certificate MUST match this value.";
         }
       }
-    
+
 
       // DISCUSS: does the transition to 'pinning' model mean we can
       // drop this leaf for now? future proofing allows it to be added
-      // if needed but its a edge condition? 
+      // if needed but its a edge condition?
       //
       // DISCUSS: there must be such future proofing. not clear where
       // to add it in the voucher document. This is probably the most
@@ -240,7 +240,7 @@ module ietf-voucher {
            protocols to enable anti-replay protection.  This node is
            optional because it is not used by all bootstrapping
            protocols.
-  
+
            When present, the pledge MUST compare the provided nonce
            value with another value that the pledge randomly generated
            and sent to a bootstrap server in an earlier bootstrapping
@@ -262,7 +262,7 @@ module ietf-voucher {
            a vendor may associate validity periods with support
            contracts, which may be terminated or extended over time.";
       }
-  
+
     } // end voucher
   } // end voucher-grouping
 }
