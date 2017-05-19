@@ -84,7 +84,11 @@ module ietf-voucher {
 
            If this field exists, then the the pledges MUST ensure that
            the expires-on time has not yet passed. A pledge without
-           an accurate clock cannot meet this requirement";
+           an accurate clock cannot meet this requirement.
+
+           The expires-on value MUST NOT exceed the expiration date
+           of any of the listed 'pinned-domain-cert' certificates.";
+
       }
 
       leaf assertion {
@@ -132,7 +136,7 @@ module ietf-voucher {
           "FIXME  Optional because serial-numbers alone are sometimes unique ";
       }
 
-      leaf domain-cert-trusted-ca {
+      leaflist pinned-domain-cert {
         type binary;
         mandatory true;
         description
@@ -144,13 +148,9 @@ module ietf-voucher {
            infrastructure, in order to verify a domain certificate
            supplied to the pledge separately by the bootstrapping
            protocol.  The domain certificate MUST have this certificate
-           somewhere in its chain of certificates.
-
-           This field is optional because it may not be needed by all
-           bootstrapping protocols.
-
-           Note: the expiration date of this certificate effectively
-                 imposes an upper limit on the voucher's expiration.";
+           somewhere in its chain of certificates.  This certificate
+           MAY be an end-entity certificate, including a self-signed
+           entity.";
 
         reference
           "RFC 5280:
@@ -161,50 +161,6 @@ module ietf-voucher {
               Specification of Basic Encoding Rules (BER),
               Canonical Encoding Rules (CER) and Distinguished
               Encoding Rules (DER).";
-      }
-
-      // DISCUSS: do we need this anymore, if short-lived vouchers
-      // are expected, shouldn't the leaf certificate be pinned, or
-      // perhaps just the immediate issuer CA?
-      container domain-cert-identifier {
-        description
-          "This container identifies specific values that a domain
-           certificate, provided to the pledge separately by the
-           bootstrapping protocol, MUST contain.  This is useful
-           when, for instance, the trust anchor is a long-lived
-           public CA certificate, while the domain certificate is
-           reissued periodically.
-
-           When provided, the pledge MUST perform RFC 6125 style
-           validation of the domain certificate against all of
-           the provided values.
-
-           This container is optional because it is unneeded when,
-           for instance, the trusted CA certificate is owned by the
-           domain (i.e.  a private PKI), and hence the trust model
-           can be more relaxed.";
-
-        leaf subject {
-          type binary;
-          description
-            "The certificate's entire subject field MUST match
-             this value.  This value is the Subject structure, as
-             specified by RFC ???? Section ???, encoded using the
-             ASN.1 distinguished encoding rules (DER), as specified
-             in ITU-T X.690.";
-        }
-        leaf cn-id {
-          type string;
-          description
-            "The certificate's subject field's 'common name' value
-             MUST match this value.";
-        }
-        leaf dns-id {
-          type string;
-          description
-            "A subjectAltName entry of type dNSName in the
-             certificate MUST match this value.";
-        }
       }
 
 

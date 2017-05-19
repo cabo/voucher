@@ -273,10 +273,9 @@ NOTE: All voucher types include a 'Pledge ID serial number'
 
               <t hangText="Ownership ID Voucher:">An Ownership ID Voucher is
                   named after inclusion of the Pledge's CN-ID or DNS-ID within the
-                  voucher. An example Ownership Voucher is defined in
-                  <xref target="I-D.ietf-netconf-zerotouch"/>. The MASA service
+                  voucher. The MASA service
                   mitigates a MiTM Registrar by identifying the specific Registrar
-                  authorized to own the Pledge. [DISCUSS: still needed?]</t>
+                  (via WebPKI) authorized to own the Pledge. </t>
 
               <t hangText="Bearer Voucher:">A Bearer Voucher is named after the
                   inclusion of a Registrar ID wildcard. Because the Registrar identity
@@ -477,11 +476,11 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
           <t>This document defines artifacts containing time values
           for voucher expirations, which require an accurate clock
           in order to be processed correctly.  Vendors planning on
-          issuing vouchers with expiration values MUST ensure devices
+          issuing vouchers with expiration values must ensure devices
           have an accurate clock when shipped from manufacturing
           facilities, and take steps to prevent clock tampering.
           If it is not possible to ensure clock accuracy then
-          vouchers with expirations SHOULD NOT be issued.</t>
+          vouchers with expirations should not be issued.</t>
         </section>
         <section title="Protect Voucher PKI in HSM">
           <t>This document favors using voucher-renewals over needing to
@@ -502,6 +501,8 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
           vouchers for that domain could be used by the attacker.  The domain
           administrator is clearly expected to initiate revocation of any
           domain identity certificates (as in normal in PKI solutions).
+          </t>
+          <t>
           Similarly they are expected to contact the MASA to indicate that
           an outstanding (presumably short lifetime) voucher be blocked from
           automated renewal. Protocols for voucher distribution are RECOMMENDED
