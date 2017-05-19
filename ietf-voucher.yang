@@ -40,7 +40,11 @@ module ietf-voucher {
    "This module defines the format for a voucher, which is produced by
     a pledge's manufacturer or delegate (MASA) to securely assign one
     or more pledges to an 'owner', so that the pledges may establish a
-    secure connection to the owner's network infrastructure.";
+    secure connection to the owner's network infrastructure.
+
+    The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL NOT',
+    'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'MAY', and 'OPTIONAL' in 
+    the module text are to be interpreted as described in RFC 2119.";
 
   revision "YYYY-MM-DD" {
     description
