@@ -87,7 +87,8 @@ module ietf-voucher {
            pledges lacking a reliable clock.
 
            If this field exists, then the the pledges MUST ensure that
-           the expires-on time has not yet passed.
+           the expires-on time has not yet passed. A pledge without
+           an accurate clock cannot meet this requirement";
       }
 
       leaf assertion {
