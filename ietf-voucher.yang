@@ -167,28 +167,20 @@ module ietf-voucher {
               Encoding Rules (DER).";
       }
 
-
-      // DISCUSS: does the transition to 'pinning' model mean we can
-      // drop this leaf for now? future proofing allows it to be added
-      // if needed but its a edge condition?
-      //
-      // DISCUSS: there must be such future proofing. not clear where
-      // to add it in the voucher document. This is probably the most
-      // important point of these discusses
-      leaf assert-revocations-on-PKIX-certs {
+      leaf domain-cert-revocation-checks {
         type boolean;
         must "../expires-on";
-        default true;
         description
           "A processing instruction to the device that it should
            verify revocation information for the PKIX certificates
-           involved in bootstrapping. This is available only if
-           the pledge has a real-time-clock. This is in addition
-           to any revocation checks performed by the MASA.";
+           verified using the [pinned-domain-cert] certificate.
+           This is available only if the pledge has a real-time-clock.
+           This is in addition to any revocation checks performed by the MASA.
 
-          // DISCUSS: should this be a boolean or an enum indicating
-          // "fail open" vs "fail closed" to make the meaning clearer.
+           If this field is not set, then normal PKIX RFC5280
+           behaviour applies to validation of the Registrar certificate.";
       }
+
 
       leaf nonce {
         type binary {
