@@ -53,7 +53,7 @@ ifeq (org,$(draft_type))
 endif
 
 
-$(next).xml: $(draft).xml
+$(next).xml: $(draft).xml ietf-voucher.yang
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-voucher.yang > ietf-voucher\@$(shell date +%Y-%m-%d).yang
 	cd refs; ./gen-trees.sh; cd ..;
@@ -68,16 +68,16 @@ $(next).xml: $(draft).xml
 %.xml: %.org
 	$(oxtradoc) -m outline-to-xml -n "$@" $< > $@
 
-%.txt: %.xml 
+%.txt: %.xml
 	$(xml2rfc) $< -o $@ --text
 	cp $@ ${draft}.txt
 
 ifeq "$(shell uname -s 2>/dev/null)" "Darwin"
 sed_i := sed -i ''
-else    
+else
 sed_i := sed -i
 endif
-        
+
 %.html: %.xml
 	$(xml2rfc) $< -o $@ --html
 	$(sed_i) -f .addstyle.sed $@
