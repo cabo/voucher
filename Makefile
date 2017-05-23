@@ -70,6 +70,7 @@ $(next).xml: $(draft).xml
 
 %.txt: %.xml 
 	$(xml2rfc) $< -o $@ --text
+	cp $@ ${draft}.txt
 
 ifeq "$(shell uname -s 2>/dev/null)" "Darwin"
 sed_i := sed -i ''

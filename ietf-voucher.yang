@@ -43,7 +43,7 @@ module ietf-voucher {
     secure connection to the owner's network infrastructure.
 
     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL NOT',
-    'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'MAY', and 'OPTIONAL' in 
+    'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'MAY', and 'OPTIONAL' in
     the module text are to be interpreted as described in RFC 2119.";
 
   revision "YYYY-MM-DD" {
@@ -212,12 +212,11 @@ module ietf-voucher {
         type yang:date-and-time;
         must "../expires-on";
         description
-          "The last date that the MASA projects to be the last date it
-           will renew a voucher on (assuming the same validity duration
-           used in this voucher.  This field is merely infomrative, it
+          "The date that the MASA projects to be the last date it
+           will renew a voucher on.  This field is merely informative, it
            is not processed by pledges.
 
-           Circustances may occur after when a voucher was generated
+           Circumstances may occur after when a voucher was generated
            that can alter a voucher's validity period.  For instance,
            a vendor may associate validity periods with support
            contracts, which may be terminated or extended over time.";
