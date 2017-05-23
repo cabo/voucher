@@ -90,7 +90,7 @@ module ietf-voucher {
            the expires-on time has not yet passed. A pledge without
            an accurate clock cannot meet this requirement.
 
-           The expires-on value MUST NOT exceed the expiration date
+           The expires-on value MUST NOT exceed the expiration date
            of any of the listed 'pinned-domain-cert' certificates.";
 
       }
@@ -205,7 +205,7 @@ module ietf-voucher {
         must "../expires-on";
         description
           "The date that the MASA projects to be the last date it
-           will renew a voucher on.  This field is merely informative, it
+           will renew a voucher on. This field is merely informative, it
            is not processed by pledges.
 
            Circumstances may occur after when a voucher was generated

@@ -352,14 +352,15 @@ Internet-Draft               Voucher Profile                    May 2017
 
    module: ietf-voucher
      +--ro voucher
-        +--ro created-on                          yang:date-and-time
-        +--ro expires-on?                         yang:date-and-time
-        +--ro assertion                           enumeration
-        +--ro serial-number                       string
-        +--ro serial-number-issuer?               binary
-        +--ro assert-revocations-on-PKIX-certs?   boolean
-        +--ro nonce?                              binary
-        +--ro last-renewal-date?                  yang:date-and-time
+        +--ro created-on                       yang:date-and-time
+        +--ro expires-on?                      yang:date-and-time
+        +--ro assertion                        enumeration
+        +--ro serial-number                    string
+        +--ro serial-number-issuer?            binary
+        +--ro pinned-domain-cert*              binary
+        +--ro domain-cert-revocation-checks?   boolean
+        +--ro nonce?                           binary
+        +--ro last-renewal-date?               yang:date-and-time
 
 
 5.2.  Examples
@@ -372,6 +373,26 @@ Internet-Draft               Voucher Profile                    May 2017
    voucher, only a single pledge (device-identifier) is specified.  The
    MASA generated this voucher using the 'logged' assertion type,
    knowing that it would be suitable for the pledge making the request.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Watsen, et al.          Expires November 24, 2017               [Page 7]
+
+Internet-Draft               Voucher Profile                    May 2017
+
 
    {
      "ietf-voucher:voucher": {
@@ -386,13 +407,6 @@ Internet-Draft               Voucher Profile                    May 2017
        "nonce": "base64-encoded octet string"
      }
    }
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 7]
-
-Internet-Draft               Voucher Profile                    May 2017
-
 
    The following illustrates a long-lived voucher (no nonce), encoded in
    XML.  This particular voucher applies to more than one pledge
@@ -428,6 +442,14 @@ module ietf-voucher {
 
   namespace
     "urn:ietf:params:xml:ns:yang:ietf-voucher";
+
+
+
+Watsen, et al.          Expires November 24, 2017               [Page 8]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
   prefix "vch";
 
   import ietf-yang-types {
@@ -442,14 +464,6 @@ module ietf-voucher {
        extension defined in RFC 8040.  The yang-data extension doesn't
        itself have anything to do with RESTCONF, but was placed in the
        that RFC for convenience.  This extension is being tracked to
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 8]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
        be moved to the next version of the YANG modeling language.
        Regardless where or how this extension statement is defined,
        there should not be any impact to a voucher's encoding.";
@@ -484,6 +498,14 @@ Internet-Draft               Voucher Profile                    May 2017
      "Initial version";
     reference
      "RFC XXXX: Voucher Profile for Bootstrapping Protocols";
+
+
+
+Watsen, et al.          Expires November 24, 2017               [Page 9]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
   }
 
   rc:yang-data voucher-artifact {
@@ -498,14 +520,6 @@ Internet-Draft               Voucher Profile                    May 2017
       config false;
       description
         "A voucher that can be used to assign one or more
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 9]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
          pledges to an owner.";
 
       leaf created-on {
@@ -540,6 +554,14 @@ Internet-Draft               Voucher Profile                    May 2017
         type enumeration {
           enum verified {
             description
+
+
+
+Watsen, et al.          Expires November 24, 2017              [Page 10]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
               "Indicates that the ownership has been positively
                verified by the MASA (e.g., through sales channel
                integration).";
@@ -554,14 +576,6 @@ Internet-Draft               Voucher Profile                    May 2017
           }
         }
         mandatory true;
-
-
-
-Watsen, et al.          Expires November 24, 2017              [Page 10]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
         description
           "The assertion is a statement from the MASA regarding how
            the owner was verified.   This statement enables pledges
@@ -589,13 +603,20 @@ Internet-Draft               Voucher Profile                    May 2017
           "FIXME  Optional because serial-numbers alone are sometimes unique ";
       }
 
-      leaflist pinned-domain-cert {
+      leaf-list pinned-domain-cert {
         type binary;
-        mandatory true;
+        min-elements 1;
         description
           "An X.509 v3 certificate structure as specified by RFC 5280,
            Section 4 encoded using the ASN.1 distinguished encoding
            rules (DER), as specified in ITU-T X.690.
+
+
+
+Watsen, et al.          Expires November 24, 2017              [Page 11]
+
+Internet-Draft               Voucher Profile                    May 2017
+
 
            This certificate is used by a pledge to trust a public key
            infrastructure, in order to verify a domain certificate
@@ -610,42 +631,26 @@ Internet-Draft               Voucher Profile                    May 2017
              Internet X.509 Public Key Infrastructure Certificate
              and Certificate Revocation List (CRL) Profile.
            ITU-T X.690:
-
-
-
-Watsen, et al.          Expires November 24, 2017              [Page 11]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
               Information technology - ASN.1 encoding rules:
               Specification of Basic Encoding Rules (BER),
               Canonical Encoding Rules (CER) and Distinguished
               Encoding Rules (DER).";
       }
 
-
-      // DISCUSS: does the transition to 'pinning' model mean we can
-      // drop this leaf for now? future proofing allows it to be added
-      // if needed but its a edge condition?
-      //
-      // DISCUSS: there must be such future proofing. not clear where
-      // to add it in the voucher document. This is probably the most
-      // important point of these discusses
-      leaf assert-revocations-on-PKIX-certs {
+      leaf domain-cert-revocation-checks {
         type boolean;
         must "../expires-on";
-        default true;
         description
           "A processing instruction to the device that it should
            verify revocation information for the PKIX certificates
-           involved in bootstrapping. This is available only if
-           the pledge has a real-time-clock. This is in addition
-           to any revocation checks performed by the MASA.";
+           verified using the [pinned-domain-cert] certificate.
+           This is available only if the pledge has a real-time-clock.
+           This is in addition to any revocation checks performed by the MASA.
 
-          // DISCUSS: should this be a boolean or an enum indicating
-          // "fail open" vs "fail closed" to make the meaning clearer.
+           If this field is not set, then normal PKIX RFC5280
+           behaviour applies to validation of the Registrar certificate.";
       }
+
 
       leaf nonce {
         type binary {
@@ -661,11 +666,6 @@ Internet-Draft               Voucher Profile                    May 2017
            When present, the pledge MUST compare the provided nonce
            value with another value that the pledge randomly generated
            and sent to a bootstrap server in an earlier bootstrapping
-           message.  If the values do not match, then the pledge MUST
-           NOT process this voucher.";
-      }
-
-      leaf last-renewal-date {
 
 
 
@@ -674,15 +674,19 @@ Watsen, et al.          Expires November 24, 2017              [Page 12]
 Internet-Draft               Voucher Profile                    May 2017
 
 
+           message.  If the values do not match, then the pledge MUST
+           NOT process this voucher.";
+      }
+
+      leaf last-renewal-date {
         type yang:date-and-time;
         must "../expires-on";
         description
-          "The last date that the MASA projects to be the last date it
-           will renew a voucher on (assuming the same validity duration
-           used in this voucher.  This field is merely infomrative, it
+          "The date that the MASA projects to be the last date it
+           will renew a voucher on. This field is merely informative, it
            is not processed by pledges.
 
-           Circustances may occur after when a voucher was generated
+           Circumstances may occur after when a voucher was generated
            that can alter a voucher's validity period.  For instance,
            a vendor may associate validity periods with support
            contracts, which may be terminated or extended over time.";
@@ -718,10 +722,6 @@ Internet-Draft               Voucher Profile                    May 2017
    revocation protocol options the resulting space is further
    complicated by inline distribution of the revocation information.
    The TLS extension "Certificate Status Request" [RFC6066] for when
-   "constrained clients may wish to use a certificate-status protocol"
-   is an example of this.  Including revocation information into
-   Cryptographic Message Syntax [RFC5652] is another example.
-
 
 
 
@@ -729,6 +729,10 @@ Watsen, et al.          Expires November 24, 2017              [Page 13]
 
 Internet-Draft               Voucher Profile                    May 2017
 
+
+   "constrained clients may wish to use a certificate-status protocol"
+   is an example of this.  Including revocation information into
+   Cryptographic Message Syntax [RFC5652] is another example.
 
    If vouchers included revocation similar complexities would propagate
    to all related voucher distribution and assertion protocols.  Instead
@@ -774,10 +778,6 @@ Internet-Draft               Voucher Profile                    May 2017
    the vouchers may be ephemeral, whereas in others the vouchers may be
    potentially long-lived.  For bootstrapping protocols that support
    ephemeral vouchers, there is no need to support renewal.  For
-   bootstrapping protocols that support long-lived vouchers, final
-   protocol complexity is reduced when short lifetime vouchers are
-   easily renewed rather than layering on additional revocation methods.
-
 
 
 
@@ -786,6 +786,9 @@ Watsen, et al.          Expires November 24, 2017              [Page 14]
 Internet-Draft               Voucher Profile                    May 2017
 
 
+   bootstrapping protocols that support long-lived vouchers, final
+   protocol complexity is reduced when short lifetime vouchers are
+   easily renewed rather than layering on additional revocation methods.
    Manufacturers MAY issue long-lived vouchers to customers if required
    but no revocation method is described.
 
@@ -830,9 +833,6 @@ Internet-Draft               Voucher Profile                    May 2017
    X.509 certificate revocation.  Without revocation checking, a
    compromized MASA keychain could be used to issue vouchers ad
    infinitum without recourse.  For this reason, MASA implementations
-   SHOULD ensure that all the CA private keys are protected by hardware
-   security modules (HSMs).
-
 
 
 
@@ -841,6 +841,9 @@ Watsen, et al.          Expires November 24, 2017              [Page 15]
 
 Internet-Draft               Voucher Profile                    May 2017
 
+
+   SHOULD ensure that all the CA private keys are protected by hardware
+   security modules (HSMs).
 
 7.3.  Test Domain Certificate Validity when Signing
 
@@ -887,9 +890,6 @@ Internet-Draft               Voucher Profile                    May 2017
 
    [RFC2315]  Kaliski, B., "PKCS #7: Cryptographic Message Syntax
               Version 1.5", RFC 2315, March 1998.
-
-
-
 
 
 
