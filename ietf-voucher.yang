@@ -125,19 +125,27 @@ module ietf-voucher {
         type string;
         mandatory true;
         description
-          "FIXME A unique identifier (e.g., serial number) within the scope
-           of the MASA.
-
-           When processing a vouchers, pledges MUST ensure that their
-           unique identifier matches at least one regular expression in
-           the list.  If no matching regular expression is found, the
+          "The serial number of the hardware.  When processing a
+           voucher, a pledge MUST ensure that its serial number
+           matches this value.  If no match occurs, then the
            pledge MUST NOT process this voucher.";
       }
 
-      leaf serial-number-issuer {
+      leaf idevid-issuer {
         type binary;
         description
-          "FIXME  Optional because serial-numbers alone are sometimes unique ";
+          "The RFC5280 4.2.1.1 Authority Key Identifier OCTET STRING
+           from the pledge's IDevID certificate.  Optional since some
+           serial-numbers are already unique within the scope of a
+           MASA.  Inclusion of the statisticaly unique key identier
+           ensures statistically unique identification of the hardware.
+           When processing a voucher, a pledge MUST ensure that its
+           IDevID Authority Key Identifier matches this value.  If no
+           match occurs, then the pledge MUST NOT process this voucher.
+          
+           When issuing a voucher, the MASA MUST ensure that this field
+           is populated for serial numbers that are not otherwise unique
+           within the scope of the MASA.";
       }
 
       leaf-list pinned-domain-cert {
