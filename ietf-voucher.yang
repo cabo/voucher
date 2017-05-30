@@ -132,7 +132,7 @@ module ietf-voucher {
           "The RFC5280 4.2.1.1 Authority Key Identifier OCTET STRING
            from the pledge's IDevID certificate.  Optional since some
            serial-numbers are already unique within the scope of a
-           MASA.  Inclusion of the statisticaly unique key identier
+           MASA.  Inclusion of the statistically unique key identifier
            ensures statistically unique identification of the hardware.
            When processing a voucher, a pledge MUST ensure that its
            IDevID Authority Key Identifier matches this value.  If no
@@ -158,7 +158,6 @@ module ietf-voucher {
            somewhere in its chain of certificates.  This certificate
            MAY be an end-entity certificate, including a self-signed
            entity.";
-
         reference
           "RFC 5280:
              Internet X.509 Public Key Infrastructure Certificate
@@ -174,16 +173,12 @@ module ietf-voucher {
         type boolean;
         must "../expires-on";
         description
-          "A processing instruction to the device that it should
-           verify revocation information for the PKIX certificates
-           verified using the [pinned-domain-cert] certificate.
-           This is available only if the pledge has a real-time-clock.
-           This is in addition to any revocation checks performed by the MASA.
-
-           If this field is not set, then normal PKIX RFC5280
-           behaviour applies to validation of the Registrar certificate.";
+          "A processing instruction to the pledge that it MUST verify
+           the revocation status for the domain certificate.  This 
+           instruction is only available for vouchers that expire. If
+           this field is not set, then normal PKIX behaviour applies
+           to validation of the domain certificate.";
       }
-
 
       leaf nonce {
         type binary {
@@ -211,10 +206,10 @@ module ietf-voucher {
            will renew a voucher on. This field is merely informative, it
            is not processed by pledges.
 
-           Circumstances may occur after when a voucher was generated
-           that can alter a voucher's validity period.  For instance,
-           a vendor may associate validity periods with support
-           contracts, which may be terminated or extended over time.";
+           Circumstances may occur after a voucher is generated that 
+           may alter a voucher's validity period.  For instance, a
+           vendor may associate validity periods with support contracts,
+           which may be terminated or extended over time.";
       }
 
     } // end voucher

@@ -5,12 +5,12 @@
 ANIMA Working Group                                            K. Watsen
 Internet-Draft                                          Juniper Networks
 Intended status: Standards Track                           M. Richardson
-Expires: November 24, 2017                            Sandelman Software
+Expires: December 1, 2017                             Sandelman Software
                                                              M. Pritikin
                                                            Cisco Systems
                                                                T. Eckert
                                                                   Huawei
-                                                            May 23, 2017
+                                                            May 30, 2017
 
 
               Voucher Profile for Bootstrapping Protocols
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 24, 2017.
+   This Internet-Draft will expire on December 1, 2017.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Watsen, et al.          Expires November 24, 2017               [Page 1]
+Watsen, et al.          Expires December 1, 2017                [Page 1]
 
 Internet-Draft               Voucher Profile                    May 2017
 
@@ -85,17 +85,17 @@ Table of Contents
      5.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .   8
    6.  Design Considerations . . . . . . . . . . . . . . . . . . . .  13
      6.1.  Renewals instead of Revocations . . . . . . . . . . . . .  13
-     6.2.  Voucher Per Pledge  . . . . . . . . . . . . . . . . . . .  15
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-     7.1.  Clock Sensitivity . . . . . . . . . . . . . . . . . . . .  15
-     7.2.  Protect Voucher PKI in HSM  . . . . . . . . . . . . . . .  15
-     7.3.  Test Domain Certificate Validity when Signing . . . . . .  16
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-     8.1.  The IETF XML Registry . . . . . . . . . . . . . . . . . .  16
-     8.2.  The YANG Module Names Registry  . . . . . . . . . . . . .  16
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  17
+     6.2.  Voucher Per Pledge  . . . . . . . . . . . . . . . . . . .  14
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
+     7.1.  Clock Sensitivity . . . . . . . . . . . . . . . . . . . .  14
+     7.2.  Protect Voucher PKI in HSM  . . . . . . . . . . . . . . .  14
+     7.3.  Test Domain Certificate Validity when Signing . . . . . .  15
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+     8.1.  The IETF XML Registry . . . . . . . . . . . . . . . . . .  15
+     8.2.  The YANG Module Names Registry  . . . . . . . . . . . . .  15
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  16
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Watsen, et al.          Expires November 24, 2017               [Page 2]
+Watsen, et al.          Expires December 1, 2017                [Page 2]
 
 Internet-Draft               Voucher Profile                    May 2017
 
@@ -140,8 +140,6 @@ Internet-Draft               Voucher Profile                    May 2017
 
 2.  Terminology
 
-   The following terms are defined for clarity:
-
    Imprint:  The process where a device obtains the cryptographic key
       material to identify and trust future interactions with a network.
       This term is taken from Konrad Lorenz's work in biology with new
@@ -154,52 +152,46 @@ Internet-Draft               Voucher Profile                    May 2017
       primary focus of this document.[imprinting].  The analogy to
       Lorenz's work was first noted in [Stajano99theresurrecting].
 
-   Pledge:  The prospective device attempting to find and join a secure
-      remote key infrastructure.  When shipped it only trusts authorized
-      representatives of the manufacturer.
-
-   Voucher:  A signed statement from the MASA service that indicates to
-      a Pledge the cryptographic identity of the Registrar it should
-      trust.  There are different types of vouchers depending on how
-      that trust asserted.  This document describes vouchers in detail.
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 3]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
-   Domain:  The set of entities that trust a common key infrastructure
-      trust anchor.  This includes the Proxy, Registrar, Domain
-      Certificate Authority, Management components and any existing
-      entity that is already a member of the domain.
-
-   Domain CA:  The domain Certification Authority (CA) provides
-      certification functionalities to the domain.  At a minimum it
-      provides certification functionalities to a Registrar and stores
-      the trust anchor that defines the domain.  Optionally, it
-      certifies all elements.
+   Domain:  The set of entities or infrastructure under common
+      administrative control.  The goal of the bootstrapping protocol is
+      to enable a Pledge to discover and join a Domain.
 
    Join Registrar (and Coordinator):  A representative of the domain
       that is configured, perhaps autonomically, to decide whether a new
       device is allowed to join the domain.  The administrator of the
       domain interfaces with a Join Registrar (and Coordinator) to
-      control this process.  Typically a Join Registrar is "inside" its
+      control this process. i Typically a Join Registrar is "inside" its
+
+
+
+
+Watsen, et al.          Expires December 1, 2017                [Page 3]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
       domain.  For simplicity this document often refers to this as just
-      "Registrar".  The term JRC is used in common with other bootstrap
-      mechanisms.
+      "Registrar".
 
-   MASA Service:  A third-party Manufacturer Authorized Signing
-      Authority (MASA) service on the global Internet.  The MASA signs
-      vouchers.  It also provides a repository for audit log information
-      of privacy protected bootstrapping events.  It does not track
-      ownership.  It is trusted by the Pledge.
+   MASA:  The Manufacturer Authorized Signing Authority (MASA) service
+      that signs vouchers.  In some bootstrapping protocols, the MASA
+      may have Internet presence and be integral to the bootstrapping
+      process, whereas in other protocols the MASA may be an offline
+      service that has no active role in the bootstrapping process.
 
-   TOFU:  Trust on First Use. Used similarly to [RFC7435].  This is
-      where a Pledge device makes no security decisions but rather
-      simply trusts the first Registrar it is contacted by.  This is
+   Pledge:  The prospective device attempting to find and securely join
+      a domain.  When shipped it only trusts authorized representatives
+      of the manufacturer.
+
+   Registrar  See Join Registrar
+
+   TOFU:  Trust on First Use. This is where a Pledge device makes no
+      security decisions but rather simply trusts the first Domain
+      entity it is contacted by.  Used similarly to [RFC7435].  This is
       also known as the "resurrecting duckling" model.
+
+   Voucher:  A signed statement from the MASA service that indicates to
+      a Pledge the cryptographic identity of the Domain it should trust.
 
 3.  Requirements Language
 
@@ -218,14 +210,6 @@ Internet-Draft               Voucher Profile                    May 2017
    The voucher can impart the following information to the Join
    Registrar and Pledge:
 
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 4]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
    Assertion Basis:  Indicates the method that protects the imprint
       (this is distinct from the voucher signature that protects the
       voucher itself).  This might include manufacturer asserted
@@ -234,6 +218,13 @@ Internet-Draft               Voucher Profile                    May 2017
       measurement.  The Join Registrar might use this information.  Only
       some methods are normatively defined in this document.  Other
       methods are left for future work.
+
+
+
+Watsen, et al.          Expires December 1, 2017                [Page 4]
+
+Internet-Draft               Voucher Profile                    May 2017
+
 
    Authentication of Join Registrar:  Indicates how the Pledge can
       authenticate the Join Registrar.  This might include an indication
@@ -274,14 +265,6 @@ Internet-Draft               Voucher Profile                    May 2017
       mechanisms that the Registrar then "audits" to enforce local
       policy.  The Registrar mitigates a MiTM Registrar by auditing that
       an unknown MiTM registrar does not appear in the log entries.
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 5]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
       This does not direct prevent the MiTM but provides a response
       mechanism that ensures the MiTM is unsuccessful.  This advantage
       is that actual ownership knowledge is not required on the MASA
@@ -291,6 +274,13 @@ Internet-Draft               Voucher Profile                    May 2017
       statement.  Fundamentally the same as an Audit Voucher except that
       it can be issued in advance to support network partitions or to
       provide a permanent voucher for remote deployments.
+
+
+
+Watsen, et al.          Expires December 1, 2017                [Page 5]
+
+Internet-Draft               Voucher Profile                    May 2017
+
 
    Ownership Audit Voucher:  An Audit Voucher where the MASA service has
       verified the Registrar as the authorized owner.  The MASA service
@@ -330,17 +320,23 @@ Internet-Draft               Voucher Profile                    May 2017
    described in Section 9.1 of [RFC2315], containing the signature
    generated over the content using the MASA's private key.
 
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 6]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
    The PKCS#7 structure SHOULD also contain all of the certificates
    leading up to and including the MASA's trust anchor certificate known
    to the pledges.
+
+   The PKCS#7 structure MAY also contain revocation objects for any
+   intermediate CAs between the voucher-issuer and the trust anchor
+   known to the pledge.
+
+
+
+
+
+
+Watsen, et al.          Expires December 1, 2017                [Page 6]
+
+Internet-Draft               Voucher Profile                    May 2017
+
 
 5.1.  Tree Diagram
 
@@ -356,7 +352,7 @@ Internet-Draft               Voucher Profile                    May 2017
         +--ro expires-on?                      yang:date-and-time
         +--ro assertion                        enumeration
         +--ro serial-number                    string
-        +--ro serial-number-issuer?            binary
+        +--ro idevid-issuer?                   binary
         +--ro pinned-domain-cert*              binary
         +--ro domain-cert-revocation-checks?   boolean
         +--ro nonce?                           binary
@@ -374,26 +370,6 @@ Internet-Draft               Voucher Profile                    May 2017
    MASA generated this voucher using the 'logged' assertion type,
    knowing that it would be suitable for the pledge making the request.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 7]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
    {
      "ietf-voucher:voucher": {
        "created-on": "2016-10-07T19:31:42Z",
@@ -410,6 +386,14 @@ Internet-Draft               Voucher Profile                    May 2017
 
    The following illustrates a long-lived voucher (no nonce), encoded in
    XML.  This particular voucher applies to more than one pledge
+
+
+
+Watsen, et al.          Expires December 1, 2017                [Page 7]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
    (unique-id), which might relate to, for instance, they were all
    issued as part of the same purchase order.  This voucher includes
    both a trust anchor certificate (trusted-ca-certificate) as well as
@@ -435,21 +419,13 @@ Internet-Draft               Voucher Profile                    May 2017
 
 5.3.  YANG Module
 
-<CODE BEGINS> file "ietf-voucher@2017-05-23.yang"
+<CODE BEGINS> file "ietf-voucher@2017-05-30.yang"
 
 module ietf-voucher {
   yang-version 1.1;
 
   namespace
     "urn:ietf:params:xml:ns:yang:ietf-voucher";
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 8]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
   prefix "vch";
 
   import ietf-yang-types {
@@ -460,17 +436,20 @@ Internet-Draft               Voucher Profile                    May 2017
   import ietf-restconf {
     prefix rc;
     description
-      "This import statement is only present to access the yang-data
-       extension defined in RFC 8040.  The yang-data extension doesn't
-       itself have anything to do with RESTCONF, but was placed in the
-       that RFC for convenience.  This extension is being tracked to
-       be moved to the next version of the YANG modeling language.
-       Regardless where or how this extension statement is defined,
-       there should not be any impact to a voucher's encoding.";
+      "This import statement is only present to access
+       the yang-data extension defined in RFC 8040.";
     reference "RFC 8040: RESTCONF Protocol";
   }
 
   organization
+
+
+
+Watsen, et al.          Expires December 1, 2017                [Page 8]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
    "IETF ANIMA Working Group";
 
   contact
@@ -493,19 +472,11 @@ Internet-Draft               Voucher Profile                    May 2017
     'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'MAY', and 'OPTIONAL' in
     the module text are to be interpreted as described in RFC 2119.";
 
-  revision "2017-05-23" {
+  revision "2017-05-30" {
     description
      "Initial version";
     reference
      "RFC XXXX: Voucher Profile for Bootstrapping Protocols";
-
-
-
-Watsen, et al.          Expires November 24, 2017               [Page 9]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
   }
 
   rc:yang-data voucher-artifact {
@@ -527,6 +498,14 @@ Internet-Draft               Voucher Profile                    May 2017
         mandatory true;
         description
           "A value indicating the date this voucher was created.  This
+
+
+
+Watsen, et al.          Expires December 1, 2017                [Page 9]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
            node is optional because its primary purpose is for human
            consumption.  However, when present, pledges that have
            reliable clocks SHOULD ensure that this created-on value
@@ -554,14 +533,6 @@ Internet-Draft               Voucher Profile                    May 2017
         type enumeration {
           enum verified {
             description
-
-
-
-Watsen, et al.          Expires November 24, 2017              [Page 10]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
               "Indicates that the ownership has been positively
                verified by the MASA (e.g., through sales channel
                integration).";
@@ -584,23 +555,38 @@ Internet-Draft               Voucher Profile                    May 2017
            processing the voucher.";
       }
 
+
+
+Watsen, et al.          Expires December 1, 2017               [Page 10]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
       leaf serial-number {
         type string;
         mandatory true;
         description
-          "FIXME A unique identifier (e.g., serial number) within the scope
-           of the MASA.
-
-           When processing a vouchers, pledges MUST ensure that their
-           unique identifier matches at least one regular expression in
-           the list.  If no matching regular expression is found, the
+          "The serial number of the hardware.  When processing a
+           voucher, a pledge MUST ensure that its serial number
+           matches this value.  If no match occurs, then the
            pledge MUST NOT process this voucher.";
       }
 
-      leaf serial-number-issuer {
+      leaf idevid-issuer {
         type binary;
         description
-          "FIXME  Optional because serial-numbers alone are sometimes unique ";
+          "The RFC5280 4.2.1.1 Authority Key Identifier OCTET STRING
+           from the pledge's IDevID certificate.  Optional since some
+           serial-numbers are already unique within the scope of a
+           MASA.  Inclusion of the statistically unique key identifier
+           ensures statistically unique identification of the hardware.
+           When processing a voucher, a pledge MUST ensure that its
+           IDevID Authority Key Identifier matches this value.  If no
+           match occurs, then the pledge MUST NOT process this voucher.
+
+           When issuing a voucher, the MASA MUST ensure that this field
+           is populated for serial numbers that are not otherwise unique
+           within the scope of the MASA.";
       }
 
       leaf-list pinned-domain-cert {
@@ -611,13 +597,6 @@ Internet-Draft               Voucher Profile                    May 2017
            Section 4 encoded using the ASN.1 distinguished encoding
            rules (DER), as specified in ITU-T X.690.
 
-
-
-Watsen, et al.          Expires November 24, 2017              [Page 11]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
            This certificate is used by a pledge to trust a public key
            infrastructure, in order to verify a domain certificate
            supplied to the pledge separately by the bootstrapping
@@ -625,13 +604,20 @@ Internet-Draft               Voucher Profile                    May 2017
            somewhere in its chain of certificates.  This certificate
            MAY be an end-entity certificate, including a self-signed
            entity.";
-
         reference
           "RFC 5280:
              Internet X.509 Public Key Infrastructure Certificate
              and Certificate Revocation List (CRL) Profile.
            ITU-T X.690:
               Information technology - ASN.1 encoding rules:
+
+
+
+Watsen, et al.          Expires December 1, 2017               [Page 11]
+
+Internet-Draft               Voucher Profile                    May 2017
+
+
               Specification of Basic Encoding Rules (BER),
               Canonical Encoding Rules (CER) and Distinguished
               Encoding Rules (DER).";
@@ -641,16 +627,12 @@ Internet-Draft               Voucher Profile                    May 2017
         type boolean;
         must "../expires-on";
         description
-          "A processing instruction to the device that it should
-           verify revocation information for the PKIX certificates
-           verified using the [pinned-domain-cert] certificate.
-           This is available only if the pledge has a real-time-clock.
-           This is in addition to any revocation checks performed by the MASA.
-
-           If this field is not set, then normal PKIX RFC5280
-           behaviour applies to validation of the Registrar certificate.";
+          "A processing instruction to the pledge that it MUST verify
+           the revocation status for the domain certificate.  This
+           instruction is only available for vouchers that expire. If
+           this field is not set, then normal PKIX behaviour applies
+           to validation of the domain certificate.";
       }
-
 
       leaf nonce {
         type binary {
@@ -666,14 +648,6 @@ Internet-Draft               Voucher Profile                    May 2017
            When present, the pledge MUST compare the provided nonce
            value with another value that the pledge randomly generated
            and sent to a bootstrap server in an earlier bootstrapping
-
-
-
-Watsen, et al.          Expires November 24, 2017              [Page 12]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
            message.  If the values do not match, then the pledge MUST
            NOT process this voucher.";
       }
@@ -686,11 +660,19 @@ Internet-Draft               Voucher Profile                    May 2017
            will renew a voucher on. This field is merely informative, it
            is not processed by pledges.
 
-           Circumstances may occur after when a voucher was generated
-           that can alter a voucher's validity period.  For instance,
-           a vendor may associate validity periods with support
-           contracts, which may be terminated or extended over time.";
+           Circumstances may occur after a voucher is generated that
+           may alter a voucher's validity period.  For instance, a
+           vendor may associate validity periods with support contracts,
+           which may be terminated or extended over time.";
       }
+
+
+
+
+Watsen, et al.          Expires December 1, 2017               [Page 12]
+
+Internet-Draft               Voucher Profile                    May 2017
+
 
     } // end voucher
   } // end voucher-grouping
@@ -703,102 +685,63 @@ Internet-Draft               Voucher Profile                    May 2017
 
 6.1.  Renewals instead of Revocations
 
+   The lifetimes of vouchers may vary.  In some bootstrapping protocols,
+   the vouchers may be created and consumed immediately whereas, in
+   other bootstrapping solutions, there may be a significant delay
+   between when a voucher is created and when it is consumed.  In cases
+   when there is a delay, there is a need for the pledge to ensure that
+   the assertions made when the voucher was created are still valid when
+   it is consumed.
+
    A revocation artifact is generally used to verify the continued
    validity of an assertion such as a PKIX certificate, web token, or a
-   "voucher".  Conceptually revocation allows for issuance of assertions
-   using long lifetimes and thereby avoiding ongoing protocol operations
-   to renew the assertion.  In practice the use of revocation artifacts
-   increases the solution complexity.  Rather than a single protocol, or
-   operation, to obtain or renew the assertion the resulting solution
-   instead has two or more protocols: one for assertion maintanence and
-   the other(s) for revocation verification.
+   "voucher".  With this approach, a potentially long-lived assertion is
+   paired with a reasonably fresh revocation status check to ensure that
+   the assertion is still valid.  However, this approach increases
+   solution complexity, as it introduces the need for additional
+   protocols and code paths to distribute and process the revocations.
 
-   The PKIX use of CRLs and OCSP responses provides an illustrative
-   example.  Relying parties that verify revocation information must
-   obtain and parse the CRL or OCSP information.  Each revocation method
-   has its own validity period that effectively shortens the certificate
-   validity period (since without valid revocation checks the
-   certificate would be rejected).  In addition to having multiple
-   revocation protocol options the resulting space is further
-   complicated by inline distribution of the revocation information.
-   The TLS extension "Certificate Status Request" [RFC6066] for when
+   Addressing the short-comings of revocations, this document recommends
+   instead the use of lightweight renewals of short-lived non-revocable
+   vouchers.  That is, rather than issue a long-lived voucher, the
+   expectation is for the MASA to instead issue a short-lived voucher
+   along with a promise (reflected in the 'last-renewal-date' field) to
+   re-issue the voucher again when needed.  Importantly, while issuing
+   the initial voucher may incur heavyweight verification checks (are
+   you who you say you are?  does the pledge actually belong to you?),
+   re-issuing the voucher should be a lightweight process, as it
+   ostensibly only updates the voucher's validatity period.  With this
+   approach, there is only the one artifact, and only one code path is
+   needed to process it, without any possibility for a pledge to choose
+   to skip the revocation status check because, for instance, the OCSP
+   Responder is not reachable.
+
+   While this document recommends issuing short-lived vouchers, the
+   voucher artifact does not restrict the ability to create a long-lived
+   vouchers, if required, however no revocation method is described.
+
+   Note that a voucher may be signed by a chain of intermediate CAs
+   leading up to the trust anchor certificate known by the pledge.  Even
 
 
 
-Watsen, et al.          Expires November 24, 2017              [Page 13]
+Watsen, et al.          Expires December 1, 2017               [Page 13]
 
 Internet-Draft               Voucher Profile                    May 2017
 
 
-   "constrained clients may wish to use a certificate-status protocol"
-   is an example of this.  Including revocation information into
-   Cryptographic Message Syntax [RFC5652] is another example.
-
-   If vouchers included revocation similar complexities would propagate
-   to all related voucher distribution and assertion protocols.  Instead
-   vouchers do not support revocation.  Instead of the asserting party,
-   or relying party, obtaining and distributing revocation information
-   the asserting party MUST obtain an up-to-date valid voucher.  The
-   protocol and operations infrastructures for this are expected to be
-   the same as the initial methods used to obtain a voucher in the first
-   place, with one important clarification: the MASA services MUST issue
-   updated validity period vouchers to the same Registrar ID with
-   minimal friction.  This is similar to how an OCSP revocation system
-   is always willing to confirm that a certificate is not revoked.
-   There is no requirement implied that vouchers be contiguously
-   renewed.  For example if a two-week lifetime voucher is not used
-   before it expires there is no requirement that it be still valid when
-   renewed.  The domain MAY renew an expired voucher at any time.  The
-   MASA always has authoritative control and MAY reject such renewals
-   (such as when requested by domain owner's to "block" renewals or if
-   the device has been successfully claimed by an alternate domain).
-   Allowing non-contiguous lifetimes significantly reduces the
-   operational load on the domain as it is not required to maintain
-   valid vouchers; only to ensure a valid voucher is available during
-   the time window in which it needs to be used.
-
-   [[EDNOTE: It might be worth including an indication of maximum
-   lifetime for which such automated renewal is available.  If so the
-   language we'd use would be similar to the RFC5280 statement that
-   certificate validity period is "the time interval during which the CA
-   warrants that it will maintain information about the status of the
-   certificate" only here used to inform the Registrar of "the time
-   interval during which the MASA warrants that it will maintain
-   information about the status of the ownership claim".  Such a field
-   would be independent of the actual validity period of the voucher and
-   is not intended for consumption by the Pledge.  A suggested name for
-   this field would be "last-renewal-date".]]
-
-   The communications to the MASA service regarding claiming and
-   blocking of devices is out of scope of this specification.  Similarly
-   if revocation methods had been described, the method of reporting a
-   revocation would have been out-of-scope.
-
-   The lifetimes of vouchers may vary.  In some bootstrapping protocols
-   the vouchers may be ephemeral, whereas in others the vouchers may be
-   potentially long-lived.  For bootstrapping protocols that support
-   ephemeral vouchers, there is no need to support renewal.  For
-
-
-
-Watsen, et al.          Expires November 24, 2017              [Page 14]
-
-Internet-Draft               Voucher Profile                    May 2017
-
-
-   bootstrapping protocols that support long-lived vouchers, final
-   protocol complexity is reduced when short lifetime vouchers are
-   easily renewed rather than layering on additional revocation methods.
-   Manufacturers MAY issue long-lived vouchers to customers if required
-   but no revocation method is described.
+   though the voucher itself is not revocable, it may still be revoked,
+   per se, if one of the intermediate CA certificates is revoked.
 
 6.2.  Voucher Per Pledge
 
-   The solution originally enabled a single voucher to apply to many
-   pledges, using lists of regular expressions to represent ranges of
-   serial numbers.  However, it was determined that blocking the renewal
-   of a voucher that applied to many devices, would be excessive when
-   only the ownership for a single pledge needed to be blocked.
+   The solution described herein originally enabled a single voucher to
+   apply to many pledges, using lists of regular expressions to
+   represent ranges of serial numbers.  However, it was determined that
+   blocking the renewal of a voucher that applied to many devices would
+   be excessive when only the ownership for a single pledge needed to be
+   blocked.  Thus, the voucher format now only supports a single serial-
+   number to be listed.
 
 7.  Security Considerations
 
@@ -823,26 +766,27 @@ Internet-Draft               Voucher Profile                    May 2017
 
 7.2.  Protect Voucher PKI in HSM
 
-   This document favors using voucher-renewals over needing to support
-   voucher-revocations (Section 6.1).  However, a voucher may be signed
-   by a chain of intermediate CAs leading to the trust anchor known to a
-   pledge.  Revocation checking of these certificates is similarly
-   difficult.  The current voucher format supports the existing PKIX
-   revocation information distribution within the limits of the current
-   PKI technology; but pledges MAY accept vouchers without checking
-   X.509 certificate revocation.  Without revocation checking, a
-   compromized MASA keychain could be used to issue vouchers ad
-   infinitum without recourse.  For this reason, MASA implementations
+   A voucher is signed by a CA, that may itself be signed by a chain of
+   CAs leading to a trust anchor known to a pledge.  Revocation checking
+   of the intermediate certificates may be difficult in some scenarios.
+   The voucher format supports the existing PKIX revocation information
+   distribution within the limits of the current PKI technology (a PKCS7
+   structure can contain revocation objects as well), but pledges MAY
+   accept vouchers without checking X.509 certificate revocation (when
+   'domain-cert-revocation-checks' is false).  Without revocation
+   checking, a compromized MASA keychain could be used to issue vouchers
+   ad infinitum without recourse.  For this reason, MASA implementations
+   wanting to support such deployments SHOULD ensure that all the CA
 
 
 
 
-Watsen, et al.          Expires November 24, 2017              [Page 15]
+Watsen, et al.          Expires December 1, 2017               [Page 14]
 
 Internet-Draft               Voucher Profile                    May 2017
 
 
-   SHOULD ensure that all the CA private keys are protected by hardware
+   private keys used for signing the vouchers are protected by hardware
    security modules (HSMs).
 
 7.3.  Test Domain Certificate Validity when Signing
@@ -850,11 +794,11 @@ Internet-Draft               Voucher Profile                    May 2017
    If a domain certificate is compromised, then any outstanding vouchers
    for that domain could be used by the attacker.  The domain
    administrator is clearly expected to initiate revocation of any
-   domain identity certificates (as in normal in PKI solutions).
+   domain identity certificates (as is normal in PKI solutions).
 
    Similarly they are expected to contact the MASA to indicate that an
-   outstanding (presumably short lifetime) voucher be blocked from
-   automated renewal.  Protocols for voucher distribution are
+   outstanding (presumably short lifetime) voucher should be blocked
+   from automated renewal.  Protocols for voucher distribution are
    RECOMMENDED to check for revocation of any domain identity
    certificates before automated renewal of vouchers.
 
@@ -886,17 +830,21 @@ Internet-Draft               Voucher Profile                    May 2017
 9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
-
-   [RFC2315]  Kaliski, B., "PKCS #7: Cryptographic Message Syntax
-              Version 1.5", RFC 2315, March 1998.
-
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
 
 
-Watsen, et al.          Expires November 24, 2017              [Page 16]
+
+
+Watsen, et al.          Expires December 1, 2017               [Page 15]
 
 Internet-Draft               Voucher Profile                    May 2017
 
+
+   [RFC2315]  Kaliski, B., "PKCS #7: Cryptographic Message Syntax
+              Version 1.5", RFC 2315, DOI 10.17487/RFC2315, March 1998,
+              <http://www.rfc-editor.org/info/rfc2315>.
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
@@ -921,7 +869,7 @@ Internet-Draft               Voucher Profile                    May 2017
               Pritikin, M., Richardson, M., Behringer, M., Bjarnason,
               S., and K. Watsen, "Bootstrapping Remote Secure Key
               Infrastructures (BRSKI)", draft-ietf-anima-bootstrapping-
-              keyinfra-05 (work in progress), March 2017.
+              keyinfra-06 (work in progress), May 2017.
 
    [I-D.ietf-netconf-zerotouch]
               Watsen, K. and M. Abrahamsson, "Zero Touch Provisioning
@@ -933,11 +881,22 @@ Internet-Draft               Voucher Profile                    May 2017
               <https://en.wikipedia.org/wiki/Imprinting_(psychology)>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              January 2004.
+              DOI 10.17487/RFC3688, January 2004,
+              <http://www.rfc-editor.org/info/rfc3688>.
 
    [RFC7435]  Dukhovni, V., "Opportunistic Security: Some Protection
               Most of the Time", RFC 7435, DOI 10.17487/RFC7435,
               December 2014, <http://www.rfc-editor.org/info/rfc7435>.
+
+
+
+
+
+
+Watsen, et al.          Expires December 1, 2017               [Page 16]
+
+Internet-Draft               Voucher Profile                    May 2017
+
 
    [Stajano99theresurrecting]
               Stajano, F. and R. Anderson, "The resurrecting duckling:
@@ -949,7 +908,48 @@ Internet-Draft               Voucher Profile                    May 2017
 
 
 
-Watsen, et al.          Expires November 24, 2017              [Page 17]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Watsen, et al.          Expires December 1, 2017               [Page 17]
 
 Internet-Draft               Voucher Profile                    May 2017
 
@@ -1005,4 +1005,4 @@ Authors' Addresses
 
 
 
-Watsen, et al.          Expires November 24, 2017              [Page 18]
+Watsen, et al.          Expires December 1, 2017               [Page 18]
