@@ -101,10 +101,10 @@
       </section>
 
       <section title="Terminology">
-
+        <t>This document uses the following terms (sorted by name):</t>
         <t><list style="hanging">
 
-        <t hangText="Imprint:">The process where a device obtains the
+          <t hangText="Imprint:">The process where a device obtains the
             cryptographic key material to identify and trust future
             interactions with a network. This term is taken from Konrad
             Lorenz's work in biology with new ducklings: "during a critical
@@ -118,36 +118,36 @@
             Lorenz's work was first noted in <xref
                 target="Stajano99theresurrecting"></xref>.</t>
 
-        <t hangText="Domain:">The set of entities or infrastructure under
+          <t hangText="Domain:">The set of entities or infrastructure under
             common administrative control.  The goal of the bootstrapping
             protocol is to enable a Pledge to discover and join a Domain.</t>
 
-        <t hangText="Join Registrar (and Coordinator):">A representative of the domain that is
+          <t hangText="Join Registrar (and Coordinator):">A representative of the domain that is
             configured, perhaps autonomically, to decide whether a new device
             is allowed to join the domain. The administrator of the domain
             interfaces with a Join Registrar (and Coordinator) to control this process. i
             Typically a Join Registrar is "inside" its domain. For simplicity this document
             often refers to this as just "Registrar".</t>
 
-        <t hangText="MASA:">The Manufacturer Authorized Signing Authority (MASA)
+          <t hangText="MASA:">The Manufacturer Authorized Signing Authority (MASA)
             service that signs vouchers.  In some bootstrapping protocols, the
             MASA may have Internet presence and be integral to the bootstrapping
             process, whereas in other protocols the MASA may be an offline service
             that has no active role in the bootstrapping process.</t>
 
-        <t hangText="Pledge:">The prospective device attempting to find and
+          <t hangText="Pledge:">The prospective device attempting to find and
             securely join a domain.  When shipped it only trusts authorized
             representatives of the manufacturer.</t>
 
-        <t hangText="Registrar">See Join Registrar</t>
+          <t hangText="Registrar">See Join Registrar</t>
 
-        <t hangText="TOFU:">Trust on First Use. This is where a Pledge
+          <t hangText="TOFU:">Trust on First Use. This is where a Pledge
             device makes no security decisions but rather simply trusts the
             first Domain entity it is contacted by.  Used similarly to <xref
             target="RFC7435"/>. This is also known as the "resurrecting
             duckling" model.</t>
 
-        <t hangText="Voucher:">A signed statement from the MASA service
+          <t hangText="Voucher:">A signed statement from the MASA service
             that indicates to a Pledge the cryptographic identity of the
             Domain it should trust.</t>
 
@@ -155,10 +155,34 @@
       </section>
 
       <section title="Requirements Language">
-          <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
-              "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-              and "OPTIONAL" in the sections below are to be interpreted
-              as described in RFC 2119 <xref target="RFC2119"/>.</t>
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+        "MAY", and "OPTIONAL" in this document are to be interpreted as
+        described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/>
+        when, and only when, they appear in all capitals, as shown here.</t>
+      </section>
+
+      <section title="Tree Diagram Notation" anchor="tree-diagram">
+        <t>A simplified graphical representation of the data models
+        is used in this document.  The meaning of the symbols in
+        these diagrams is as follows:
+          <list style="symbols">
+            <t>Brackets "[" and "]" enclose list keys.</t>
+            <t>Braces "{" and "}" enclose feature names, and indicate
+            that the named feature must be present for the subtree
+            to be present.</t>
+            <t>Abbreviations before data node names: "rw" (read-write)
+            represents configuration data and "ro" (read-only)
+            represents state data.</t>
+            <t>Symbols after data node names: "?" means an optional
+            node, "!" means a presence container, and "*" denotes a
+            list and leaf-list.</t>
+            <t>Parentheses enclose choice and case nodes, and case
+            nodes are also marked with a colon (":").</t>
+            <t>Ellipsis ("...") stands for contents of subtrees that
+            are not shown.</t>
+          </list>
+        </t>
       </section>
 
       <section title="Survey of Voucher Types">
@@ -289,7 +313,7 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         known to the pledge.</t>
 
         <section title="Tree Diagram" anchor="voucher-tree-diagram">
-          <t>The following tree diagram <xref target="I-D.bjorklund-netmod-yang-tree-diagrams"/>
+          <t>The following tree diagram (<xref target="tree-diagram"/>)
           illustrates a high-level view of a voucher document.  Each field
           in the voucher is fully described by the YANG module provided in
           <xref target="voucher-yang-module"/>.  Please review this YANG
@@ -501,6 +525,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.2315.xml"?>
         <?rfc include="reference.RFC.6020.xml"?>
         <?rfc include="reference.RFC.7950.xml"?>
+        <?rfc include="reference.RFC.8174.xml"?>
       </references>
 
       <references title="Informative References">
@@ -509,19 +534,6 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
         <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
         <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
         <?rfc include="reference.RFC.7435" ?>
-
-        <reference anchor="I-D.bjorklund-netmod-yang-tree-diagrams">
-          <front>
-            <title>YANG Tree Diagrams</title>
-            <author initials='M.B.' surname='Bjorklund' fullname='Martin Bjorklund'>
-              <organization>Tail-f Systems</organization>
-            </author>
-            <author initials='L.B.' surname='Berger' fullname='Lou Berger'>
-              <organization>LABN</organization>
-            </author>
-            <date year='2017' />
-          </front>
-        </reference>
 
         <reference anchor="Stajano99theresurrecting"
             target="https://www.cl.cam.ac.uk/~fms27/papers/1999-StajanoAnd-duckling.pdf">
