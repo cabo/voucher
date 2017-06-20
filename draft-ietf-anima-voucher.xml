@@ -569,7 +569,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
       <section title="Acknowledgements">
         <t>The authors would like to thank for following for
         lively discussions on list and in the halls (ordered
-        by last name):
+        by last name): William Atwood, Toerless Eckert, Sheng Jiang.
         </t>
       </section>
     </back>
