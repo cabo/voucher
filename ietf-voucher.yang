@@ -100,6 +100,14 @@ module ietf-voucher {
                claim in the database for the same pledge (voucher
                transparency).";
           }
+          enum proximity {
+            description
+              "Indicates that this assertion is made based on 
+               the proximity of the owner as determined by 
+               local network information. This is useful for
+               a pledge device to indicate it 'sees' a specific
+               Registrar on a TLS connection.";
+          }
         }
         mandatory true;
         description
