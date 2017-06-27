@@ -106,7 +106,7 @@
       <section title="Terminology">
 
         <t><list style="hanging">
-        <t hangTex="Artifact:"> The term "artifact" is used throughout to represent the
+        <t hangText="Artifact:"> The term "artifact" is used throughout to represent the
             voucher as instantiated in the form of a signed structure.</t>
         <t hangText="Imprint:">The process where a device obtains the
             cryptographic key material to identify and trust future
