@@ -106,7 +106,9 @@
       <section title="Terminology">
         <t>This document uses the following terms (sorted by name):</t>
         <t><list style="hanging">
-          <t hangText="Imprint:">The process where a device obtains the
+        <t hangText="Artifact:"> The term "artifact" is used throughout to represent the
+            voucher as instantiated in the form of a signed structure.</t>
+        <t hangText="Imprint:">The process where a device obtains the
             cryptographic key material to identify and trust future
             interactions with a network. This term is taken from Konrad
             Lorenz's work in biology with new ducklings: "during a critical

@@ -103,10 +103,11 @@ module ietf-voucher {
           enum proximity {
             description
               "Indicates that this assertion is made based on 
-               the proximity of the owner as determined by 
+               the proximity of the signer as determined by 
                local network information. This is useful for
                a pledge device to indicate it 'sees' a specific
-               Registrar on a TLS connection.";
+               registrar on a TLS connection, or for a registrar
+               to indicate it 'sees' a pledge.";
           }
         }
         mandatory true;
@@ -212,6 +213,30 @@ module ietf-voucher {
            may alter a voucher's validity period.  For instance, a
            vendor may associate validity periods with support contracts,
            which may be terminated or extended over time.";
+      }
+
+      leaf prior-signed-voucher {
+        type binary;
+        description
+        "If it is necessary to change a voucher, or re-sign and forward 
+        a voucher that was previously provided along a protocol path, 
+        then the previously signed voucher SHOULD be included in this 
+        field. 
+
+        For example if the Pledge signed a proximity voucher and the 
+        Registrar re-signs it to make its own 'proximity' assertion. 
+        This is a simple mechanism for a chain of trusted parties 
+        to change a voucher, while maintaining the prior signature 
+        information.
+
+        The pledge MUST ignore all prior voucher information when 
+        accepting a voucher for imprinting. Other parties MAY examine 
+        the prior signed voucher information for the purposes of policy 
+        decisions. For example this information could be useful to a 
+        MASA to determine that both Pledge and Registrar agree on 
+        proximity assertions. The MASA SHOULD remove all 
+        prior-signed-voucher information when signing a voucher for 
+        imprinting so as to minimize the final voucher size.";
       }
 
     } // end voucher
