@@ -87,15 +87,15 @@ Table of Contents
      6.1.  Renewals instead of Revocations . . . . . . . . . . . . .  13
      6.2.  Voucher Per Pledge  . . . . . . . . . . . . . . . . . . .  14
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-     7.1.  Clock Sensitivity . . . . . . . . . . . . . . . . . . . .  14
-     7.2.  Protect Voucher PKI in HSM  . . . . . . . . . . . . . . .  14
+     7.1.  Clock Sensitivity . . . . . . . . . . . . . . . . . . . .  15
+     7.2.  Protect Voucher PKI in HSM  . . . . . . . . . . . . . . .  15
      7.3.  Test Domain Certificate Validity when Signing . . . . . .  15
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-     8.1.  The IETF XML Registry . . . . . . . . . . . . . . . . . .  15
-     8.2.  The YANG Module Names Registry  . . . . . . . . . . . . .  15
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+     8.1.  The IETF XML Registry . . . . . . . . . . . . . . . . . .  16
+     8.2.  The YANG Module Names Registry  . . . . . . . . . . . . .  16
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  16
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  17
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
@@ -544,16 +544,16 @@ Internet-Draft               Voucher Profile                   June 2017
           enum proximity {
             description
               "Indicates that this assertion is made based on
-               the proximity of the owner as determined by
+               the proximity of the signer as determined by
                local network information. This is useful for
                a pledge device to indicate it 'sees' a specific
-               Registrar on a TLS connection.";
+               registrar on a TLS connection, or for a registrar
+               to indicate it 'sees' a pledge.";
           }
         }
         mandatory true;
         description
           "The assertion is a statement from the MASA regarding how
-           the owner was verified.   This statement enables pledges
 
 
 
@@ -562,6 +562,7 @@ Watsen, et al.          Expires December 29, 2017              [Page 10]
 Internet-Draft               Voucher Profile                   June 2017
 
 
+           the owner was verified.   This statement enables pledges
            to support more detailed policy checks.  Pledges MUST
            ensure that the assertion provided is acceptable before
            processing the voucher.";
@@ -609,7 +610,6 @@ Internet-Draft               Voucher Profile                   June 2017
            somewhere in its chain of certificates.  This certificate
            MAY be an end-entity certificate, including a self-signed
            entity.";
-        reference
 
 
 
@@ -618,6 +618,7 @@ Watsen, et al.          Expires December 29, 2017              [Page 11]
 Internet-Draft               Voucher Profile                   June 2017
 
 
+        reference
           "RFC 5280:
              Internet X.509 Public Key Infrastructure Certificate
              and Certificate Revocation List (CRL) Profile.
@@ -665,7 +666,6 @@ Internet-Draft               Voucher Profile                   June 2017
            will renew a voucher on. This field is merely informative, it
            is not processed by pledges.
 
-           Circumstances may occur after a voucher is generated that
 
 
 
@@ -674,9 +674,34 @@ Watsen, et al.          Expires December 29, 2017              [Page 12]
 Internet-Draft               Voucher Profile                   June 2017
 
 
+           Circumstances may occur after a voucher is generated that
            may alter a voucher's validity period.  For instance, a
            vendor may associate validity periods with support contracts,
            which may be terminated or extended over time.";
+      }
+
+      leaf prior-signed-voucher {
+        type binary;
+        description
+        "If it is necessary to change a voucher, or re-sign and forward
+        a voucher that was previously provided along a protocol path,
+        then the previously signed voucher SHOULD be included in this
+        field.
+
+        For example if the Pledge signed a proximity voucher and the
+        Registrar re-signs it to make its own 'proximity' assertion.
+        This is a simple mechanism for a chain of trusted parties
+        to change a voucher, while maintaining the prior signature
+        information.
+
+        The pledge MUST ignore all prior voucher information when
+        accepting a voucher for imprinting. Other parties MAY examine
+        the prior signed voucher information for the purposes of policy
+        decisions. For example this information could be useful to a
+        MASA to determine that both Pledge and Registrar agree on
+        proximity assertions. The MASA SHOULD remove all
+        prior-signed-voucher information when signing a voucher for
+        imprinting so as to minimize the final voucher size.";
       }
 
     } // end voucher
@@ -697,6 +722,13 @@ Internet-Draft               Voucher Profile                   June 2017
    when there is a delay, there is a need for the pledge to ensure that
    the assertions made when the voucher was created are still valid when
    it is consumed.
+
+
+
+Watsen, et al.          Expires December 29, 2017              [Page 13]
+
+Internet-Draft               Voucher Profile                   June 2017
+
 
    A revocation artifact is generally used to verify the continued
    validity of an assertion such as a PKIX certificate, web token, or a
@@ -721,15 +753,6 @@ Internet-Draft               Voucher Profile                   June 2017
    to skip the revocation status check because, for instance, the OCSP
    Responder is not reachable.
 
-
-
-
-
-Watsen, et al.          Expires December 29, 2017              [Page 13]
-
-Internet-Draft               Voucher Profile                   June 2017
-
-
    While this document recommends issuing short-lived vouchers, the
    voucher artifact does not restrict the ability to create a long-lived
    vouchers, if required, however no revocation method is described.
@@ -750,6 +773,18 @@ Internet-Draft               Voucher Profile                   June 2017
    number to be listed.
 
 7.  Security Considerations
+
+
+
+
+
+
+
+
+Watsen, et al.          Expires December 29, 2017              [Page 14]
+
+Internet-Draft               Voucher Profile                   June 2017
+
 
 7.1.  Clock Sensitivity
 
@@ -778,14 +813,6 @@ Internet-Draft               Voucher Profile                   June 2017
    The voucher format supports the existing PKIX revocation information
    distribution within the limits of the current PKI technology (a PKCS7
    structure can contain revocation objects as well), but pledges MAY
-
-
-
-Watsen, et al.          Expires December 29, 2017              [Page 14]
-
-Internet-Draft               Voucher Profile                   June 2017
-
-
    accept vouchers without checking X.509 certificate revocation (when
    'domain-cert-revocation-checks' is false).  Without revocation
    checking, a compromized MASA keychain could be used to issue vouchers
@@ -806,6 +833,14 @@ Internet-Draft               Voucher Profile                   June 2017
    from automated renewal.  Protocols for voucher distribution are
    RECOMMENDED to check for revocation of any domain identity
    certificates before automated renewal of vouchers.
+
+
+
+
+Watsen, et al.          Expires December 29, 2017              [Page 15]
+
+Internet-Draft               Voucher Profile                   June 2017
+
 
 8.  IANA Considerations
 
@@ -830,18 +865,6 @@ Internet-Draft               Voucher Profile                   June 2017
       prefix:       vch
       reference:    RFC XXXX
 
-
-
-
-
-
-
-
-Watsen, et al.          Expires December 29, 2017              [Page 15]
-
-Internet-Draft               Voucher Profile                   June 2017
-
-
 9.  References
 
 9.1.  Normative References
@@ -863,6 +886,17 @@ Internet-Draft               Voucher Profile                   June 2017
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <http://www.rfc-editor.org/info/rfc7950>.
+
+
+
+
+
+
+
+Watsen, et al.          Expires December 29, 2017              [Page 16]
+
+Internet-Draft               Voucher Profile                   June 2017
+
 
 9.2.  Informative References
 
@@ -890,14 +924,6 @@ Internet-Draft               Voucher Profile                   June 2017
               Wikipedia, , "Wikipedia article: Imprinting", July 2015,
               <https://en.wikipedia.org/wiki/Imprinting_(psychology)>.
 
-
-
-
-Watsen, et al.          Expires December 29, 2017              [Page 16]
-
-Internet-Draft               Voucher Profile                   June 2017
-
-
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
               <http://www.rfc-editor.org/info/rfc3688>.
@@ -911,32 +937,6 @@ Internet-Draft               Voucher Profile                   June 2017
               security issues for ad-hoc wireless networks", 1999,
               <https://www.cl.cam.ac.uk/~fms27/papers/1999-StajanoAnd-
               duckling.pdf>.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
