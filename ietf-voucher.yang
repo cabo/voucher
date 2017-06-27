@@ -49,15 +49,9 @@ module ietf-voucher {
   }
 
   rc:yang-data voucher-artifact {
-    uses voucher-grouping;
-  }
-
-  grouping voucher-grouping {
-    description
-      "Grouping only exists for pyang tree output...";
+    // A YANG-data based model for the voucher format.
 
     container voucher {
-      config false;
       description
         "A voucher that can be used to assign one or more
          pledges to an owner.";
