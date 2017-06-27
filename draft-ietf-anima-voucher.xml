@@ -447,8 +447,8 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
             will appear in the audit log, informing the security decision.
           </t>
 
-          <t>This document defines artifacts containing time values
-          for voucher expirations, which require an accurate clock
+          <t>This document defines a voucher format that  contains time values
+          for expirations, which require an accurate clock
           in order to be processed correctly.  Vendors planning on
           issuing vouchers with expiration values must ensure devices
           have an accurate clock when shipped from manufacturing

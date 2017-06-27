@@ -5,12 +5,12 @@
 ANIMA Working Group                                            K. Watsen
 Internet-Draft                                          Juniper Networks
 Intended status: Standards Track                           M. Richardson
-Expires: December 22, 2017                            Sandelman Software
+Expires: December 29, 2017                            Sandelman Software
                                                              M. Pritikin
                                                            Cisco Systems
                                                                T. Eckert
                                                                   Huawei
-                                                           June 20, 2017
+                                                           June 27, 2017
 
 
               Voucher Profile for Bootstrapping Protocols
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 22, 2017.
+   This Internet-Draft will expire on December 29, 2017.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Watsen, et al.          Expires December 22, 2017               [Page 1]
+Watsen, et al.          Expires December 29, 2017               [Page 1]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -97,8 +97,8 @@ Table of Contents
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  16
      10.2.  Informative References . . . . . . . . . . . . . . . . .  17
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Watsen, et al.          Expires December 22, 2017               [Page 2]
+Watsen, et al.          Expires December 29, 2017               [Page 2]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -165,7 +165,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017               [Page 3]
+Watsen, et al.          Expires December 29, 2017               [Page 3]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -221,7 +221,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017               [Page 4]
+Watsen, et al.          Expires December 29, 2017               [Page 4]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -277,7 +277,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017               [Page 5]
+Watsen, et al.          Expires December 29, 2017               [Page 5]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -333,7 +333,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017               [Page 6]
+Watsen, et al.          Expires December 29, 2017               [Page 6]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -389,22 +389,24 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017               [Page 7]
+Watsen, et al.          Expires December 29, 2017               [Page 7]
 
 Internet-Draft               Voucher Profile                   June 2017
 
 
    module: ietf-voucher
-     +---- voucher
-        +---- created-on                       yang:date-and-time
-        +---- expires-on?                      yang:date-and-time
-        +---- assertion                        enumeration
-        +---- serial-number                    string
-        +---- idevid-issuer?                   binary
-        +---- pinned-domain-cert*              binary
-        +---- domain-cert-revocation-checks?   boolean
-        +---- nonce?                           binary
-        +---- last-renewal-date?               yang:date-and-time
+     yang-data:
+     voucher-artifact
+         +---- voucher
+            +---- created-on                       yang:date-and-time
+            +---- expires-on?                      yang:date-and-time
+            +---- assertion                        enumeration
+            +---- serial-number                    string
+            +---- idevid-issuer?                   binary
+            +---- pinned-domain-cert*              binary
+            +---- domain-cert-revocation-checks?   boolean
+            +---- nonce?                           binary
+            +---- last-renewal-date?               yang:date-and-time
 
 
 6.2.  Examples
@@ -443,9 +445,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-
-
-Watsen, et al.          Expires December 22, 2017               [Page 8]
+Watsen, et al.          Expires December 29, 2017               [Page 8]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -468,7 +468,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 6.3.  YANG Module
 
-<CODE BEGINS> file "ietf-voucher@2017-06-20.yang"
+<CODE BEGINS> file "ietf-voucher@2017-06-27.yang"
 
 module ietf-voucher {
   yang-version 1.1;
@@ -501,7 +501,7 @@ module ietf-voucher {
 
 
 
-Watsen, et al.          Expires December 22, 2017               [Page 9]
+Watsen, et al.          Expires December 29, 2017               [Page 9]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -521,7 +521,7 @@ Internet-Draft               Voucher Profile                   June 2017
     'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'MAY', and 'OPTIONAL' in
     the module text are to be interpreted as described in RFC 2119.";
 
-  revision "2017-06-20" {
+  revision "2017-06-27" {
     description
      "Initial version";
     reference
@@ -557,7 +557,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 10]
+Watsen, et al.          Expires December 29, 2017              [Page 10]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -613,7 +613,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 11]
+Watsen, et al.          Expires December 29, 2017              [Page 11]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -669,7 +669,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 12]
+Watsen, et al.          Expires December 29, 2017              [Page 12]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -725,7 +725,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 13]
+Watsen, et al.          Expires December 29, 2017              [Page 13]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -781,7 +781,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 14]
+Watsen, et al.          Expires December 29, 2017              [Page 14]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -809,7 +809,7 @@ Internet-Draft               Voucher Profile                   June 2017
    Thirdly, vouchers without expiration times may be used, which will
    appear in the audit log, informing the security decision.
 
-   This document defines artifacts containing time values for voucher
+   This document defines a voucher format that contains time values for
    expirations, which require an accurate clock in order to be processed
    correctly.  Vendors planning on issuing vouchers with expiration
    values must ensure devices have an accurate clock when shipped from
@@ -837,7 +837,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 15]
+Watsen, et al.          Expires December 29, 2017              [Page 15]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -893,7 +893,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 16]
+Watsen, et al.          Expires December 29, 2017              [Page 16]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -925,9 +925,10 @@ Internet-Draft               Voucher Profile                   June 2017
               keyinfra-06 (work in progress), May 2017.
 
    [I-D.ietf-netconf-zerotouch]
-              Watsen, K. and M. Abrahamsson, "Zero Touch Provisioning
-              for NETCONF or RESTCONF based Management", draft-ietf-
-              netconf-zerotouch-13 (work in progress), March 2017.
+              Watsen, K., Abrahamsson, M., and I. Farrer, "Zero Touch
+              Provisioning for NETCONF or RESTCONF based Management",
+              draft-ietf-netconf-zerotouch-14 (work in progress), June
+              2017.
 
    [imprinting]
               Wikipedia, , "Wikipedia article: Imprinting", July 2015,
@@ -941,6 +942,18 @@ Internet-Draft               Voucher Profile                   June 2017
               Most of the Time", RFC 7435, DOI 10.17487/RFC7435,
               December 2014, <http://www.rfc-editor.org/info/rfc7435>.
 
+
+
+
+
+
+
+
+Watsen, et al.          Expires December 29, 2017              [Page 17]
+
+Internet-Draft               Voucher Profile                   June 2017
+
+
    [Stajano99theresurrecting]
               Stajano, F. and R. Anderson, "The resurrecting duckling:
               security issues for ad-hoc wireless networks", 1999,
@@ -949,7 +962,50 @@ Internet-Draft               Voucher Profile                   June 2017
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 17]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Watsen, et al.          Expires December 29, 2017              [Page 18]
 
 Internet-Draft               Voucher Profile                   June 2017
 
@@ -1005,4 +1061,4 @@ Authors' Addresses
 
 
 
-Watsen, et al.          Expires December 22, 2017              [Page 18]
+Watsen, et al.          Expires December 29, 2017              [Page 19]
