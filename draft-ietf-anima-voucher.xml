@@ -307,13 +307,13 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         <t>The PKCS#7 structure MUST also contain a 'signerInfo' structure, as
         described in Section 9.1 of <xref target="RFC2315"/>, containing the
         signature generated over the content using a private key
-        trusted by the recipient. Normally the recipient is the Pledge and the
+        trusted by the recipient. Normally the recipient is the pledge and the
         signer is the MASA. A possible other use use could be as a "signed
-        voucher request" format originating from Pledge or Registrar toward the MASA.
+        voucher request" format originating from pledge or registrar toward the MASA.
         Within this document the signer is assumed to be the MASA.</t>
 
         <t>The PKCS#7 structure SHOULD also contain all of the certificates
-        leading up to and including the signers trust anchor certificate
+        leading up to and including the signer's trust anchor certificate
         known to the recipient.</t>
 
         <t>The PKCS#7 structure MAY also contain revocation objects for any
@@ -334,13 +334,11 @@ INSERT_TEXT_FROM_FILE(refs/ietf-voucher-tree.txt)
         </section>
 
         <section title="Examples" anchor="voucher-examples">
-          <t>This section provides a couple Voucher examples for illustration
+          <t>This section provides a couple voucher examples for illustration
              purposes.</t>
 
-          <t>The following example illustrates an ephemeral voucher (uses a nonce)
-             encoded in JSON.  As is expected with a dynamically-generated voucher,
-             only a single pledge (device-identifier) is specified.  The MASA
-             generated this voucher using the 'logged' assertion type, knowing
+          <t>The following example illustrates an ephemeral voucher (uses a nonce).
+             The MASA generated this voucher using the 'logged' assertion type, knowing
              that it would be suitable for the pledge making the request.</t>
           <figure>
             <artwork><![CDATA[
@@ -348,13 +346,10 @@ INSERT_TEXT_FROM_FILE(refs/ex-file-voucher-ephemeral.json)
 ]]></artwork>
           </figure>
 
-          <t>The following illustrates a long-lived voucher (no nonce), encoded in XML.
-             This particular voucher applies to more than one pledge (unique-id), which
-             might relate to, for instance, they were all issued as part of the same
-             purchase order.  This voucher includes both a trust anchor
-             certificate (trusted-ca-certificate) as well as some additional information
-             (cn-id and dns-id) that can be used to identify a specific domain certificate
-             issued, perhaps indirectly, by the trust anchor CA.</t>
+          <t>The following example illustrates a non-ephemeral voucher (no nonce).
+             While the voucher itself expires after two weeks, it presumably can
+             be renewed for up to a year later.   The MASA generated this voucher
+             using the 'verified' assertion type, which should satisfy all pledges.</t>
           <figure>
             <artwork><![CDATA[
 INSERT_TEXT_FROM_FILE(refs/ex-file-voucher-long-lived.json)

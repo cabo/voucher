@@ -14,7 +14,7 @@ Expires: December 29, 2017                            Sandelman Software
 
 
               Voucher Profile for Bootstrapping Protocols
-                      draft-ietf-anima-voucher-03
+                      draft-ietf-anima-voucher-04
 
 Abstract
 
@@ -361,13 +361,13 @@ Internet-Draft               Voucher Profile                   June 2017
    The PKCS#7 structure MUST also contain a 'signerInfo' structure, as
    described in Section 9.1 of [RFC2315], containing the signature
    generated over the content using a private key trusted by the
-   recipient.  Normally the recipient is the Pledge and the signer is
+   recipient.  Normally the recipient is the pledge and the signer is
    the MASA.  A possible other use use could be as a "signed voucher
-   request" format originating from Pledge or Registrar toward the MASA.
+   request" format originating from pledge or registrar toward the MASA.
    Within this document the signer is assumed to be the MASA.
 
    The PKCS#7 structure SHOULD also contain all of the certificates
-   leading up to and including the signers trust anchor certificate
+   leading up to and including the signer's trust anchor certificate
    known to the recipient.
 
    The PKCS#7 structure MAY also contain revocation objects for any
@@ -394,48 +394,48 @@ Watsen, et al.          Expires December 29, 2017               [Page 7]
 Internet-Draft               Voucher Profile                   June 2017
 
 
+   module: ietf-voucher
+     yang-data:
+     voucher-artifact
+         +---- voucher
+            +---- created-on                       yang:date-and-time
+            +---- expires-on?                      yang:date-and-time
+            +---- assertion                        enumeration
+            +---- serial-number                    string
+            +---- idevid-issuer?                   binary
+            +---- pinned-domain-cert               binary
+            +---- domain-cert-revocation-checks?   boolean
+            +---- nonce?                           binary
+            +---- last-renewal-date?               yang:date-and-time
+            +---- prior-signed-voucher?            binary
+
+
 6.2.  Examples
 
-   This section provides a couple Voucher examples for illustration
+   This section provides a couple voucher examples for illustration
    purposes.
 
-   The following example illustrates an ephemeral voucher (uses a nonce)
-   encoded in JSON.  As is expected with a dynamically-generated
-   voucher, only a single pledge (device-identifier) is specified.  The
-   MASA generated this voucher using the 'logged' assertion type,
-   knowing that it would be suitable for the pledge making the request.
+   The following example illustrates an ephemeral voucher (uses a
+   nonce).  The MASA generated this voucher using the 'logged' assertion
+   type, knowing that it would be suitable for the pledge making the
+   request.
 
    {
      "ietf-voucher:voucher": {
        "created-on": "2016-10-07T19:31:42Z",
        "assertion": "logged",
        "serial-number": "JADA123456789",
-       "serial-number-issuer": "some binary identifier",
-       "domain-cert-trusted-ca": "base64-encoded X.509 DER",
-       "domain-cert-identifier": {
-         "subject": "base64-encoded Subject DER"
-       },
+       "idevid-issuer": "base64-encoded Authority Key Identifier",
+       "pinned-domain-cert": "base64-encoded X.509 DER",
        "nonce": "base64-encoded octet string"
      }
    }
 
-   The following illustrates a long-lived voucher (no nonce), encoded in
-   XML.  This particular voucher applies to more than one pledge
-   (unique-id), which might relate to, for instance, they were all
-   issued as part of the same purchase order.  This voucher includes
-   both a trust anchor certificate (trusted-ca-certificate) as well as
-   some additional information (cn-id and dns-id) that can be used to
-   identify a specific domain certificate issued, perhaps indirectly, by
-   the trust anchor CA.
-
-
-
-
-
-
-
-
-
+   The following example illustrates a non-ephemeral voucher (no nonce).
+   While the voucher itself expires after two weeks, it presumably can
+   be renewed for up to a year later.  The MASA generated this voucher
+   using the 'verified' assertion type, which should satisfy all
+   pledges.
 
 
 
@@ -456,12 +456,9 @@ Internet-Draft               Voucher Profile                   June 2017
        "expires-on": "2016-10-21T19:31:42Z",
        "assertion": "verified",
        "serial-number": "JADA123456789",
-       "serial-number-issuer": "some binary identifier",
-       "domain-cert-trusted-ca": "base64-encoded X.509 DER",
-       "domain-cert-identifier": {
-         "subject": "base64-encoded Subject DER"
-       },
-       "assert-revocations-on-PKIX-certs": "false",
+       "idevid-issuer": "base64-encoded Authority Key Identifier",
+       "pinned-domain-cert": "base64-encoded X.509 DER",
+       "domain-cert-revocation-checks": "true",
        "last-renewal-date": "2017-10-07T19:31:42Z"
      }
    }
@@ -498,6 +495,9 @@ module ietf-voucher {
     WG List:  <mailto:anima@ietf.org>
     Author:   Kent Watsen
               <mailto:kwatsen@juniper.net>
+    Author:   Max Pritikin
+              <mailto:pritikin@cisco.com>
+    Author:   Michael Richardson
 
 
 
@@ -506,9 +506,6 @@ Watsen, et al.          Expires December 29, 2017               [Page 9]
 Internet-Draft               Voucher Profile                   June 2017
 
 
-    Author:   Max Pritikin
-              <mailto:pritikin@cisco.com>
-    Author:   Michael Richardson
               <mailto:mcr+ietf@sandelman.ca>";
 
   description
@@ -555,6 +552,9 @@ Internet-Draft               Voucher Profile                   June 2017
            optional as not all pledges support expirations, such as
            pledges lacking a reliable clock.
 
+           If this field exists, then the the pledges MUST ensure that
+           the expires-on time has not yet passed. A pledge without
+
 
 
 Watsen, et al.          Expires December 29, 2017              [Page 10]
@@ -562,8 +562,6 @@ Watsen, et al.          Expires December 29, 2017              [Page 10]
 Internet-Draft               Voucher Profile                   June 2017
 
 
-           If this field exists, then the the pledges MUST ensure that
-           the expires-on time has not yet passed. A pledge without
            an accurate clock cannot meet this requirement.
 
            The expires-on value MUST NOT exceed the expiration date
@@ -610,6 +608,8 @@ Internet-Draft               Voucher Profile                   June 2017
         type string;
         mandatory true;
         description
+          "The serial number of the hardware.  When processing a
+           voucher, a pledge MUST ensure that its serial number
 
 
 
@@ -618,8 +618,6 @@ Watsen, et al.          Expires December 29, 2017              [Page 11]
 Internet-Draft               Voucher Profile                   June 2017
 
 
-          "The serial number of the hardware.  When processing a
-           voucher, a pledge MUST ensure that its serial number
            matches this value.  If no match occurs, then the
            pledge MUST NOT process this voucher.";
       }
@@ -641,9 +639,9 @@ Internet-Draft               Voucher Profile                   June 2017
            within the scope of the MASA.";
       }
 
-      leaf-list pinned-domain-cert {
+      leaf pinned-domain-cert {
         type binary;
-        min-elements 1;
+        mandatory true;
         description
           "An X.509 v3 certificate structure as specified by RFC 5280,
            Section 4 encoded using the ASN.1 distinguished encoding
@@ -667,6 +665,8 @@ Internet-Draft               Voucher Profile                   June 2017
               Encoding Rules (DER).";
       }
 
+      leaf domain-cert-revocation-checks {
+
 
 
 Watsen, et al.          Expires December 29, 2017              [Page 12]
@@ -674,7 +674,6 @@ Watsen, et al.          Expires December 29, 2017              [Page 12]
 Internet-Draft               Voucher Profile                   June 2017
 
 
-      leaf domain-cert-revocation-checks {
         type boolean;
         must "../expires-on";
         description
@@ -720,8 +719,9 @@ Internet-Draft               Voucher Profile                   June 2017
       leaf prior-signed-voucher {
         type binary;
         description
-        "If it is necessary to change a voucher, or re-sign and forward
-        a voucher that was previously provided along a protocol path,
+          "If it is necessary to change a voucher, or re-sign and forward
+           a voucher that was previously provided along a protocol path,
+           then the previously signed voucher SHOULD be included in this
 
 
 
@@ -730,23 +730,22 @@ Watsen, et al.          Expires December 29, 2017              [Page 13]
 Internet-Draft               Voucher Profile                   June 2017
 
 
-        then the previously signed voucher SHOULD be included in this
-        field.
+           field.
 
-        For example if the Pledge signed a proximity voucher and the
-        Registrar re-signs it to make its own 'proximity' assertion.
-        This is a simple mechanism for a chain of trusted parties
-        to change a voucher, while maintaining the prior signature
-        information.
+           For example, a pledge might sign a proximity voucher, which an
+           intermediate registrar then re-signs to make its own 'proximity'
+           assertion.  This is a simple mechanism for a chain of trusted
+           parties to change a voucher, while maintaining the prior signature
+           information.
 
-        The pledge MUST ignore all prior voucher information when
-        accepting a voucher for imprinting. Other parties MAY examine
-        the prior signed voucher information for the purposes of policy
-        decisions. For example this information could be useful to a
-        MASA to determine that both Pledge and Registrar agree on
-        proximity assertions. The MASA SHOULD remove all
-        prior-signed-voucher information when signing a voucher for
-        imprinting so as to minimize the final voucher size.";
+           The pledge MUST ignore all prior voucher information when
+           accepting a voucher for imprinting. Other parties MAY examine
+           the prior signed voucher information for the purposes of policy
+           decisions. For example this information could be useful to a
+           MASA to determine that both pledge and registrar agree on
+           proximity assertions. The MASA SHOULD remove all
+           'prior-signed-voucher' information when signing a voucher for
+           imprinting so as to minimize the final voucher size.";
       }
 
     } // end voucher
@@ -778,6 +777,7 @@ Internet-Draft               Voucher Profile                   June 2017
 
    Addressing the short-comings of revocations, this document recommends
    instead the use of lightweight renewals of short-lived non-revocable
+   vouchers.  That is, rather than issue a long-lived voucher, the
 
 
 
@@ -786,7 +786,6 @@ Watsen, et al.          Expires December 29, 2017              [Page 14]
 Internet-Draft               Voucher Profile                   June 2017
 
 
-   vouchers.  That is, rather than issue a long-lived voucher, the
    expectation is for the MASA to instead issue a short-lived voucher
    along with a promise (reflected in the 'last-renewal-date' field) to
    re-issue the voucher again when needed.  Importantly, while issuing
@@ -834,6 +833,7 @@ Internet-Draft               Voucher Profile                   June 2017
    This document defines a voucher format that contains time values for
    expirations, which require an accurate clock in order to be processed
    correctly.  Vendors planning on issuing vouchers with expiration
+   values must ensure devices have an accurate clock when shipped from
 
 
 
@@ -842,7 +842,6 @@ Watsen, et al.          Expires December 29, 2017              [Page 15]
 Internet-Draft               Voucher Profile                   June 2017
 
 
-   values must ensure devices have an accurate clock when shipped from
    manufacturing facilities, and take steps to prevent clock tampering.
    If it is not possible to ensure clock accuracy then vouchers with
    expirations should not be issued.
@@ -887,6 +886,7 @@ Internet-Draft               Voucher Profile                   June 2017
       URI: urn:ietf:params:xml:ns:yang:ietf-voucher
       Registrant Contact: The ANIMA WG of the IETF.
       XML: N/A, the requested URI is an XML namespace.
+
 
 
 

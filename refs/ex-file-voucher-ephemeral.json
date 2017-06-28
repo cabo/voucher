@@ -3,11 +3,8 @@
     "created-on": "2016-10-07T19:31:42Z",
     "assertion": "logged",
     "serial-number": "JADA123456789",
-    "serial-number-issuer": "some binary identifier",
-    "domain-cert-trusted-ca": "base64-encoded X.509 DER",
-    "domain-cert-identifier": {
-      "subject": "base64-encoded Subject DER"
-    },
+    "idevid-issuer": "base64-encoded Authority Key Identifier",
+    "pinned-domain-cert": "base64-encoded X.509 DER",
     "nonce": "base64-encoded octet string"
   }
 }
