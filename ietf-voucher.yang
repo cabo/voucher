@@ -49,6 +49,16 @@ module ietf-voucher {
   }
 
   rc:yang-data voucher-artifact {
+    description
+      "YANG data template for a voucher.";
+
+    uses voucher-artifact-grouping;
+  }
+
+  grouping voucher-artifact-grouping {
+    description
+      "Grouping for the voucher-artifact to allow reuse/extensions
+       in future work.";
 
     container voucher {
       description
