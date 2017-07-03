@@ -29,7 +29,7 @@ module ietf-voucher {
     Author:   Max Pritikin
               <mailto:pritikin@cisco.com>
     Author:   Michael Richardson
-              <mailto:mcr+ietf@sandelman.ca>";
+              <mailto:mcr+ietf@sandelman.ca>
     Author:   Toerless Eckert
               <mailto:tte+ietf@cs.fau.de>";
 
@@ -51,9 +51,7 @@ module ietf-voucher {
   }
 
   rc:yang-data voucher-artifact {
-    description
-      "YANG data template for a voucher.";
-
+    // YANG data template for a voucher.
     uses voucher-artifact-grouping;
   }
 
