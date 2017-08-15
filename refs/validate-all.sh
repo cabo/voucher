@@ -1,12 +1,11 @@
-pyang --ietf --strict ../ietf-zerotouch-bootstrap-server\@*.yang
+pyang --ietf --strict --max-line-length=70 ../ietf-voucher\@*.yang
+pyang --canonical ../ietf-voucher\@*.yang
+yanglint ../ietf-voucher\@*.yang
 
-./validate.sh ietf-zerotouch-bootstrap-server\@*.yang ex-file-redirect-information.xml
-./validate.sh ietf-zerotouch-bootstrap-server\@*.yang ex-file-bootstrap-information.xml
-./validate.sh ietf-zerotouch-bootstrap-server\@*.yang ex-file-owner-certificate.xml
-./validate.sh ietf-zerotouch-bootstrap-server\@*.yang ex-file-ownership-voucher.xml
+echo "Testing ex-file-voucher-ephemeral.json..."
+yanglint -s ../ietf-voucher\@*.yang ex-file-voucher-ephemeral.json
 
-./validate.sh ietf-zerotouch-bootstrap-server\@*.yang ex-api-redirect-information-signed.xml
-./validate.sh ietf-zerotouch-bootstrap-server\@*.yang ex-api-bootstrap-information-signed.xml
-./validate.sh ietf-zerotouch-bootstrap-server\@*.yang ex-api-redirect-information-unsigned.xml
-./validate.sh ietf-zerotouch-bootstrap-server\@*.yang ex-api-bootstrap-information-unsigned.xml
+echo "Testing ex-file-voucher-long-lived.json..."
+yanglint -s ../ietf-voucher\@*.yang ex-file-voucher-long-lived.json
+
 

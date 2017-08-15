@@ -41,7 +41,19 @@ module ietf-voucher {
 
     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL NOT',
     'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'MAY', and 'OPTIONAL' in
-    the module text are to be interpreted as described in RFC 2119.";
+    the module text are to be interpreted as described in RFC 2119.
+
+    Copyright (c) 2017 IETF Trust and the persons identified as 
+    authors of the code. All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, is permitted pursuant to, and subject to the license
+    terms contained in, the Simplified BSD License set forth in Section
+    4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+    (http://trustee.ietf.org/license-info).
+
+    This version of this YANG module is part of RFC XXXX; see the RFC
+    itself for full legal notices.";
 
   revision "YYYY-MM-DD" {
     description
@@ -50,20 +62,19 @@ module ietf-voucher {
      "RFC XXXX: Voucher Profile for Bootstrapping Protocols";
   }
 
+  // Top-level statement
   rc:yang-data voucher-artifact {
-    // YANG data template for a voucher.
     uses voucher-artifact-grouping;
   }
 
+  // Grouping defined for future augmentations
   grouping voucher-artifact-grouping {
     description
-      "Grouping for the voucher-artifact to allow reuse/extensions
-       in future work.";
+      "Grouping to allow reuse/extensions in future work.";
 
     container voucher {
       description
-        "A voucher that can be used to assign one or more
-         pledges to an owner.";
+        "A voucher assigns a pledge to an owner (pinned-domain-cert).";
 
       leaf created-on {
         type yang:date-and-time;
@@ -224,31 +235,8 @@ module ietf-voucher {
            which may be terminated or extended over time.";
       }
 
-      leaf prior-signed-voucher {
-        type binary;
-        description
-          "If it is necessary to change a voucher, or re-sign and
-           forward a voucher that was previously provided along a
-           protocol path, then the previously signed voucher SHOULD be
-           included in this field. 
-   
-           For example, a pledge might sign a proximity voucher, which
-           an intermediate registrar then re-signs to make its own
-           'proximity' assertion.  This is a simple mechanism for a
-           chain of trusted parties to change a voucher, while
-           maintaining the prior signature information.
-   
-           The pledge MUST ignore all prior voucher information when 
-           accepting a voucher for imprinting. Other parties MAY
-           examine the prior signed voucher information for the
-           purposes of policy decisions. For example this information
-           could be useful to a MASA to determine that both pledge and
-           registrar agree on proximity assertions. The MASA SHOULD
-           remove all 'prior-signed-voucher' information when signing
-           a voucher for imprinting so as to minimize the final voucher
-           size.";
-      }
 
     } // end voucher
   } // end voucher-grouping
 }
+
