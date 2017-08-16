@@ -35,9 +35,9 @@ module ietf-voucher {
 
   description
    "This module defines the format for a voucher, which is produced by
-    a pledge's manufacturer or delegate (MASA) to securely assign one
-    or more pledges to an 'owner', so that the pledges may establish a
-    secure connection to the owner's network infrastructure.
+    a pledge's manufacturer or delegate (MASA) to securely assign a
+    pledge to an 'owner', so that the pledge may establish a secure
+    connection to the owner's network infrastructure.
 
     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL NOT',
     'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'MAY', and 'OPTIONAL' in
@@ -234,7 +234,6 @@ module ietf-voucher {
            vendor may associate validity periods with support contracts,
            which may be terminated or extended over time.";
       }
-
 
     } // end voucher
   } // end voucher-grouping

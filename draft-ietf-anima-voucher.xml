@@ -75,14 +75,14 @@
     <middle>
       <section title="Introduction" anchor="introduction">
 
-        <t>This document defines a strategy to securely assign a pledge to an owner,
-        using an artifact signed, directly or indirectly, by the pledge's manufacturer
-        or delegate, i.e. the Manufacturer Authorized Signing
-        Authority (MASA).  This artifact is known as the voucher.</t>
+        <t>This document defines a strategy to securely assign a candidate device
+        (pledge) to an owner, using an artifact signed, directly or indirectly, 
+        by the pledge's manufacturer or delegate, i.e. the Manufacturer Authorized
+        Signing Authority (MASA).  This artifact is known as the voucher.</t>
 
         <t>The voucher artifact is a JSON document, conforming to a data model
-        described by YANG <xref target="RFC7950"/>,  that has (by default) been signed using
-        a PKCS#7 structure.</t>
+        described by YANG <xref target="RFC7950"/>,  that has (by default) been
+        signed using a PKCS#7 structure <xref target="RFC2315"/>.</t>
 
         <t>A voucher may be useful in several contexts, but the driving motivation
         herein is to support secure bootstrapping mechanisms.  Assigning
@@ -118,7 +118,7 @@
             authority certificate. A device that imprints on an attacker
             suffers a similar fate to a duckling that imprints on a hungry
             wolf. Securely imprinting is a primary focus of this
-            document.<xref target="imprinting"></xref>. The analogy to
+            document <xref target="imprinting"></xref>. The analogy to
             Lorenz's work was first noted in <xref
                 target="Stajano99theresurrecting"></xref>.</t>
 
@@ -129,7 +129,7 @@
           <t hangText="Join Registrar (and Coordinator):">A representative of the domain that is
             configured, perhaps autonomically, to decide whether a new device
             is allowed to join the domain. The administrator of the domain
-            interfaces with a Join Registrar (and Coordinator) to control this process. i
+            interfaces with a Join Registrar (and Coordinator) to control this process.
             Typically a Join Registrar is "inside" its domain. For simplicity this document
             often refers to this as just "Registrar".</t>
 
@@ -211,8 +211,9 @@
 
               <t hangText="Authentication of Join Registrar:">Indicates how the Pledge
                   can authenticate the Join Registrar. This might include an indication
-                  of the private PKIX trust anchor used by the Registrar, or an indication
-                  of a public PKIX trust anchor and additional CN-ID or DNS-ID
+                  of the private PKIX (Public Key Infrastructure using X.509) trust
+                  anchor used by the Registrar, or an indication of a public PKIX trust
+                  anchor and additional CN-ID or DNS-ID
                   information to complete authentication. Symmetric key or other
                   methods are left for future work.</t>
 
@@ -223,14 +224,14 @@
 
           <t>A number of bootstrapping scenarios can be met using differing
               combinations of this information. All scenarios address the primary
-              threat of a Man-in-The-Middle Registrar gaining control over the Pledge device. The
+              threat of a Man-in-The-Middle (MiTM) Registrar gaining control over the Pledge device. The
               following combinations are "types" of vouchers:</t>
 
           <figure>
               <artwork><![CDATA[
              |Assertion   |Registrar ID    | Validity    |
 Voucher      |Log-|Veri-  |Trust  |CN-ID or| RTC | Nonce |
-Name         | ged|  fied |Anchor |DNS-ID  |     |       |
+Type         | ged|  fied |Anchor |DNS-ID  |     |       |
 ---------------------------------------------------------|
 Audit        |  X |       | X     |        |     | X     |
 -------------|----|-------|-------|--------|-----|-------|
@@ -269,9 +270,9 @@ NOTE: All voucher types include a 'Pledge ID serial number'
               <t hangText="Ownership Audit Voucher:">An Audit Voucher where the
                   MASA service has verified the Registrar as the authorized owner.
                   The MASA service mitigates a MiTM Registrar by refusing to
-                  generate Audit Voucher's for unauthorized Registrars. The
+                  generate Audit Vouchers for unauthorized Registrars. The
                   Registrar uses audit techniques to supplement the MASA. This
-                  provides an ideal sharing of policy decisions and enforcement
+                  provides a ideal sharing of policy decisions and enforcement
                   between the vendor and the owner.</t>
 
               <t hangText="Ownership ID Voucher:">An Ownership ID Voucher is
@@ -297,7 +298,7 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         The voucher informs the pledge which entity it should consider to be
         its owner.</t>
 
-        <t>The voucher is signing structure that MUST contain JSON-encoded
+        <t>The voucher signing structure that MUST contain JSON-encoded
         content conforming to the voucher-artifact YANG data schema of the 
         YANG module specified in <xref target="voucher-yang-module"/>.</t>
 
@@ -314,24 +315,24 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         voucher request" format originating from pledge or registrar toward the MASA.
         Within this document the signer is assumed to be the MASA.</t>
 
-        <t>The PKCS#7 structure SHOULD also contain all of the certificates
+        <t>The PKCS#7 structure SHOULD also contain all the certificates
         leading up to and including the signer's trust anchor certificate
         known to the recipient.</t>
 
         <t>The PKCS#7 structure MAY also contain revocation objects for any
-        intermediate CAs between the voucher-issuer and the trust anchor
+        intermediate certificate authorities (CAs) between the voucher-issuer and the trust anchor
         known to the recipient.</t>
 
         <t>Methods of signaling alternative signature methods are out-of-scope
         of this document, but documents that leverage vouchers can provide this
-        signaling. For example they might instruct that JWS signing is the signature
+        signaling. For example they might instruct that JSON Web Signature (JWS) signing is the signature
         method in their work. Documents describing the use of alternative signature 
         methods for voucher artifacts need to encode the same information as
         described above for PKCS#7 or else describe why the encoded information
         may differ.</t>
 
         <section title="Tree Diagram" anchor="voucher-tree-diagram">
-          <t>The following tree diagram (<xref target="tree-diagram"/>)
+          <t>The following tree diagram (see <xref target="tree-diagram"/>)
           illustrates a high-level view of a voucher document.  Each field
           in the voucher is fully described by the YANG module provided in
           <xref target="voucher-yang-module"/>.  Please review this YANG
@@ -446,7 +447,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
             To defend against this there are three things: devices are
             required to verify that the expires-on field has not yet passed.
             Devices without access to time can use nonces to
-            get ephermal vouchers.
+            get ephemeral vouchers.
             Thirdly, vouchers without expiration times may be used, which
             will appear in the audit log, informing the security decision.
           </t>
@@ -469,7 +470,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
           structure can contain revocation objects as well), but pledges MAY
           accept vouchers without checking X.509 certificate revocation (when
           'domain-cert-revocation-checks' is false).  Without revocation checking,
-          a compromized MASA keychain could be used to issue vouchers ad infinitum
+          a compromised MASA keychain could be used to issue vouchers ad infinitum
           without recourse.  For this reason, MASA implementations wanting to
           support such deployments SHOULD ensure that all the CA private keys
           used for signing the vouchers are protected by hardware security
