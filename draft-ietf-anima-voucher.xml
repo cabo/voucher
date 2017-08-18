@@ -80,9 +80,10 @@
         by the pledge's manufacturer or delegate, i.e. the Manufacturer Authorized
         Signing Authority (MASA).  This artifact is known as the voucher.</t>
 
-        <t>The voucher artifact is a JSON document, conforming to a data model
-        described by YANG <xref target="RFC7950"/>,  that has (by default) been
-        signed using a PKCS#7 structure <xref target="RFC2315"/>.</t>
+        <t>The voucher artifact is a JSON <xref target="RFC7159"/> document,
+        conforming to a data model described by YANG <xref target="RFC7950"/>,
+        encoded using the rules defined in <xref target="RFC7159"/>, and
+        signed using (by default) a PKCS#7 structure <xref target="RFC2315"/>.</t>
 
         <t>A voucher may be useful in several contexts, but the driving motivation
         herein is to support secure bootstrapping mechanisms.  Assigning
@@ -345,8 +346,9 @@ INSERT_TEXT_FROM_FILE(refs/ietf-voucher-tree.txt)
         </section>
 
         <section title="Examples" anchor="voucher-examples">
-          <t>This section provides a couple voucher examples for illustration
-             purposes.</t>
+          <t>This section provides voucher examples for illustration
+          purposes.  That these examples conform to the encoding rules
+          defined in <xref target="RFC7159"/>.</t>
 
           <t>The following example illustrates an ephemeral voucher (uses a nonce).
              The MASA generated this voucher using the 'logged' assertion type, knowing
@@ -371,6 +373,9 @@ INSERT_TEXT_FROM_FILE(refs/ex-file-voucher-long-lived.json)
 
         <section title="YANG Module" anchor="voucher-yang-module">
 
+          <t>Following is a YANG <xref target="RFC7950"/> module formally
+          describing the voucher's JSON document structure.</t>
+
           <figure>
             <artwork><![CDATA[
 <CODE BEGINS> file "ietf-voucher@YYYY-MM-DD.yang"
@@ -389,10 +394,10 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
 
           <t>The lifetimes of vouchers may vary.  In some bootstrapping protocols, the
           vouchers may be created and consumed immediately whereas, in other bootstrapping
-          solutions, there may be a significant delay between when a voucher is created
-          and when it is consumed.  In cases when there is a delay, there is a need for
+          solutions, there may be a significant time delay between when a voucher is created
+          and when it is consumed.  In cases when there is a time delay, there is a need for
           the pledge to ensure that the assertions made when the voucher was created are
-          still valid when it is consumed.</t>
+          still valid.</t>
 
           <t>A revocation artifact is generally used to verify the continued validity
           of an assertion such as a PKIX certificate, web token, or a "voucher".  With
@@ -404,14 +409,16 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
 
           <t>Addressing the short-comings of revocations, this document recommends
           instead the use of lightweight renewals of short-lived non-revocable
-          vouchers.  That is, rather than issue a long-lived voucher, the expectation
-          is for the MASA to instead issue a short-lived voucher along with a promise
+          vouchers.  That is, rather than issue a long-lived voucher, where the
+          'expires-on' leaf is set to some distant date, the expectation
+          is for the MASA to instead issue a short-lived voucher, where the
+          'expires-on' leaf is set to a relatively near date, along with a promise
           (reflected in the 'last-renewal-date' field) to re-issue the voucher again
           when needed.  Importantly, while issuing the initial voucher may incur
           heavyweight verification checks (are you who you say you are?  does the
           pledge actually belong to you?), re-issuing the voucher should be a
           lightweight process, as it ostensibly only updates the voucher's
-          validatity period.  With this approach, there is only the one artifact,
+          validity period.  With this approach, there is only the one artifact,
           and only one code path is needed to process it, without any possibility
           for a pledge to choose to skip the revocation status check because, for
           instance, the OCSP Responder is not reachable.</t>
@@ -536,6 +543,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.2315.xml"?>
         <?rfc include="reference.RFC.6020.xml"?>
         <?rfc include="reference.RFC.7950.xml"?>
+        <?rfc include="reference.RFC.7159.xml"?>
         <?rfc include="reference.RFC.8174.xml"?>
       </references>
 
