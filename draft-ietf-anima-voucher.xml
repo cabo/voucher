@@ -333,11 +333,12 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         may differ.</t>
 
         <section title="Tree Diagram" anchor="voucher-tree-diagram">
-          <t>The following tree diagram (see <xref target="tree-diagram"/>)
-          illustrates a high-level view of a voucher document.  Each field
-          in the voucher is fully described by the YANG module provided in
-          <xref target="voucher-yang-module"/>.  Please review this YANG
-          module for a detailed description of the voucher format.</t>
+          <t>The following tree diagram illustrates a high-level view of a
+          voucher document.  The notation used in this diagram is described
+          in <xref target="tree-diagram"/>).  Each node in the diagram is
+          fully described by the YANG module in <xref target="voucher-yang-module"/>.
+          Please review the YANG module for a detailed description of the
+          voucher format.</t>
           <figure>
             <artwork><![CDATA[
 INSERT_TEXT_FROM_FILE(refs/ietf-voucher-tree.txt)
