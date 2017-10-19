@@ -662,6 +662,10 @@ INSERT_TEXT_FROM_FILE(cms-contents.txt)
         lively discussions on list and in the halls (ordered
         by last name): William Atwood, Toerless Eckert, Sheng Jiang.
         </t>
+        <t>
+          Russ Housley provided the upgrade from PKCS7 to CMS(RFC5652), along
+          with the detailed CMS structure diagram.
+        </t>
       </section>
     </back>
 </rfc>
