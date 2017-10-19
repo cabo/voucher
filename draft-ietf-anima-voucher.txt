@@ -1128,6 +1128,9 @@ Appendix A.  Acknowledgements
    on list and in the halls (ordered by last name): William Atwood,
    Toerless Eckert, Sheng Jiang.
 
+   Russ Housley provided the upgrade from PKCS7 to CMS(RFC5652), along
+   with the detailed CMS structure diagram.
+
 Authors' Addresses
 
    Kent Watsen
@@ -1156,9 +1159,6 @@ Authors' Addresses
    USA
 
    EMail: tte+ietf@cs.fau.de
-
-
-
 
 
 
