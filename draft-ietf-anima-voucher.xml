@@ -92,7 +92,7 @@
         ownership is important to bootstrapping mechanisms so that the pledge
         can authenticate the network that's trying to take control of it.</t>
 
-        <t>The lifetimes of vouchers may vary. In some bootstrapping protocols the vouchers may include a nonce restricting them to a single use, whereas in others the vouchers may have an indicated lifetime. In order to support long lifetimes this document recommends using short lifetimes with programatic renewal, see <xref target="renewal-over-revocation"/>.</t>
+        <t>The lifetimes of vouchers may vary. In some bootstrapping protocols the vouchers may include a nonce restricting them to a single use, whereas in others the vouchers may have an indicated lifetime. In order to support long lifetimes this document recommends using short lifetimes with programmatic renewal, see <xref target="renewal-over-revocation"/>.</t>
 
         <t>This document only defines the voucher artifact, leaving it to other
         documents to describe specialized protocols for accessing it.  Some bootstrapping
@@ -123,7 +123,7 @@
 
           <t hangText="Domain:">The set of entities or infrastructure under
             common administrative control.  The goal of the bootstrapping
-            protocol is to enable a Pledge to discover and join a Domain.</t>
+            protocol is to enable a Pledge to discover and join a domain.</t>
 
           <t hangText="Join Registrar (and Coordinator):">A representative of the domain that is
             configured, perhaps autonomically, to decide whether a new device
@@ -136,7 +136,7 @@
             service that signs vouchers.  In some bootstrapping protocols, the
             MASA may have Internet presence and be integral to the bootstrapping
             process, whereas in other protocols the MASA may be an offline service
-            that has no active role in the bootstrapping process.</t>
+            that has no active role in the bootstrapping process. The MAS concept is explained in more detail in <xref target="I-D.ietf-anima-bootstrapping-keyinfra"/> </t>
 
           <t hangText="Pledge:">The prospective device attempting to find and
             securely join a domain.  When shipped it only trusts authorized
@@ -146,13 +146,13 @@
 
           <t hangText="TOFU:">Trust on First Use. This is where a Pledge
             device makes no security decisions but rather simply trusts the
-            first Domain entity it is contacted by.  Used similarly to <xref
+            first domain entity it is contacted by.  Used similarly to <xref
             target="RFC7435"/>. This is also known as the "resurrecting
             duckling" model.</t>
 
           <t hangText="Voucher:">A signed statement from the MASA service
             that indicates to a Pledge the cryptographic identity of the
-            Domain it should trust.</t>
+            domain it should trust.</t>
 
         </list></t>
       </section>
@@ -163,29 +163,6 @@
         "MAY", and "OPTIONAL" in this document are to be interpreted as
         described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/>
         when, and only when, they appear in all capitals, as shown here.</t>
-      </section>
-
-      <section title="Tree Diagram Notation" anchor="tree-diagram">
-        <t>A simplified graphical representation of the data models
-        is used in this document.  The meaning of the symbols in
-        these diagrams is as follows:
-          <list style="symbols">
-            <t>Brackets "[" and "]" enclose list keys.</t>
-            <t>Braces "{" and "}" enclose feature names, and indicate
-            that the named feature must be present for the subtree
-            to be present.</t>
-            <t>Abbreviations before data node names: "rw" (read-write)
-            represents configuration data and "ro" (read-only)
-            represents state data.</t>
-            <t>Symbols after data node names: "?" means an optional
-            node, "!" means a presence container, and "*" denotes a
-            list and leaf-list.</t>
-            <t>Parentheses enclose choice and case nodes, and case
-            nodes are also marked with a colon (":").</t>
-            <t>Ellipsis ("...") stands for contents of subtrees that
-            are not shown.</t>
-          </list>
-        </t>
       </section>
 
       <section title="Survey of Voucher Types">
@@ -255,7 +232,7 @@ NOTE: All voucher types include a 'Pledge ID serial number'
                   logging assertion mechanisms that the Registrar then "audits" to
                   enforce local policy. The Registrar mitigates a MiTM Registrar by
                   auditing that an unknown MiTM registrar does not appear in the log
-                  entries. This does not direct prevent the MiTM but provides a
+                  entries. This does not directly prevent the MiTM but provides a
                   response mechanism that ensures the MiTM is unsuccessful. This
                   advantage is that actual ownership knowledge is not required on
                   the MASA service.</t>
@@ -326,7 +303,7 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         <section title="Tree Diagram" anchor="voucher-tree-diagram">
           <t>The following tree diagram illustrates a high-level view of a
           voucher document.  The notation used in this diagram is described
-          in <xref target="tree-diagram"/>).  Each node in the diagram is
+          in <xref target="I-D.ietf-netmod-yang-tree-diagrams"/>).  Each node in the diagram is
           fully described by the YANG module in <xref target="voucher-yang-module"/>.
           Please review the YANG module for a detailed description of the
           voucher format.</t>
@@ -396,7 +373,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
             described in Section 5.1 of <xref target="RFC5652"/>, containing the
             signature generated over the content using a private key
             trusted by the recipient. Normally the recipient is the pledge and the
-            signer is the MASA. A possible other use use could be as a "signed
+            signer is the MASA. A possible other use could be as a "signed
             voucher request" format originating from pledge or registrar
             toward the MASA.
             Within this document the signer is assumed to be the MASA.
@@ -616,6 +593,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
         <?rfc include="reference.I-D.ietf-netconf-zerotouch" ?>
         <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
         <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
+        <?rfc include="reference.I-D.ietf-netmod-yang-tree-diagrams" ?>
         <?rfc include="reference.RFC.7435" ?>
 
         <reference anchor="Stajano99theresurrecting"
