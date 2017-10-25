@@ -302,8 +302,13 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         its owner.</t>
 
         <t>
-          This document defines a CMS signed artifact containing a JSON
-          format voucher.  This format is described here as a practical basis for
+          This document defines a voucher that is a JSON encoded instance of
+          the YANG module defined in Section-X that has been, by default,
+          CMS-signed.
+          <xref target="voucher-yang-module" />.
+        </t>
+        <t>
+          This format is described here as a practical basis for
           some uses (such as in NETCONF), but more to make it clear what
           vouchers look like in practice.  This description also serves to
           validate the YANG model.
@@ -316,10 +321,10 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         </t>
 
         <t>
-          The method of signaling alternative signature methods are out-of-scope
-          of this document. Documents that leverage vouchers can provide this
+          The method of signaling alternative signature methods is out-of-scope
+          for this document. Documents that leverage vouchers can provide this
           signaling.  The signaling could be in the form of a MIME
-          Content-Type, an HTTP Accept: header, and more mundane methods like
+          Content-Type, an HTTP Accept: header, or more mundane methods like
           use of a filename extension when a voucher is transfered on a USB
           key.
         </t>
@@ -381,8 +386,9 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
         <section title="CMS format voucher artifact" anchor="cms-voucher">
           <t>
             The IETF evolution of PKCS#7 is CMS <xref target="RFC5652" />.
-            A CMS format voucher containing a JSON-encoded content is
-            indicated by an eContentType of TBD1.
+            A CMS format voucher, the default type, contains a ContentInfo
+            structure with the voucher content. An eContentType of TBD1
+            indicates the content is a JSON-encoded voucher.
           </t>
 
           <t>
@@ -392,7 +398,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
           </t>
 
           <t>
-            The CMS structure MUST also contain a 'signerInfo' structure, as
+            The CMS structure MUST contain a 'signerInfo' structure, as
             described in Section 5.1 of <xref target="RFC5652"/>, containing the
             signature generated over the content using a private key
             trusted by the recipient. Normally the recipient is the pledge and the
