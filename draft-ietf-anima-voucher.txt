@@ -14,7 +14,7 @@ Expires: April 28, 2018                               Sandelman Software
 
 
               Voucher Profile for Bootstrapping Protocols
-                      draft-ietf-anima-voucher-05
+                      draft-ietf-anima-voucher-06
 
 Abstract
 
