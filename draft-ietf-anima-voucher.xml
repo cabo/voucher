@@ -92,11 +92,7 @@
         ownership is important to bootstrapping mechanisms so that the pledge
         can authenticate the network that's trying to take control of it.</t>
 
-        <t>The lifetimes of vouchers may vary.  In some bootstrapping protocols
-        the vouchers may be ephemeral, whereas in others the vouchers may be
-        potentially long-lived.  In order to support the second category of vouchers,
-        this document recommends using short-life vouchers with programatic
-        renewal, enabling the MASA to communicate the ongoing validity of vouchers.</t>
+        <t>The lifetimes of vouchers may vary. In some bootstrapping protocols the vouchers may include a nonce restricting them to a single use, whereas in others the vouchers may have an indicated lifetime. In order to support long lifetimes this document recommends using short lifetimes with programatic renewal, see <xref target="renewal-over-revocation"/>.</t>
 
         <t>This document only defines the voucher artifact, leaving it to other
         documents to describe specialized protocols for accessing it.  Some bootstrapping
