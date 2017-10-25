@@ -386,7 +386,7 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
         <section title="CMS format voucher artifact" anchor="cms-voucher">
           <t>
             The IETF evolution of PKCS#7 is CMS <xref target="RFC5652" />.
-            A CMS format voucher, the default type, contains a ContentInfo
+            A CMS signed voucher, the default type, contains a ContentInfo
             structure with the voucher content. An eContentType of TBD1
             indicates the content is a JSON-encoded voucher.
           </t>
