@@ -438,20 +438,6 @@ INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
             provided nonce provides a freshness guarantee.
           </t>
 
-          <section title="Detailed explanation of CMS structure contents">
-            <t>
-              The CMS structure is shown here, expanded and commented as to
-              which parts are required, and how many might be needed for a
-              set.
-          <figure>
-            <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(cms-contents.txt)
-]]></artwork>
-          </figure>
-            </t>
-          </section>
-
-
         </section>
       </section>  <!-- voucher -->
 
