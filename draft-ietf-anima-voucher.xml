@@ -303,9 +303,7 @@ NOTE: All voucher types include a 'Pledge ID serial number'
 
         <t>
           This document defines a voucher that is a JSON encoded instance of
-          the YANG module defined in Section-X that has been, by default,
-          CMS-signed.
-          <xref target="voucher-yang-module" />.
+          the YANG module defined in <xref target="voucher-yang-module" /> that has been, by default,  CMS-signed.
         </t>
         <t>
           This format is described here as a practical basis for
