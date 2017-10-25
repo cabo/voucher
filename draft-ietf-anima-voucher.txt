@@ -5,12 +5,12 @@
 ANIMA Working Group                                            K. Watsen
 Internet-Draft                                          Juniper Networks
 Intended status: Standards Track                           M. Richardson
-Expires: April 22, 2018                               Sandelman Software
+Expires: April 28, 2018                               Sandelman Software
                                                              M. Pritikin
                                                            Cisco Systems
                                                                T. Eckert
                                                                   Huawei
-                                                        October 19, 2017
+                                                        October 25, 2017
 
 
               Voucher Profile for Bootstrapping Protocols
@@ -46,14 +46,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 22, 2018.
+   This Internet-Draft will expire on April 28, 2018.
 
 
 
 
 
 
-Watsen, et al.           Expires April 22, 2018                 [Page 1]
+Watsen, et al.           Expires April 28, 2018                 [Page 1]
 
 Internet-Draft               Voucher Profile                October 2017
 
@@ -81,27 +81,26 @@ Table of Contents
    4.  Tree Diagram Notation . . . . . . . . . . . . . . . . . . . .   5
    5.  Survey of Voucher Types . . . . . . . . . . . . . . . . . . .   5
    6.  Voucher artifact  . . . . . . . . . . . . . . . . . . . . . .   7
-     6.1.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .   7
+     6.1.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .   8
      6.2.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .   8
      6.3.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .   9
      6.4.  CMS format voucher artifact . . . . . . . . . . . . . . .  14
-       6.4.1.  Detailed explanation of CMS structure contents  . . .  15
-   7.  Design Considerations . . . . . . . . . . . . . . . . . . . .  16
-     7.1.  Renewals instead of Revocations . . . . . . . . . . . . .  16
-     7.2.  Voucher Per Pledge  . . . . . . . . . . . . . . . . . . .  17
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
-     8.1.  Clock Sensitivity . . . . . . . . . . . . . . . . . . . .  17
-     8.2.  Protect Voucher PKI in HSM  . . . . . . . . . . . . . . .  18
-     8.3.  Test Domain Certificate Validity when Signing . . . . . .  18
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
-     9.1.  The IETF XML Registry . . . . . . . . . . . . . . . . . .  18
-     9.2.  The YANG Module Names Registry  . . . . . . . . . . . . .  19
-     9.3.  The SMI Security for S/MIME CMS Content Type  Registry  .  19
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  19
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  20
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  21
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
+   7.  Design Considerations . . . . . . . . . . . . . . . . . . . .  15
+     7.1.  Renewals instead of Revocations . . . . . . . . . . . . .  15
+     7.2.  Voucher Per Pledge  . . . . . . . . . . . . . . . . . . .  16
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+     8.1.  Clock Sensitivity . . . . . . . . . . . . . . . . . . . .  16
+     8.2.  Protect Voucher PKI in HSM  . . . . . . . . . . . . . . .  17
+     8.3.  Test Domain Certificate Validity when Signing . . . . . .  17
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
+     9.1.  The IETF XML Registry . . . . . . . . . . . . . . . . . .  17
+     9.2.  The YANG Module Names Registry  . . . . . . . . . . . . .  17
+     9.3.  The SMI Security for S/MIME CMS Content Type  Registry  .  18
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  18
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  19
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 
 
@@ -109,7 +108,8 @@ Table of Contents
 
 
 
-Watsen, et al.           Expires April 22, 2018                 [Page 2]
+
+Watsen, et al.           Expires April 28, 2018                 [Page 2]
 
 Internet-Draft               Voucher Profile                October 2017
 
@@ -165,7 +165,7 @@ Internet-Draft               Voucher Profile                October 2017
 
 
 
-Watsen, et al.           Expires April 22, 2018                 [Page 3]
+Watsen, et al.           Expires April 28, 2018                 [Page 3]
 
 Internet-Draft               Voucher Profile                October 2017
 
@@ -221,7 +221,7 @@ Internet-Draft               Voucher Profile                October 2017
 
 
 
-Watsen, et al.           Expires April 22, 2018                 [Page 4]
+Watsen, et al.           Expires April 28, 2018                 [Page 4]
 
 Internet-Draft               Voucher Profile                October 2017
 
@@ -277,7 +277,7 @@ Internet-Draft               Voucher Profile                October 2017
 
 
 
-Watsen, et al.           Expires April 22, 2018                 [Page 5]
+Watsen, et al.           Expires April 28, 2018                 [Page 5]
 
 Internet-Draft               Voucher Profile                October 2017
 
@@ -333,7 +333,7 @@ Internet-Draft               Voucher Profile                October 2017
 
 
 
-Watsen, et al.           Expires April 22, 2018                 [Page 6]
+Watsen, et al.           Expires April 28, 2018                 [Page 6]
 
 Internet-Draft               Voucher Profile                October 2017
 
@@ -363,53 +363,44 @@ Internet-Draft               Voucher Profile                October 2017
    owner.  The voucher informs the pledge which entity it should
    consider to be its owner.
 
-   This document defines a CMS signed artifact containing a JSON format
-   voucher.  This format is described here as a practical basis for some
-   uses (such as in NETCONF), but more to make it clear what vouchers
-   look like in practice.  This description also serves to validate the
-   YANG model.
+   This document defines a voucher that is a JSON encoded instance of
+   the YANG module defined in Section 6.3 that has been, by default,
+   CMS-signed.
+
+   This format is described here as a practical basis for some uses
+   (such as in NETCONF), but more to make it clear what vouchers look
+   like in practice.  This description also serves to validate the YANG
+   model.
 
    Future work is expected to define new mappings of the voucher to CBOR
    (from JSON), and to change the signature container from CMS to JOSE
    or COSE.  XML or ASN.1 formats are also conceivable.
 
-   The method of signaling alternative signature methods are out-of-
-   scope of this document.  Documents that leverage vouchers can provide
-   this signaling.  The signaling could be in the form of a MIME
-   Content-Type, an HTTP Accept: header, and more mundane methods like
-   use of a filename extension when a voucher is transfered on a USB
-   key.
+   The method of signaling alternative signature methods is out-of-scope
+   for this document.  Documents that leverage vouchers can provide this
+   signaling.  The signaling could be in the form of a MIME Content-
+   Type, an HTTP Accept: header, or more mundane methods like use of a
+   filename extension when a voucher is transfered on a USB key.
+
+
+
+
+
+
+
+
+Watsen, et al.           Expires April 28, 2018                 [Page 7]
+
+Internet-Draft               Voucher Profile                October 2017
+
 
 6.1.  Tree Diagram
 
    The following tree diagram illustrates a high-level view of a voucher
    document.  The notation used in this diagram is described in
    Section 4).  Each node in the diagram is fully described by the YANG
-
-
-
-
-Watsen, et al.           Expires April 22, 2018                 [Page 7]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
    module in Section 6.3.  Please review the YANG module for a detailed
    description of the voucher format.
-
-   module: ietf-voucher
-     yang-data:
-     voucher-artifact
-         +---- voucher
-            +---- created-on                       yang:date-and-time
-            +---- expires-on?                      yang:date-and-time
-            +---- assertion                        enumeration
-            +---- serial-number                    string
-            +---- idevid-issuer?                   binary
-            +---- pinned-domain-cert               binary
-            +---- domain-cert-revocation-checks?   boolean
-            +---- nonce?                           binary
-            +---- last-renewal-date?               yang:date-and-time
 
    module: ietf-voucher
      yang-data:
@@ -437,19 +428,6 @@ Internet-Draft               Voucher Profile                October 2017
    type, knowing that it would be suitable for the pledge making the
    request.
 
-
-
-
-
-
-
-
-
-Watsen, et al.           Expires April 22, 2018                 [Page 8]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
    {
      "ietf-voucher:voucher": {
        "created-on": "2016-10-07T19:31:42Z",
@@ -464,6 +442,14 @@ Internet-Draft               Voucher Profile                October 2017
    The following example illustrates a non-ephemeral voucher (no nonce).
    While the voucher itself expires after two weeks, it presumably can
    be renewed for up to a year later.  The MASA generated this voucher
+
+
+
+Watsen, et al.           Expires April 28, 2018                 [Page 8]
+
+Internet-Draft               Voucher Profile                October 2017
+
+
    using the 'verified' assertion type, which should satisfy all
    pledges.
 
@@ -485,7 +471,7 @@ Internet-Draft               Voucher Profile                October 2017
    Following is a YANG [RFC7950] module formally describing the
    voucher's JSON document structure.
 
-<CODE BEGINS> file "ietf-voucher@2017-10-19.yang"
+<CODE BEGINS> file "ietf-voucher@2017-10-25.yang"
 module ietf-voucher {
   yang-version 1.1;
 
@@ -497,14 +483,6 @@ module ietf-voucher {
     prefix yang;
     reference "RFC 6991: Common YANG Data Types";
   }
-
-
-
-
-Watsen, et al.           Expires April 22, 2018                 [Page 9]
-
-Internet-Draft               Voucher Profile                October 2017
-
 
   import ietf-restconf {
     prefix rc;
@@ -520,6 +498,14 @@ Internet-Draft               Voucher Profile                October 2017
   contact
    "WG Web:   <http://tools.ietf.org/wg/anima/>
     WG List:  <mailto:anima@ietf.org>
+
+
+
+Watsen, et al.           Expires April 28, 2018                 [Page 9]
+
+Internet-Draft               Voucher Profile                October 2017
+
+
     Author:   Kent Watsen
               <mailto:kwatsen@juniper.net>
     Author:   Max Pritikin
@@ -551,17 +537,9 @@ Internet-Draft               Voucher Profile                October 2017
     This version of this YANG module is part of RFC XXXX; see the RFC
     itself for full legal notices.";
 
-  revision "2017-10-19" {
+  revision "2017-10-25" {
     description
      "Initial version";
-
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 10]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
     reference
      "RFC XXXX: Voucher Profile for Bootstrapping Protocols";
   }
@@ -575,6 +553,14 @@ Internet-Draft               Voucher Profile                October 2017
   grouping voucher-artifact-grouping {
     description
       "Grouping to allow reuse/extensions in future work.";
+
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 10]
+
+Internet-Draft               Voucher Profile                October 2017
+
 
     container voucher {
       description
@@ -610,14 +596,6 @@ Internet-Draft               Voucher Profile                October 2017
 
       leaf assertion {
         type enumeration {
-
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 11]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
           enum verified {
             description
               "Indicates that the ownership has been positively
@@ -632,6 +610,14 @@ Internet-Draft               Voucher Profile                October 2017
                claim in the database for the same pledge (voucher
                transparency).";
           }
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 11]
+
+Internet-Draft               Voucher Profile                October 2017
+
+
           enum proximity {
             description
               "Indicates that this assertion is made based on
@@ -666,14 +652,6 @@ Internet-Draft               Voucher Profile                October 2017
         description
           "The RFC5280 4.2.1.1 Authority Key Identifier OCTET STRING
            from the pledge's IDevID certificate.  Optional since some
-
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 12]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
            serial-numbers are already unique within the scope of a
            MASA.  Inclusion of the statistically unique key identifier
            ensures statistically unique identification of the hardware.
@@ -688,6 +666,14 @@ Internet-Draft               Voucher Profile                October 2017
 
       leaf pinned-domain-cert {
         type binary;
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 12]
+
+Internet-Draft               Voucher Profile                October 2017
+
+
         mandatory true;
         description
           "An X.509 v3 certificate structure as specified by RFC 5280,
@@ -723,13 +709,6 @@ Internet-Draft               Voucher Profile                October 2017
            to validation of the domain certificate.";
       }
 
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 13]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
       leaf nonce {
         type binary {
           length "8..32";
@@ -743,6 +722,14 @@ Internet-Draft               Voucher Profile                October 2017
 
            When present, the pledge MUST compare the provided nonce
            value with another value that the pledge randomly generated
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 13]
+
+Internet-Draft               Voucher Profile                October 2017
+
+
            and sent to a bootstrap server in an earlier bootstrapping
            message.  If the values do not match, then the pledge MUST
            NOT process this voucher.";
@@ -770,34 +757,35 @@ Internet-Draft               Voucher Profile                October 2017
 
 6.4.  CMS format voucher artifact
 
-   The IETF evolution of PKCS#7 is CMS [RFC5652].  A CMS format voucher
-   containing a JSON-encoded content is indicated by an eContentType of
-   TBD1.
+   The IETF evolution of PKCS#7 is CMS [RFC5652].  A CMS signed voucher,
+   the default type, contains a ContentInfo structure with the voucher
+   content.  An eContentType of TBD1 indicates the content is a JSON-
+   encoded voucher.
 
    The signing structure is a CMS SignedData structure, as specified by
    Section 5.1 of [RFC5652], encoded using ASN.1 distinguished encoding
    rules (DER), as specified in ITU-T X.690.
 
-
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 14]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
-   The CMS structure MUST also contain a 'signerInfo' structure, as
-   described in Section 5.1 of [RFC5652], containing the signature
-   generated over the content using a private key trusted by the
-   recipient.  Normally the recipient is the pledge and the signer is
-   the MASA.  A possible other use use could be as a "signed voucher
-   request" format originating from pledge or registrar toward the MASA.
-   Within this document the signer is assumed to be the MASA.
+   The CMS structure MUST contain a 'signerInfo' structure, as described
+   in Section 5.1 of [RFC5652], containing the signature generated over
+   the content using a private key trusted by the recipient.  Normally
+   the recipient is the pledge and the signer is the MASA.  A possible
+   other use use could be as a "signed voucher request" format
+   originating from pledge or registrar toward the MASA.  Within this
+   document the signer is assumed to be the MASA.
 
    Note that Section 5.1 of [RFC5652] includes a discussion about how to
    validate a CMS object which is really a PKCS7 object (cmsVersion=1).
    Intermediate systems (such the BRSKI Registrar) which might need to
    evaluate the voucher in flight MUST be prepared for such an older
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 14]
+
+Internet-Draft               Voucher Profile                October 2017
+
+
    format.  No signaling is necessary, as the Manufacturer knows the
    capabilities of the pledge, and will use an appropriate format
    voucher for each pledge.
@@ -815,61 +803,6 @@ Internet-Draft               Voucher Profile                October 2017
    unlikely to be able to perform online checks, and is unlikely to have
    a trusted clock source.  As described below, the use of short-lived
    vouchers and/or pledge provided nonce provides a freshness guarantee.
-
-6.4.1.  Detailed explanation of CMS structure contents
-
-   The CMS structure is shown here, expanded and commented as to which
-   parts are required, and how many might be needed for a set.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 15]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
-         ContentInfo {
-           contentType          id-signedData, -- (1.2.840.113549.1.7.2)
-           content              SignedData
-         }
-
-         SignedData {
-           version              CMSVersion, -- always set to 3
-           digestAlgorithms     DigestAlgorithmIdentifiers, -- Only one
-           encapContentInfo     EncapsulatedContentInfo,
-           certificates         CertificateSet, -- Signer cert. path
-           crls                 CertificateRevocationLists, -- Optional
-           signerInfos          SET OF SignerInfo -- Only one
-         }
-
-         SignerInfo {
-           version              CMSVersion, -- always set to 3
-           sid                  SignerIdentifier,
-           digestAlgorithm      DigestAlgorithmIdentifier,
-           signedAttrs          SignedAttributes, -- Required
-           signatureAlgorithm   SignatureAlgorithmIdentifier,
-           signature            SignatureValue,
-           unsignedAttrs        UnsignedAttributes -- Optional
-         }
-
-         EncapsulatedContentInfo {
-           eContentType         TBD1
-           eContent             OCTET STRING -- the ietf-voucher (JSON)
-         }
 
 7.  Design Considerations
 
@@ -891,13 +824,6 @@ Internet-Draft               Voucher Profile                October 2017
    solution complexity, as it introduces the need for additional
    protocols and code paths to distribute and process the revocations.
 
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 16]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
    Addressing the short-comings of revocations, this document recommends
    instead the use of lightweight renewals of short-lived non-revocable
    vouchers.  That is, rather than issue a long-lived voucher, where the
@@ -908,6 +834,14 @@ Internet-Draft               Voucher Profile                October 2017
    again when needed.  Importantly, while issuing the initial voucher
    may incur heavyweight verification checks (are you who you say you
    are?  does the pledge actually belong to you?), re-issuing the
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 15]
+
+Internet-Draft               Voucher Profile                October 2017
+
+
    voucher should be a lightweight process, as it ostensibly only
    updates the voucher's validity period.  With this approach, there is
    only the one artifact, and only one code path is needed to process
@@ -947,13 +881,6 @@ Internet-Draft               Voucher Profile                October 2017
    Thirdly, vouchers without expiration times may be used, which will
    appear in the audit log, informing the security decision.
 
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 17]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
    This document defines a voucher format that contains time values for
    expirations, which require an accurate clock in order to be processed
    correctly.  Vendors planning on issuing vouchers with expiration
@@ -961,6 +888,15 @@ Internet-Draft               Voucher Profile                October 2017
    manufacturing facilities, and take steps to prevent clock tampering.
    If it is not possible to ensure clock accuracy then vouchers with
    expirations should not be issued.
+
+
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 16]
+
+Internet-Draft               Voucher Profile                October 2017
+
 
 8.2.  Protect Voucher PKI in HSM
 
@@ -1003,18 +939,20 @@ Internet-Draft               Voucher Profile                October 2017
       Registrant Contact: The ANIMA WG of the IETF.
       XML: N/A, the requested URI is an XML namespace.
 
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 18]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
 9.2.  The YANG Module Names Registry
 
    This document registers a YANG module in the YANG Module Names
    registry [RFC6020].  Following the format defined in [RFC6020], the
    the following registration is requested:
+
+
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 17]
+
+Internet-Draft               Voucher Profile                October 2017
+
 
       name:         ietf-voucher
       namespace:    urn:ietf:params:xml:ns:yang:ietf-voucher
@@ -1056,19 +994,21 @@ Internet-Draft               Voucher Profile                October 2017
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
 
-
-
-
-
-
-Watsen, et al.           Expires April 22, 2018                [Page 19]
-
-Internet-Draft               Voucher Profile                October 2017
-
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+
+
+
+
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 18]
+
+Internet-Draft               Voucher Profile                October 2017
+
 
 10.2.  Informative References
 
@@ -1117,7 +1057,11 @@ Internet-Draft               Voucher Profile                October 2017
 
 
 
-Watsen, et al.           Expires April 22, 2018                [Page 20]
+
+
+
+
+Watsen, et al.           Expires April 28, 2018                [Page 19]
 
 Internet-Draft               Voucher Profile                October 2017
 
@@ -1173,4 +1117,4 @@ Authors' Addresses
 
 
 
-Watsen, et al.           Expires April 22, 2018                [Page 21]
+Watsen, et al.           Expires April 28, 2018                [Page 20]
