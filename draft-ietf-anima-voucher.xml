@@ -686,6 +686,70 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
           with the detailed CMS structure diagram.
         </t>
       </section>
+
+      <section title="Example Vouchers">
+        <t>
+          Three entities are involved in a voucher: the MASA issues (signs)
+          it, the registrar's public key is mentioned in the voucher, and the
+          pledge validates it.  In order to provide reproduceable examples
+          the public and private keys for an example MASA and Registrar are
+          first listed.
+        </t>
+        <section title="MASA key pair">
+          <t>
+            Private key file:
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(keys/masa_secp384r1.key)
+]]></artwork>
+          </figure>
+          Public key file:
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(keys/masa_secp384r1.crt)
+]]></artwork>
+          </figure>
+          </t>
+        </section>
+        <section title="Registrar key pair">
+          <t>
+            Private key file:
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(keys/jrc_prime256v1.key)
+]]></artwork>
+          </figure>
+            Public key file:
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(keys/jrc_prime256v1.crt)
+]]></artwork>
+          </figure>
+          </t>
+        </section>
+        <section title="Example voucher">
+          <t>
+            RFC-EDITOR: these examples will need to be replaced with CMS
+            versions once IANA has assigned the eContentType.
+          </t>
+          <t>
+            Voucher artifact. The base64 has been wrapped at 60 characters
+            for presentation reasons.  The voucher artifact does not have any
+            PKCS-like "BEGIN"/"END" wrappers.
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(examples/voucher_00-D0-E5-F2-00-02.pkcs)
+]]></artwork>
+          </figure>
+          The ASN1 decoding of the artifact:
+          <figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(examples/voucher_00-D0-E5-F2-00-02.asn1.txt)
+]]></artwork>
+          </figure>
+          </t>
+        </section>
+      </section>
     </back>
 </rfc>
 

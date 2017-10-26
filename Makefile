@@ -53,7 +53,7 @@ ifeq (org,$(draft_type))
 endif
 
 
-$(next).xml: $(draft).xml ietf-voucher.yang
+$(next).xml: $(draft).xml ietf-voucher.yang examples/voucher_00-D0-E5-F2-00-02.asn1.txt
 	mkdir -p yang
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-voucher.yang > yang/ietf-voucher\@$(shell date +%Y-%m-%d).yang
@@ -61,6 +61,9 @@ $(next).xml: $(draft).xml ietf-voucher.yang
 	./.insert-figures.sh $@ > tmp
 	mv tmp $@
 	rm refs/*-tree.txt
+
+examples/voucher_00-D0-E5-F2-00-02.asn1.txt: examples/voucher_00-D0-E5-F2-00-02.pkcs
+	base64 -d <examples/voucher_00-D0-E5-F2-00-02.pkcs | openssl asn1parse -inform der -in - | fold -w60 >examples/voucher_00-D0-E5-F2-00-02.asn1.txt
 
 .INTERMEDIATE: $(draft).xml
 %.xml: %.md
@@ -132,3 +135,4 @@ endif
 	-git checkout -qf "$(GIT_ORIG)"
 	-rm -rf $(GHPAGES_TMP)
 endif
+
