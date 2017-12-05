@@ -134,8 +134,8 @@ module ietf-voucher {
           "The assertion is a statement from the MASA regarding how
            the owner was verified.   This statement enables pledges
            to support more detailed policy checks.  Pledges MUST
-           ensure that the assertion provided is acceptable before
-           processing the voucher.";
+           ensure that the assertion provided is acceptable, per
+           local policy, before processing the voucher.";
       }
 
       leaf serial-number {
