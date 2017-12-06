@@ -113,20 +113,25 @@ module ietf-voucher {
           }
           enum logged {
             description
-              "Indicates that the voucher has been issued
-               with the understanding that Registrars will
-               obtain logging information to determine
-               pledge history.";
+              "Indicates that the voucher has been issued after
+              minimal verification of ownership or control. The 
+              issuance has been logged for detection of 
+              potential security issues (e.g. recipients of
+              vouchers might verify for themselves that unexpected
+              vouchers are not in the log). This is similar to unsecured
+              trust-on-first-use principles but with the logging
+              providing a basis for detecting unexpected events.";
           }
           enum proximity {
             description
               "Indicates that the voucher has been issued after
-              the MASA verified proximity claims made by the pledge and 
-              registrar (e.g. a BRSKI defined voucher request 
-              containing a proximity-registrar-cert was used to 
-              request the voucher). As with 'logged' assertions, 
-              registrars are expected to obtain logging information
-              to examine pledge history."
+              the MASA verified a proximity proof provided by the 
+              device and target domain. The issuance has been logged
+              for detection of potential security issues. This is 
+              stronger than just logging, because it requires some
+              verification that the pledge and owner are 
+              in communication, but is still dependent on analysis of 
+              the logs to detect unexpected events.";
           }
         }
         mandatory true;
