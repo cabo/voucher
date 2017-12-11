@@ -53,9 +53,9 @@ ifeq (org,$(draft_type))
 endif
 
 
-$(next).xml: $(draft).xml ietf-voucher.yang
+$(next).xml: $(draft).xml yang/ietf-voucher.yang
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-voucher.yang > ietf-voucher\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" yang/ietf-voucher.yang > ietf-voucher\@$(shell date +%Y-%m-%d).yang
 	cd refs; ./gen-trees.sh; cd ..;
 	./.insert-figures.sh $@ > tmp
 	mv tmp $@
