@@ -354,8 +354,8 @@ INSERT_TEXT_FROM_FILE(refs/ex-file-voucher-long-lived.json)
 
           <figure>
             <artwork><![CDATA[
-<CODE BEGINS> file "ietf-voucher@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(ietf-voucher@YYYY-MM-DD.yang)
+<CODE BEGINS> file "yang/ietf-voucher@YYYY-MM-DD.yang"
+INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
 <CODE ENDS>
 ]]></artwork>
           </figure>
