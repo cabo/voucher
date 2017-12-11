@@ -54,6 +54,7 @@ endif
 
 
 $(next).xml: $(draft).xml ietf-voucher.yang
+	mkdir -p yang
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ietf-voucher.yang > yang/ietf-voucher\@$(shell date +%Y-%m-%d).yang
 	cd refs; ./gen-trees.sh; cd ..;
