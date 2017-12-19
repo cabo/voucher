@@ -193,12 +193,12 @@
                   document. Other methods are left for future work.</t>
 
               <t hangText="Authentication of Join Registrar:">Indicates how the Pledge
-                  can authenticate the Join Registrar. This might include an indication
-                  of the private PKIX (Public Key Infrastructure using X.509) trust
-                  anchor used by the Registrar, or an indication of a public PKIX trust
-                  anchor and additional CN-ID or DNS-ID
-                  information to complete authentication. Symmetric key or other
-                  methods are left for future work.</t>
+                  can authenticate the Join Registrar.  This document defines
+                  a mechanism to pin the domain certificate.
+                  Pinning a symmetric key, a raw
+                  key, or <xref target="RFC6125"/> style "CN-ID" 
+                  or "DNS-ID" information is left for future work.
+              </t>
 
               <t hangText="Anti-Replay Protections:">Time or nonce based
                   information to constrain the voucher to time periods or bootstrap
