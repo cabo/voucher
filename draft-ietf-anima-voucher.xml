@@ -119,9 +119,8 @@
             to obtain the fingerprint of the network's root certification
             authority certificate. A device that imprints on an attacker
             suffers a similar fate to a duckling that imprints on a hungry
-            wolf. Securely imprinting is a primary focus of this
-            document <xref target="imprinting"></xref>. The analogy to
-            Lorenz's work was first noted in <xref
+            wolf.  Imprinting is a term from psychology and ethnology, as describe in <xref target="imprinting"></xref>. 
+            The analogy to Lorenz's work was first noted in <xref
                 target="Stajano99theresurrecting"></xref>.</t>
 
           <t hangText="Domain:">The set of entities or infrastructure under
@@ -371,8 +370,7 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
 
           <t>
             The signing structure is a CMS SignedData structure, as specified
-            by Section 5.1 of <xref target="RFC5652"/>, encoded using ASN.1
-            distinguished encoding rules (DER), as specified in ITU-T X.690.
+            by Section 5.1 of <xref target="RFC5652"/>.
           </t>
 
           <t>
@@ -480,7 +478,9 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
         <section title="Clock Sensitivity">
           <t>
             An attacker could use an expired voucher to gain control over
-            a device that has no understand of time.
+            a device that has no understanding of time.  The device can not
+            trust NTP as a time reference, as an attacker could control
+            the NTP stream.
           </t>
           <t>
             To defend against this there are three things: devices are
@@ -593,6 +593,7 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
         <?rfc include="reference.RFC.7950.xml"?>
         <?rfc include="reference.RFC.7159.xml"?>
         <?rfc include="reference.RFC.8174.xml"?>
+
       </references>
 
       <references title="Informative References">
@@ -601,6 +602,7 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
         <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
         <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
         <?rfc include="reference.I-D.ietf-netmod-yang-tree-diagrams" ?>
+        <?rfc include="reference.RFC.6125.xml"?>
         <?rfc include="reference.RFC.7435" ?>
 
         <reference anchor="Stajano99theresurrecting"
