@@ -298,9 +298,9 @@ NOTE: All voucher types include a 'Pledge ID serial number'
         </t>
 
         <t>
-          The method of signaling alternative signature methods is out-of-scope
-          for this document. Documents that leverage vouchers can provide this
-          signaling.  The signaling could be in the form of a MIME
+          This document defines MIME types and file name extension for the
+          CMS encoded JSON type.  Future documents on additional formats
+          would define additional MIME types.  Signaling is in the form of a MIME
           Content-Type, an HTTP Accept: header, or more mundane methods like
           use of a filename extension when a voucher is transfered on a USB
           key.
@@ -371,6 +371,13 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
           <t>
             The signing structure is a CMS SignedData structure, as specified
             by Section 5.1 of <xref target="RFC5652"/>.
+          </t>
+
+          <t>
+            To facilitate these techniques, this document registers a MIME
+            type for CMS-signed JSON in <xref target="vcj" />, plus a registration of
+            a new MIME type along with its filename extension: 
+            "application/voucher-cms+json" and ".vcj" 
           </t>
 
           <t>
@@ -565,6 +572,43 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
         </t>
         </section>
 
+        <section title="The IETF MIME Registry" anchor="vcj">
+          <t>This document registers a URIs in the IETF XML
+          registry <xref target="RFC3688"/>.  Following the format in
+          <xref target="RFC3688"/>, the following registration is
+          requested:</t>
+          <t>
+            <list style="hanging">
+              <t hangText="Type name:">application</t>
+              <t hangText="Subtype name:">voucher-cms+json</t>
+              <t hangText="Required parameters:"> none</t>
+              <t hangText="Optional parameters:"> none</t>
+              <t hangText="Encoding considerations:"> CMS files are ASN.1/DER encoded, and therefore must
+                 be encoded in non-binary contexts.</t>
+              <t hangText="Security considerations:"> See Security
+              Considerations, <xref target="sec-con" /></t>
+              <t hangText="Interoperability considerations:">The format is
+              designed to be broadly interoperable.</t>
+              <t hangText="Published specification:"> THIS RFC. </t>
+              <t hangText="Applications that use this media type:"> ANIMA,
+              6tisch and NETCONF zero-touch imprinting systems</t>
+              <t hangText="Additional information:">
+                <list style="hanging">
+                  <t hangText="Magic number(s):">Files appear as CMS documents</t>
+                  <t hangText="File extension(s):">.vcj</t>
+                  <t hangText="Macintosh file type code(s):">none</t>
+                </list>
+              </t>
+              <t hangText="Person &amp; email address to contact for further information:">IETF ANIMA WG</t>
+              <t hangText="Intended usage:"> LIMITED</t>
+              <t hangText="Restrictions on usage:"> NONE</t>
+              <t hangText="Author:">ANIMA WG</t>
+              <t hangText="Change controller:">IETF</t>
+              <t hangText="Provisional registration? (standards tree only):">NO</t>
+              </list>
+          </t>
+        </section>
+        
         <section title="The SMI Security for S/MIME CMS Content Type  Registry">
           <t>
             This document registers an OID in the "SMI Security for S/MIME
