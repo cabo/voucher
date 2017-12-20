@@ -498,14 +498,16 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
             will appear in the audit log, informing the security decision.
           </t>
 
-          <t>This document defines a voucher format that  contains time values
-          for expirations, which require an accurate clock
-          in order to be processed correctly.  Vendors planning on
-          issuing vouchers with expiration values must ensure devices
-          have an accurate clock when shipped from manufacturing
-          facilities, and take steps to prevent clock tampering.
-          If it is not possible to ensure clock accuracy then
-          vouchers with expirations should not be issued.</t>
+          <t>
+            This document defines a voucher format that  contains time values
+            for expirations, which require an accurate clock
+            in order to be processed correctly.  Vendors planning on
+            issuing vouchers with expiration values must ensure devices
+            have an accurate clock when shipped from manufacturing
+            facilities, and take steps to prevent clock tampering.
+            If it is not possible to ensure clock accuracy then
+            vouchers with expirations should not be issued.
+          </t>
         </section>
         <section title="Protect Voucher PKI in HSM">
           <t>A voucher is signed by a CA, that may itself be signed by a chain of
