@@ -596,7 +596,7 @@ INSERT_TEXT_FROM_FILE(yang/ietf-voucher@YYYY-MM-DD.yang)
               6tisch and NETCONF zero-touch imprinting systems</t>
               <t hangText="Additional information:">
                 <list style="hanging">
-                  <t hangText="Magic number(s):">Files appear as CMS documents</t>
+                  <t hangText="Magic number(s):">None</t>
                   <t hangText="File extension(s):">.vcj</t>
                   <t hangText="Macintosh file type code(s):">none</t>
                 </list>
