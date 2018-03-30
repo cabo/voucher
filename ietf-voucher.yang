@@ -174,7 +174,9 @@ module ietf-voucher {
         type binary;
         mandatory true;
         description
-          "An X.509 v3 certificate structure as specified by RFC 5280.
+          "An X.509 v3 certificate structure, as specified by RFC 5280,
+           using distinguished encoding rules (DER) encoding, as defined
+           in ITU-T X.690.
 
            This certificate is used by a pledge to trust a public key
            infrastructure, in order to verify a domain certificate
