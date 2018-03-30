@@ -769,7 +769,13 @@ module ietf-voucher {
           Unlike many YANG modules, the one specified in this document
           defines a schema for data that is at rest.  It is not intended to be
           accessed via any network management protocols.  There is therefore
-          no risk of writable.
+          no writable nodes.
+        </t>
+        <t>
+          The voucher YANG module described here contains the identity of the
+          Pledge device.  The contents of the voucher are therefore
+          sensitive and MUST be transported over secure transports, such as
+          TLS.
         </t>
 
         <section title="Clock Sensitivity">
