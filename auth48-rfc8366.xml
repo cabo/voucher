@@ -84,7 +84,7 @@
         encoded using the rules defined in <xref target="RFC8259"/>, and
         is signed using (by default) a CMS structure <xref target="RFC5652"/>.</t>
         <t>The primary purpose of a voucher is to securely convey the
-          "pinned-domain-cert" certificate that the pledge can used to authenticate
+          "pinned-domain-cert" certificate that the Pledge can used to authenticate
           subsequent interactions. A voucher may be useful
         in several contexts, but the driving motivation
         herein is to support secure bootstrapping mechanisms.  Assigning
