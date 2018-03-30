@@ -829,7 +829,8 @@ These are the subtrees and data nodes and their sensitivity/vulnerability:</t>
           CAs leading to a trust anchor known to a Pledge.  Revocation checking
           of the intermediate certificates may be difficult in some scenarios.
           The voucher format supports the existing PKIX revocation information
-          distribution within the limits of the current PKI technology (a PKCS7
+          distribution within the limits of the current PKI technology (both PKCS7
+          and CMS
           structure can contain revocation objects as well), but Pledges MAY
           accept vouchers without checking X.509 certificate revocation (when
           'domain-cert-revocation-checks' is false).  Without revocation checking,
