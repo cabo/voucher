@@ -1154,7 +1154,7 @@ draft-ietf-6tisch-dtsecurity-zerotouch-join -->
         <?rfc include="reference.RFC.7435" ?>
 
         <reference anchor="Stajano99theresurrecting"
-            target="https://www.cl.cam.ac.uk/research/dtg/www/files/publications/public/files/tr.1999.2.pdf">
+            target="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.13.1450">
             <front>
                 <title>The Resurrecting Duckling: Security Issues for Ad-Hoc
                     Wireless Networks</title>
