@@ -747,10 +747,12 @@ module ietf-voucher {
           voucher artifact does not restrict the ability to create long-lived
           voucher, if required; however, no revocation method is described.</t>
 
-          <t>Note that a voucher may be signed by a chain of intermediate CAs
+          <t>Note that a voucher can be signed by an end-entity certificate with a chain of intermediate CAs
           leading up to the trust anchor certificate known by the Pledge.  Even
           though the voucher itself is not revocable, it may still be revoked,
-          per se, if one of the intermediate CA certificates is revoked.</t>
+          per se, if one of these certificates are revoked. The complexities
+          of selecting proper default policy choices by the Pledge vendor in this
+          situation is out-of-scope.</t>
         </section>
 
         <section title="Voucher Per Pledge">
