@@ -765,37 +765,12 @@ module ietf-voucher {
       </section>
 
       <section title="Security Considerations" anchor="sec-con">
-<!-- [rfced] The Security Considerations does not match what appears on
-https://trac.ietf.org/trac/ops/wiki/yang-security-guidelines
-
-Please review and let us know if any updates are needed.
-
--->
-<!-- <t>The YANG module specified in this document defines a schema for data
-that is designed to be accessed via network management protocols such
-as NETCONF <xref target="RFC6241"/> or RESTCONF <xref target="RFC8040"/>. The
-lowest NETCONF layer is the secure transport layer, and the
-mandatory-to-implement secure transport is Secure Shell (SSH) <xref target="RFC6242"/>. The lowest RESTCONF layer is HTTPS, and the
-mandatory-to-implement secure transport is TLS <xref target="RFC5246"/>.</t>
-
-<t>The NETCONF access control model <xref target="RFC6536"/> provides the
-means to restrict access for particular NETCONF or RESTCONF users to a
-preconfigured subset of all available NETCONF or RESTCONF protocol operations
-and content.</t>
-
-<t>There are a number of data nodes defined in this YANG module that are
-writable/creatable/deletable (i.e., config true, which is the default).
-These data nodes may be considered sensitive or vulnerable in some network
-environments.  Write operations (e.g., edit&nbhy;config) to these data nodes
-without proper protection can have a negative effect on network operations.
-These are the subtrees and data nodes and their sensitivity/vulnerability:</t>
-<t>
- <list style="hanging">
-        <t hangText="/interfaces/interface:">                                                           This list specifies the configured interfaces on a device.                                              Unauthorized access to this list could cause the device to ignore                                       packets it should receive and process.                                                                  	</t>
-        <t hangText="/interfaces/interface/enabled:">                                                   This leaf controls whether or not an interface is enabled.  Unauthorized                                access to this leaf could cause the device to ignore packets it should                                  receive and process.                                                                                    	</t>
- </list>
-</t>
--->
+        <t>
+          Unlike many YANG modules, the one specified in this document
+          defines a schema for data that is at rest.  It is not intended to be
+          accessed via any network management protocols.  There is therefore
+          no risk of writable.
+        </t>
 
         <section title="Clock Sensitivity">
           <t>
