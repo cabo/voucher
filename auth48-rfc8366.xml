@@ -865,28 +865,6 @@ module ietf-voucher {
         </section>
 
         <section title="The Media Types Registry" anchor="vcj">
-<!-- [rfced] Note that we updated this text to refer to the "Media Types"
-registry.  Please review the udpates carefully and let us know if any
-corrections are needed.  In addition, note that we added an informative
-reference to RFC 6838.  The IANA registry refers to both RFCs 6838 and 4855,
-but we believe only the reference to RFC 6838 is needed.  Please let us know
-if this is incorrect.
-
-Original:
-8.3.  The IETF MIME Registry
-
-   This document registers a URIs in the IETF XML registry [RFC3688].
-   Following the format in [RFC3688], the following registration is
-   requested:
-
-Current:
-8.3.  The Media Types Registry
-
-   This document registers a new media type in the "Media Types"
-   registry [RFC6838].  IANA has registered the following:
-
--->
-
           <t>This document registers a new media type in the "Media Types"
           registry <xref target="RFC6838"/>. IANA has registered the following:</t>
           <t>
@@ -903,24 +881,14 @@ Current:
               <t hangText="Published specification:"> RFC 8366 </t>
               <t hangText="Applications that use this media type:"> ANIMA,
               6tisch, and NETCONF zero-touch imprinting systems.</t>
-<!-- [rfced] Note that we added the following text so the entry matches what
-appears on the IANA site.  Please let us know any objections.
-
-   Fragment identifier considerations: none
-
-   Deprecated alias names for this type: none
-
--->
-
-<t hangText="Fragment identifier considerations:"> none </t>
-
+              <t hangText="Fragment identifier considerations:"> none </t>
               <t hangText="Additional information:">
                 <list style="hanging">
-<t hangText="Deprecated alias names for this type:"> none
-<list style="hanging">
-                  <t hangText="Magic number(s):">None</t>
-</list>
-</t>
+                  <t hangText="Deprecated alias names for this type:"> none
+                  <list style="hanging">
+                    <t hangText="Magic number(s):">None</t>
+                  </list>
+                  </t>
                   <t hangText="File extension(s):">.vcj</t>
                   <t hangText="Macintosh file type code(s):">none</t>
                 </list>
@@ -996,29 +964,6 @@ which states "Note: [RFC5246], [RFC6241], [RFC6242], [RFC6536], and
         <?rfc include="reference.RFC.7950.xml"?>
 <!--        <?rfc include="reference.RFC.8040.xml"?> -->
         <?rfc include="reference.RFC.8174.xml"?>
-
-<!-- [rfced] It appears as though the current version of this document was
-published in 2015.  Please note that we have updated the reference entry to
-point to the current recommendation.  Please let us know any objections.
-
-Orignal:
-   [ITU.X690.1994]
-              International Telecommunications Union, "Information
-              Technology - ASN.1 encoding rules: Specification of Basic
-              Encoding Rules (BER), Canonical Encoding Rules (CER) and
-              Distinguished Encoding Rules (DER)", ITU-T Recommendation
-              X.690, 1994.
-
-Current:
-   [ITU.X690.2015]
-              International Telecommunication Union, "Information
-              Technology - ASN.1 encoding rules: Specification of Basic
-              Encoding Rules (BER), Canonical Encoding Rules (CER) and
-              Distinguished Encoding Rules (DER)", ITU-T Recommendation
-              X.690, ISO/IEC 8825-1, August 2015,
-              <https://www.itu.int/rec/T-REC-X.690/>.
-
--->
 
         <reference anchor="ITU.X690.2015" target="https://www.itu.int/rec/T-REC-X.690/">
  <front>
