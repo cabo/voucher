@@ -300,8 +300,8 @@ NOTE: All voucher types include a 'Pledge ID serial-number'
 
           This document defines a media type and a filename extension for the
           CMS-encoded JSON type.  Future documents on additional formats
-          would define additional media types.  Signaling is in the form of a MIME
-          Content-Type, an HTTP Accept: header, or more mundane methods like
+          would define additional media types.  Signaling is in the form of HTTP 
+          "Content-Type" or "Accept" header, or more mundane methods like
           use of a filename extension when a voucher is transferred on a USB
           key.
         </t>
@@ -1061,7 +1061,8 @@ Current:
 
       <references title="Informative References">
         <?rfc include="reference.RFC.3688.xml"?>
-        <?rfc include="reference.RFC.6838.xml"?>       
+        <?rfc include="reference.RFC.6838.xml"?>
+        <?rfc include="reference.RFC.7231.xml"?>
 
 	<!-- draft-ietf-netconf-zerotouch-21 IESG state: I-D Exists -->
 
