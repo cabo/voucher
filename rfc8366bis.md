@@ -1,4 +1,5 @@
 ---
+docname: draft-richardson-anima-rfc8366bis-latest
 stand_alone: true
 ipr: trust200902
 cat: std
@@ -142,7 +143,7 @@ This document only defines the voucher artifact, leaving it to other
 documents to describe specialized protocols for accessing it.
 Some bootstrapping protocols using the voucher artifact defined in
 this document include: {{ZERO-TOUCH}}, {{SECUREJOIN}}, and
-{{KEYINFRA}}).
+{{BRSKI}}).
 
 # Terminology
 
@@ -685,7 +686,7 @@ Within this document, the signer is assumed to be the MASA.
 Note that Section 5.1 of {{RFC5652}} includes a
 discussion about how to validate a CMS object, which is really a
 PKCS7 object (cmsVersion=1).  Intermediate systems (such the
-Bootstrapping Remote Secure Key Infrastructures {{-BRSKI}} registrar)
+Bootstrapping Remote Secure Key Infrastructures {{BRSKI}} registrar)
 that might need to evaluate the voucher in flight MUST be prepared for
 such an older format.
 No signaling is necessary, as the manufacturer knows the capabilities
