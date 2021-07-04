@@ -21,7 +21,7 @@ abbrev: Voucher Profile
 area: Operations
 wg: ANIMA Working Group
 kw: voucher
-date: 2018-04
+date: 2021-07
 author:
 - ins: K. W. Watsen
   name: Kent Watsen
@@ -36,7 +36,7 @@ author:
   name: Max Pritikin
   org: Cisco Systems
   email: pritikin@cisco.com
-- ins: T. T. E. Eckert
+- ins: T. T. Eckert
   name: Toerless Eckert
   org: Futurewei Technologies Inc.
   abbrev: Huawei
@@ -44,13 +44,13 @@ author:
   city: Santa Clara
   code: '95050'
   country: United States of America
-  email: tte+ietf@cs.fau.de, toerless.eckert@huawei.com
+  email: tte+ietf@cs.fau.de
 normative:
   RFC5652:
   RFC6020:
   RFC8259:
   RFC7950:
-  ITU.X690.2015:
+  ITU-T.X690.2015:
     target: https://www.itu.int/rec/T-REC-X.690/
     title: 'Information Technology - ASN.1 encoding rules: Specification of Basic
       Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding
@@ -69,10 +69,10 @@ informative:
   RFC8340:
   RFC6125:
   RFC7435:
-  ZERO-TOUCH: I-D.ietf-netconf-zerotouch
-  KEYINFRA: I-D.ietf-anima-bootstrapping-keyinfra
+  ZERO-TOUCH: RFC8572
+  BRSKI: RFC8995
   SECUREJOIN: I-D.ietf-6tisch-dtsecurity-secure-join
-  YANG-GUIDE: I-D.ietf-netmod-rfc6087bis
+  YANG-GUIDE: RFC8407
   Stajano99theresurrecting:
     target: https://www.cl.cam.ac.uk/research/dtg/www/files/publications/public/files/tr.1999.2.pdf
     title: 'The Resurrecting Duckling: Security Issues for Ad-Hoc Wireless Networks'
@@ -667,7 +667,7 @@ indicates that the content is a JSON-encoded voucher.
 
 The signing structure is a CMS SignedData structure, as specified by
 Section 5.1 of {{RFC5652}}, encoded using ASN.1 Distinguished Encoding
-Rules (DER), as specified in ITU-T X.690 {{ITU.X690.2015}}.
+Rules (DER), as specified in ITU-T X.690 {{ITU-T.X690.2015}}.
 
 To facilitate interoperability, {{vcj}} in this document registers the
 media type "application/voucher-cms+json" and the filename extension
@@ -685,7 +685,7 @@ Within this document, the signer is assumed to be the MASA.
 Note that Section 5.1 of {{RFC5652}} includes a
 discussion about how to validate a CMS object, which is really a
 PKCS7 object (cmsVersion=1).  Intermediate systems (such the
-Bootstrapping Remote Secure Key Infrastructures (BRSKI) registrar)
+Bootstrapping Remote Secure Key Infrastructures {{-BRSKI}} registrar)
 that might need to evaluate the voucher in flight MUST be prepared for
 such an older format.
 No signaling is necessary, as the manufacturer knows the capabilities
