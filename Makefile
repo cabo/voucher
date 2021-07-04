@@ -14,6 +14,7 @@ endif
 rfc8366bis.xml:: yang/ietf-voucher-latest.yang
 
 yang/ietf-voucher-latest.yang: ietf-voucher.yang
+	mkdir -p yang
 	sed -e 's/YYYY-MM-DD/'${YANGDATE}'/g' ietf-voucher.yang >yang/ietf-voucher-${YANGDATE}.yang
 	ln -s -f ietf-voucher-${YANGDATE}.yang yang/ietf-voucher-latest.yang
 
