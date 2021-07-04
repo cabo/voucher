@@ -3,9 +3,7 @@ docname: draft-richardson-anima-rfc8366bis-latest
 stand_alone: true
 ipr: trust200902
 cat: std
-number: '8366'
 consensus: 'yes'
-submissiontype: IETF
 pi:
   toc: 'yes'
   symrefs: 'yes'
@@ -24,7 +22,7 @@ wg: ANIMA Working Group
 kw: voucher
 date: 2021-07
 author:
-- ins: K. W. Watsen
+- ins: K. Watsen
   name: Kent Watsen
   org: Juniper Networks
   email: kwatsen@juniper.net
@@ -33,11 +31,11 @@ author:
   org: Sandelman Software
   email: mcr+ietf@sandelman.ca
   uri: http://www.sandelman.ca/
-- ins: M. P. Pritikin
+- ins: M. Pritikin
   name: Max Pritikin
   org: Cisco Systems
   email: pritikin@cisco.com
-- ins: T. T. Eckert
+- ins: T. Eckert
   name: Toerless Eckert
   org: Futurewei Technologies Inc.
   abbrev: Huawei
@@ -353,19 +351,7 @@ Please review the YANG module for a detailed description of the
 voucher format.
 
 ~~~~
-module: ietf-voucher
-
-  yang-data voucher-artifact:
-      +---- voucher
-         +---- created-on                       yang:date-and-time
-         +---- expires-on?                      yang:date-and-time
-         +---- assertion                        enumeration
-         +---- serial-number                    string
-         +---- idevid-issuer?                   binary
-         +---- pinned-domain-cert               binary
-         +---- domain-cert-revocation-checks?   boolean
-         +---- nonce?                           binary
-         +---- last-renewal-date?               yang:date-and-time
+{::include yang/ietf-voucher-tree-latest.txt}
 ~~~~
 
 
@@ -422,10 +408,8 @@ describing the voucher's JSON document structure.
 
 
 ~~~~ yang
+<CODE BEGINS> file "ietf-voucher@2021-07-02.yang"
 {::include yang/ietf-voucher-latest.yang}
-<CODE BEGINS> file "ietf-voucher@2018-05-09.yang"
-
-
 <CODE ENDS>
 ~~~~
 
@@ -580,10 +564,10 @@ domain identity certificates (as is normal in PKI solutions).
 
 Similarly,they are expected to contact the MASA to indicate that
 an outstanding (presumably short lifetime) voucher should be blocked from
-automated renewal. Protocols for voucher distribution are RECOMMENDED
-to check for revocation of any domain identity certificates before
-signing of vouchers.
-
+automated renewal.
+Protocols for voucher distribution are
+RECOMMENDED to check for revocation of domain identity certificates
+before the signing of vouchers.
 
 ## YANG Module Security Considerations
 
