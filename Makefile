@@ -13,7 +13,7 @@ endif
 
 draft-richardson-anima-rfc8366bis.xml:: yang/ietf-voucher@${YANGDATE}.yang yang/ietf-voucher-tree-latest.txt
 
-yang/ietf-voucher@${YANGDATE}: ietf-voucher.yang
+yang/ietf-voucher@${YANGDATE}.yang: ietf-voucher.yang
 	mkdir -p yang
 	sed -e 's/YYYY-MM-DD/'${YANGDATE}'/g' ietf-voucher.yang >yang/ietf-voucher@${YANGDATE}.yang
 	ln -s -f ietf-voucher@${YANGDATE}.yang yang/ietf-voucher-latest.yang
