@@ -408,10 +408,9 @@ describing the voucher's JSON document structure.
 
 
 ~~~~ yang
-<CODE BEGINS> file "ietf-voucher@2021-07-02.yang"
 {::include yang/ietf-voucher-latest.yang}
-<CODE ENDS>
 ~~~~
+{: sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
 
 
 ## CMS Format Voucher Artifact {#cms-voucher}
