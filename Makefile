@@ -1,5 +1,6 @@
 LIBDIR := lib
 YANGDATE=2021-07-04
+YANGPATH=${HOME}/.local/share/yang/modules
 include $(LIBDIR)/main.mk
 
 $(LIBDIR)/main.mk:
@@ -20,7 +21,7 @@ yang/ietf-voucher@${YANGDATE}.yang: ietf-voucher.yang
 
 yang/ietf-voucher-tree-latest.txt: yang/ietf-voucher@${YANGDATE}.yang
 	mkdir -p yang
-	pyang -f tree --tree-print-groupings yang/ietf-voucher@${YANGDATE}.yang > yang/ietf-voucher-tree-latest.txt
+	pyang -p ${YANGPATH} -f tree --tree-print-groupings yang/ietf-voucher@${YANGDATE}.yang > yang/ietf-voucher-tree-latest.txt
 
 
 
