@@ -45,7 +45,8 @@ jobs:
       # Build txt and html versions of drafts
       - run:
           name: "Build Drafts"
-          command: make
+          with:
+            make: pyang-install latest
 
       # Update editor's copy on gh-pages
       - run:

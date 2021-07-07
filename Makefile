@@ -23,5 +23,8 @@ yang/ietf-voucher-tree-latest.txt: yang/ietf-voucher@${YANGDATE}.yang
 	mkdir -p yang
 	pyang -p ${YANGPATH} -f tree --tree-print-groupings yang/ietf-voucher@${YANGDATE}.yang > yang/ietf-voucher-tree-latest.txt
 
+.PHONY: pyang-install
+pyang-install:
+	pip3 install pyang
 
 
