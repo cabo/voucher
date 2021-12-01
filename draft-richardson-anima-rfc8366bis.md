@@ -403,14 +403,28 @@ using the 'verified' assertion type, which should satisfy all pledges.
 
 ## YANG Module {#voucher-yang-module}
 
+### "iana-voucher-assertion-type" Module
 Following is a YANG {{RFC7950}} module formally
-describing the voucher's JSON document structure.
+describing the voucher's assertion type.
+
+
+~~~~ yang
+{::include yang/iana-voucher-assertion-type-latest.yang}
+~~~~
+{: sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
+
+
+### "ietf-voucher" Module
+The revised ietf-voucher YANG module imports the typedef defined in
+"iana-voucher-assertion-type" YANG module specified in this document.
 
 
 ~~~~ yang
 {::include yang/ietf-voucher-latest.yang}
 ~~~~
 {: sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
+
+
 
 
 ## CMS Format Voucher Artifact {#cms-voucher}
@@ -718,4 +732,3 @@ by last name): William Atwood, Toerless Eckert, and Sheng Jiang.
 
 Russ Housley provided the upgrade from PKCS7 to CMS (RFC 5652) along
 with the detailed CMS structure diagram.
-
