@@ -86,7 +86,7 @@
         description
           "Indicates that the voucher has been issued after the
            MASA...support of asynchronous enrollment in BRSKI";
-     }
+      }
     }
     description "Indicates what kind of ownership is being asserted by voucher";
   }
