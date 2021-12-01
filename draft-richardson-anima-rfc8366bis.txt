@@ -5,7 +5,7 @@
 ANIMA Working Group                                            K. Watsen
 Internet-Draft                                          Juniper Networks
 Intended status: Standards Track                           M. Richardson
-Expires: 26 January 2022                              Sandelman Software
+Expires: 1 February 2022                              Sandelman Software
                                                              M. Pritikin
                                                            Cisco Systems
                                                                T. Eckert
@@ -70,9 +70,9 @@ Copyright Notice
    license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
-   extracted from this document must include Simplified BSD License text
-   as described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Simplified BSD License.
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
 
 Table of Contents
 
@@ -84,6 +84,8 @@ Table of Contents
      5.1.  Tree Diagram
      5.2.  Examples
      5.3.  YANG Module
+       5.3.1.  "iana-voucher-assertion-type" Module
+       5.3.2.  "ietf-voucher" Module
      5.4.  CMS Format Voucher Artifact
    6.  Design Considerations
      6.1.  Renewals Instead of Revocations
@@ -381,8 +383,110 @@ Table of Contents
 
 5.3.  YANG Module
 
+5.3.1.  "iana-voucher-assertion-type" Module
+
    Following is a YANG [RFC7950] module formally describing the
-   voucher's JSON document structure.
+   voucher's assertion type.
+
+   <CODE BEGINS>
+    module iana-voucher-assertion-type {
+     namespace "urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type";
+     prefix ianavat;
+
+     organization
+       "IETF ANIMA Working Group";
+     contact
+       "WG Web:   <https://datatracker.ietf.org/wg/anima/>
+        WG List:  <mailto:anima@ietf.org>
+        Author:   Kent Watsen
+                  <mailto:kwatsen@juniper.net>
+        Author:   Max Pritikin
+                  <mailto:pritikin@cisco.com>
+        Author:   Michael Richardson
+                  <mailto:mcr+ietf@sandelman.ca>
+        Author:   Toerless Eckert
+                  <mailto:tte+ietf@cs.fau.de>";
+     description
+       "This YANG module defines a YANG enumeration type for IANA
+        -registered voucher assertion type. This YANG module is
+        maintained by IANA and reflects the 'voucher assertion types'
+        registry. The lastest revision of this YANG module can be
+        obtained from the IANA web site.  Request for new enumerations
+        should be made to IANA via email(iana@iana.org).
+
+        The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+        NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+        'MAY', and 'OPTIONAL' in this document are to be interpreted as
+        described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+        they appear in all capitals, as shown here.
+
+        Copyright (c) 2018 IETF Trust and the persons identified as
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+        without modification, is permitted pursuant to, and subject to
+        the license terms contained in, the Simplified BSD License set
+        forth in Section 4.c of the IETF Trust's Legal Provisions
+        Relating to IETF Documents
+        (https://trustee.ietf.org/license-info).
+
+        This version of this YANG module is part of RFC XXX; see the
+        RFC itself for full legal notices.";
+
+     revision 2021-07-04 {
+       description
+         "Initial version";
+       reference "RFC ZZZZ: Voucher Profile for Bootstrapping Protocols";
+     }
+
+     typedef voucher-assertion {
+       type enumeration {
+         enum verified {
+           value 0;
+           description
+             "Indicates that the ownership has been positively verified
+              by the MASA (e.g., through sales channel integration).";
+         }
+         enum logged {
+           value 1;
+           description
+             "Indicates that the voucher has been issued after
+              minimal verification of ownership or control.  The
+              issuance has been logged for detection of
+              potential security issues (e.g., recipients of
+              vouchers might verify for themselves that unexpected
+              vouchers are not in the log).  This is similar to
+              unsecured trust-on-first-use principles but with the
+              logging providing a basis for detecting unexpected
+              events.";
+         }
+         enum proximity {
+           value 2;
+           description
+             "Indicates that the voucher has been issued after
+              the MASA verified a proximity proof provided by the
+              device and target domain.  The issuance has been logged
+              for detection of potential security issues.  This is
+              stronger than just logging, because it requires some
+              verification that the pledge and owner are
+              in communication but is still dependent on analysis of
+              the logs to detect unexpected events.";
+         }
+         enum agent-proximity {
+           value 3;
+           description
+             "Indicates that the voucher has been issued after the
+              MASA...support of asynchronous enrollment in BRSKI";
+        }
+       }
+     }
+   }
+   <CODE ENDS>
+
+5.3.2.  "ietf-voucher" Module
+
+   The revised ietf-voucher YANG module imports the typedef defined in
+   "iana-voucher-assertion-type" YANG module specified in this document.
 
    <CODE BEGINS>
    module ietf-voucher {
@@ -883,36 +987,36 @@ Table of Contents
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <https://datatracker.ietf.org/doc/html/rfc2119>.
+              <https://www.rfc-editor.org/rfc/rfc2119>.
 
    [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
-              <https://datatracker.ietf.org/doc/html/rfc5652>.
+              <https://www.rfc-editor.org/rfc/rfc5652>.
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
               DOI 10.17487/RFC6020, October 2010,
-              <https://datatracker.ietf.org/doc/html/rfc6020>.
+              <https://www.rfc-editor.org/rfc/rfc6020>.
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
-              <https://datatracker.ietf.org/doc/html/rfc7950>.
+              <https://www.rfc-editor.org/rfc/rfc7950>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://datatracker.ietf.org/doc/html/rfc8174>.
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
    [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", STD 90, RFC 8259,
               DOI 10.17487/RFC8259, December 2017,
-              <https://datatracker.ietf.org/doc/html/rfc8259>.
+              <https://www.rfc-editor.org/rfc/rfc8259>.
 
 9.2.  Informative References
 
    [BRSKI]    Pritikin, M., Richardson, M., Eckert, T., Behringer, M.,
               and K. Watsen, "Bootstrapping Remote Secure Key
               Infrastructure (BRSKI)", RFC 8995, DOI 10.17487/RFC8995,
-              May 2021, <https://datatracker.ietf.org/doc/html/rfc8995>.
+              May 2021, <https://www.rfc-editor.org/rfc/rfc8995>.
 
    [imprinting]
               "Wikipedia article: Imprinting", February 2018,
@@ -921,42 +1025,41 @@ Table of Contents
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
-              <https://datatracker.ietf.org/doc/html/rfc3688>.
+              <https://www.rfc-editor.org/rfc/rfc3688>.
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
-              <https://datatracker.ietf.org/doc/html/rfc5246>.
+              <https://www.rfc-editor.org/rfc/rfc5246>.
 
    [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
               Verification of Domain-Based Application Service Identity
               within Internet Public Key Infrastructure Using X.509
               (PKIX) Certificates in the Context of Transport Layer
               Security (TLS)", RFC 6125, DOI 10.17487/RFC6125, March
-              2011, <https://datatracker.ietf.org/doc/html/rfc6125>.
+              2011, <https://www.rfc-editor.org/rfc/rfc6125>.
 
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
-              <https://datatracker.ietf.org/doc/html/rfc6241>.
+              <https://www.rfc-editor.org/rfc/rfc6241>.
 
    [RFC6838]  Freed, N., Klensin, J., and T. Hansen, "Media Type
               Specifications and Registration Procedures", BCP 13,
               RFC 6838, DOI 10.17487/RFC6838, January 2013,
-              <https://datatracker.ietf.org/doc/html/rfc6838>.
+              <https://www.rfc-editor.org/rfc/rfc6838>.
 
    [RFC7435]  Dukhovni, V., "Opportunistic Security: Some Protection
               Most of the Time", RFC 7435, DOI 10.17487/RFC7435,
-              December 2014,
-              <https://datatracker.ietf.org/doc/html/rfc7435>.
+              December 2014, <https://www.rfc-editor.org/rfc/rfc7435>.
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://datatracker.ietf.org/doc/html/rfc8040>.
+              <https://www.rfc-editor.org/rfc/rfc8040>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
-              <https://datatracker.ietf.org/doc/html/rfc8340>.
+              <https://www.rfc-editor.org/rfc/rfc8340>.
 
    [SECUREJOIN]
               Richardson, M., "6tisch Secure Join protocol", Work in
@@ -975,13 +1078,13 @@ Table of Contents
               Bierman, A., "Guidelines for Authors and Reviewers of
               Documents Containing YANG Data Models", BCP 216, RFC 8407,
               DOI 10.17487/RFC8407, October 2018,
-              <https://datatracker.ietf.org/doc/html/rfc8407>.
+              <https://www.rfc-editor.org/rfc/rfc8407>.
 
    [ZERO-TOUCH]
               Watsen, K., Farrer, I., and M. Abrahamsson, "Secure Zero
               Touch Provisioning (SZTP)", RFC 8572,
               DOI 10.17487/RFC8572, April 2019,
-              <https://datatracker.ietf.org/doc/html/rfc8572>.
+              <https://www.rfc-editor.org/rfc/rfc8572>.
 
 Acknowledgements
 
