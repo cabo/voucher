@@ -20,7 +20,7 @@ abbrev: Voucher Profile
 area: Operations
 wg: ANIMA Working Group
 kw: voucher
-date: 2021-07
+date: 2021-12
 author:
 - ins: K. Watsen
   name: Kent Watsen
@@ -403,14 +403,28 @@ using the 'verified' assertion type, which should satisfy all pledges.
 
 ## YANG Module {#voucher-yang-module}
 
+### "iana-voucher-assertion-type" Module
 Following is a YANG {{RFC7950}} module formally
-describing the voucher's JSON document structure.
+describing the voucher's assertion type.
+
+
+~~~~ yang
+{::include yang/iana-voucher-assertion-type-latest.yang}
+~~~~
+{: sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
+
+
+### "ietf-voucher" Module
+The revised ietf-voucher YANG module imports the typedef defined in
+"iana-voucher-assertion-type" YANG module specified in this document.
 
 
 ~~~~ yang
 {::include yang/ietf-voucher-latest.yang}
 ~~~~
 {: sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
+
+
 
 
 ## CMS Format Voucher Artifact {#cms-voucher}
@@ -599,10 +613,47 @@ guidelines do not follow template described by Section 3.7 of
 
 # IANA Considerations {#iana-considerations}
 
+This section deals with actions and processes necessary for IANA to undertake to maintain
+the "iana-voucher-assertion-type" YANG module.
+The iana-voucher-assertion-type YANG module is intended to reflect the "voucher assertion types" registry in [TBD].
+
+IANA is asked to create the "iana-voucher-assertion-type YANG module" registry.
+
+Voucher assertion types must not be directly added to the iana-voucher-type YANG module.
+They must instead be added to the “voucher assertion types” registry.
+
+Whenever a new enumerated type is added to the “voucher assertion types” registry, IANA
+must also update the "ietf-voucher-assertion-type" YANG module and add a new "enum"
+statement to the "voucher-assertion-type" type.
+The assigned name defined by the "enum" statement SHALL be the same as the mnemonic name of the new assertion type.
+The following substatements to the "enum" statement SHALL be defined:
+
+    "value": Use the decimal value from the registry.
+
+    "status": Include only if a class or type registration has been deprecated or obsoleted.
+    IANA "deprecated" maps to YANG status "deprecated", and IANA "obsolete" maps to YANG status   "obsolete".
+
+    "description": Replicate the corresponding information from the registry, namely the full name of the new assertion type.
+
+    "reference": Replicate the reference(s) from the registry.
+
+Each time the "iana-voucher-assertion-type" YANG module is updated, a new "revision" statement SHALL be added before the existing "revision" statements.
+IANA has added this note to the "voucher assertion types" registries:
+
+When this registry is modified, the YANG module "iana-voucher-assertion-type" must
+be updated as defined in [RFCXXXX].
+The "Reference" text in the "voucher assertion types" registry has been updated
+as follows:
+OLD:
+| [RFC8366]
+NEW:
+| [RFC8366][RFCXXX]
+
 ## The IETF XML Registry
 
-This document registers a URI in the "IETF XML
-Registry" {{RFC3688}}.  IANA has registered the following:
+This document registers two URIs in the "IETF XML Registry" {{RFC3688}}.
+
+IANA has registered the following:
 
 ~~~~
    URI: urn:ietf:params:xml:ns:yang:ietf-voucher
@@ -610,12 +661,20 @@ Registry" {{RFC3688}}.  IANA has registered the following:
    XML: N/A, the requested URI is an XML namespace.
 ~~~~
 
+IANA is asked to register a second URI as follows:
+
+~~~~
+    URI: urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
+    Registrant Contact: The ANIMA WG of the IETF.
+    XML: N/A, the requested URI is an XML namespace.
+~~~~
+
 ## The YANG Module Names Registry
 
-This document registers a YANG module in the "YANG Module Names"
-registry {{RFC6020}}.  IANA has registered the following:
+This document registers two YANG module in the "YANG Module Names"
+registry {{RFC6020}}.
 
-
+IANA has registered the following:
 
 ~~~~
    name:         ietf-voucher
@@ -624,6 +683,14 @@ registry {{RFC6020}}.  IANA has registered the following:
    reference:    RFC 8366
 ~~~~
 
+IANA is asked to register a second YANG module as follows:
+
+~~~~
+   name:         iana-voucher-assertion-type
+   namespace:    urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
+   prefix:       ianavat
+   reference:    RFC XXXX
+~~~~
 
 
 ## The Media Types Registry {#vcj}
@@ -718,4 +785,3 @@ by last name): William Atwood, Toerless Eckert, and Sheng Jiang.
 
 Russ Housley provided the upgrade from PKCS7 to CMS (RFC 5652) along
 with the detailed CMS structure diagram.
-
