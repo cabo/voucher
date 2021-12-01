@@ -334,7 +334,7 @@ Table of Contents
        +-- voucher
           +-- created-on                       yang:date-and-time
           +-- expires-on?                      yang:date-and-time
-          +-- assertion                        enumeration
+          +-- assertion                        ianavat:voucher-assertion
           +-- serial-number                    string
           +-- idevid-issuer?                   binary
           +-- pinned-domain-cert               binary
@@ -506,6 +506,11 @@ Table of Contents
        reference "RFC 8040: RESTCONF Protocol";
      }
 
+     import iana-voucher-assertion-type {
+       prefix ianavat;
+       reference "RFCZZZZ: Voucher Profile for Bootstrapping Protocols";
+     }
+
      organization
        "IETF ANIMA Working Group";
      contact
@@ -545,7 +550,7 @@ Table of Contents
 
      revision 2021-07-04 {
        description
-         "Initial version";
+         "updated to support new assertion enumerated type";
        reference "RFC ZZZZ Voucher Profile for Bootstrapping Protocols";
      }
 
@@ -587,37 +592,7 @@ Table of Contents
               of any of the listed 'pinned-domain-cert' certificates.";
          }
          leaf assertion {
-           type enumeration {
-             enum verified {
-               description
-                 "Indicates that the ownership has been positively
-                  verified by the MASA (e.g., through sales channel
-                  integration).";
-             }
-             enum logged {
-               description
-                 "Indicates that the voucher has been issued after
-                  minimal verification of ownership or control. The
-                  issuance has been logged for detection of
-                  potential security issues (e.g., recipients of
-                  vouchers might verify for themselves that unexpected
-                  vouchers are not in the log). This is similar to
-                  unsecured trust-on-first-use principles but with the
-                  logging providing a basis for detecting unexpected
-                  events.";
-             }
-             enum proximity {
-               description
-                 "Indicates that the voucher has been issued after
-                  the MASA verified a proximity proof provided by the
-                  device and target domain. The issuance has been logged
-                  for detection of potential security issues. This is
-                  stronger than just logging, because it requires some
-                  verification that the pledge and owner are
-                  in communication but is still dependent on analysis of
-                  the logs to detect unexpected events.";
-             }
-           }
+           type ianavat:voucher-assertion;
            mandatory true;
            description
              "The assertion is a statement from the MASA regarding how
@@ -895,24 +870,80 @@ Table of Contents
 
 8.  IANA Considerations
 
+   This section deals with actions and processes necessary for IANA to
+   undertake to maintain the "iana-voucher-assertion-type" YANG module.
+   The iana-voucher-assertion-type YANG module is intended to reflect
+   the "voucher assertion types" registry in [TBD].
+
+   IANA is asked to create the "iana-voucher-assertion-type YANG module"
+   registry.
+
+   Voucher assertion types must not be directly added to the iana-
+   voucher-type YANG module.  They must instead be added to the "voucher
+   assertion types" registry.
+
+   Whenever a new enumerated type is added to the "voucher assertion
+   types" registry, IANA must also update the "ietf-voucher-assertion-
+   type" YANG module and add a new "enum" statement to the "voucher-
+   assertion-type" type.  The assigned name defined by the "enum"
+   statement SHALL be the same as the mnemonic name of the new assertion
+   type.  The following substatements to the "enum" statement SHALL be
+   defined:
+
+"value": Use the decimal value from the registry.
+
+"status": Include only if a class or type registration has been deprecated or obsoleted.
+IANA "deprecated" maps to YANG status "deprecated", and IANA "obsolete" maps to YANG status   "obsolete".
+
+"description": Replicate the corresponding information from the registry, namely the full name of the new assertion type.
+
+"reference": Replicate the reference(s) from the registry.
+
+   Each time the "iana-voucher-assertion-type" YANG module is updated, a
+   new "revision" statement SHALL be added before the existing
+   "revision" statements.  IANA has added this note to the "voucher
+   assertion types" registries:
+
+   When this registry is modified, the YANG module "iana-voucher-
+   assertion-type" must be updated as defined in [RFCXXXX].  The
+   "Reference" text in the "voucher assertion types" registry has been
+   updated as follows: OLD: | [RFC8366] NEW: | [RFC8366][RFCXXX]
+
 8.1.  The IETF XML Registry
 
-   This document registers a URI in the "IETF XML Registry" [RFC3688].
+   This document registers two URIs in the "IETF XML Registry"
+   [RFC3688].
+
    IANA has registered the following:
 
       URI: urn:ietf:params:xml:ns:yang:ietf-voucher
       Registrant Contact: The ANIMA WG of the IETF.
       XML: N/A, the requested URI is an XML namespace.
 
+   IANA is asked to register a second URI as follows:
+
+       URI: urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
+       Registrant Contact: The ANIMA WG of the IETF.
+       XML: N/A, the requested URI is an XML namespace.
+
 8.2.  The YANG Module Names Registry
 
-   This document registers a YANG module in the "YANG Module Names"
-   registry [RFC6020].  IANA has registered the following:
+   This document registers two YANG module in the "YANG Module Names"
+   registry [RFC6020].
+
+   IANA has registered the following:
 
       name:         ietf-voucher
       namespace:    urn:ietf:params:xml:ns:yang:ietf-voucher
       prefix:       vch
       reference:    RFC 8366
+
+   IANA is asked to register a second YANG module as follows:
+
+   name:         iana-voucher-assertion-type
+   namespace:    urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
+   prefix:       ianavat
+   reference:    RFC XXXX
 
 8.3.  The Media Types Registry
 
