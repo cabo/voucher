@@ -88,5 +88,6 @@
            MASA...support of asynchronous enrollment in BRSKI";
      }
     }
+    description "Indicates what kind of ownership is being asserted by voucher";
   }
 }
