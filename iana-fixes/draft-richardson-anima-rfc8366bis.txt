@@ -394,18 +394,15 @@ Table of Contents
      prefix ianavat;
 
      organization
-       "IETF ANIMA Working Group";
+       "IANA";
      contact
-       "WG Web:   <https://datatracker.ietf.org/wg/anima/>
-        WG List:  <mailto:anima@ietf.org>
-        Author:   Kent Watsen
-                  <mailto:kwatsen@juniper.net>
-        Author:   Max Pritikin
-                  <mailto:pritikin@cisco.com>
-        Author:   Michael Richardson
-                  <mailto:mcr+ietf@sandelman.ca>
-        Author:   Toerless Eckert
-                  <mailto:tte+ietf@cs.fau.de>";
+       "Internet Assigned Numbers Authority
+        Postal: ICANN
+                12025 Waterfront Drive, Suite 300
+                Los Angeles, CA 90094-2536
+                United States of America
+        Tel:    +1 310 301 5800
+        <mailto:iana@iana.org>";
      description
        "This YANG module defines a YANG enumeration type for IANA
         -registered voucher assertion type. This YANG module is
@@ -436,7 +433,7 @@ Table of Contents
      revision 2021-07-04 {
        description
          "Initial version";
-       reference "RFC ZZZZ: Voucher Profile for Bootstrapping Protocols";
+       reference "RFC XXXX: Voucher Artifact for Bootstrapping Protocols";
      }
 
      typedef voucher-assertion {
@@ -513,18 +510,15 @@ Table of Contents
      }
 
      organization
-       "IETF ANIMA Working Group";
+       "IANA";
      contact
-       "WG Web:   <https://datatracker.ietf.org/wg/anima/>
-        WG List:  <mailto:anima@ietf.org>
-        Author:   Kent Watsen
-                  <mailto:kwatsen@juniper.net>
-        Author:   Max Pritikin
-                  <mailto:pritikin@cisco.com>
-        Author:   Michael Richardson
-                  <mailto:mcr+ietf@sandelman.ca>
-        Author:   Toerless Eckert
-                  <mailto:tte+ietf@cs.fau.de>";
+       "Internet Assigned Numbers Authority                                                                Postal: ICANN
+                12025 Waterfront Drive, Suite 300
+                Los Angeles, CA 90094-2536
+                United States of America
+        Tel:    +1 310 301 5800
+        <mailto:iana@iana.org>";
+
      description
        "This module defines the format for a voucher, which is produced by
         a pledge's manufacturer or delegate (MASA) to securely assign a
@@ -552,7 +546,7 @@ Table of Contents
      revision 2021-07-04 {
        description
          "updated to support new assertion enumerated type";
-       reference "RFC ZZZZ Voucher Profile for Bootstrapping Protocols";
+       reference "RFC XXXX Voucher Artifact for Bootstrapping Protocols";
      }
 
      // Top-level statement
@@ -944,12 +938,14 @@ IANA "deprecated" maps to YANG status "deprecated", and IANA "obsolete" maps to 
    name:         iana-voucher-assertion-type
    namespace:    urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
    prefix:       ianavat
+   maintained by IANA: Y
    reference:    RFC XXXX
 
 8.3.  The Media Types Registry
 
-   This document registers a new media type in the "Media Types"
-   registry [RFC6838].  IANA has registered the following:
+   This document requests IANA to update the following "Media Types"
+   entry to point to the RFC number that will be assigned to this
+   document:
 
    Type name:  application
 
@@ -997,12 +993,13 @@ IANA "deprecated" maps to YANG status "deprecated", and IANA "obsolete" maps to 
 
 8.4.  The SMI Security for S/MIME CMS Content Type Registry
 
-   IANA has registered the following OID in the "SMI Security for S/MIME
-   CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
+   This document requests IANA to update this registered OID in the "SMI
+   Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)"
+   registry to point to the RFC number to be assigned to this document:
 
              Decimal  Description                             References
              -------  --------------------------------------  ----------
-             40       id-ct-animaJSONVoucher                  RFC 8366
+             40       id-ct-animaJSONVoucher                  RFC XXXX
 
 9.  References
 

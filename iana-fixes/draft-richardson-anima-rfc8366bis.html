@@ -1024,7 +1024,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">Voucher Profile</td>
+<td class="center">Voucher Artifact</td>
 <td class="right">December 2021</td>
 </tr></thead>
 <tfoot><tr>
@@ -1643,18 +1643,15 @@ describing the voucher's assertion type.<a href="#section-5.3.1-1" class="pilcro
   prefix ianavat;
 
   organization
-    "IETF ANIMA Working Group";
+    "IANA";
   contact
-    "WG Web:   &lt;https://datatracker.ietf.org/wg/anima/&gt;
-     WG List:  &lt;mailto:anima@ietf.org&gt;
-     Author:   Kent Watsen
-               &lt;mailto:kwatsen@juniper.net&gt;
-     Author:   Max Pritikin
-               &lt;mailto:pritikin@cisco.com&gt;
-     Author:   Michael Richardson
-               &lt;mailto:mcr+ietf@sandelman.ca&gt;
-     Author:   Toerless Eckert
-               &lt;mailto:tte+ietf@cs.fau.de&gt;";
+    "Internet Assigned Numbers Authority
+     Postal: ICANN
+             12025 Waterfront Drive, Suite 300
+             Los Angeles, CA 90094-2536
+             United States of America
+     Tel:    +1 310 301 5800
+     &lt;mailto:iana@iana.org&gt;";
   description
     "This YANG module defines a YANG enumeration type for IANA
      -registered voucher assertion type. This YANG module is
@@ -1685,7 +1682,7 @@ describing the voucher's assertion type.<a href="#section-5.3.1-1" class="pilcro
   revision 2021-07-04 {
     description
       "Initial version";
-    reference "RFC ZZZZ: Voucher Profile for Bootstrapping Protocols";
+    reference "RFC XXXX: Voucher Artifact for Bootstrapping Protocols";
   }
 
   typedef voucher-assertion {
@@ -1768,18 +1765,15 @@ module ietf-voucher {
   }
 
   organization
-    "IETF ANIMA Working Group";
+    "IANA";
   contact
-    "WG Web:   &lt;https://datatracker.ietf.org/wg/anima/&gt;
-     WG List:  &lt;mailto:anima@ietf.org&gt;
-     Author:   Kent Watsen
-               &lt;mailto:kwatsen@juniper.net&gt;
-     Author:   Max Pritikin
-               &lt;mailto:pritikin@cisco.com&gt;
-     Author:   Michael Richardson
-               &lt;mailto:mcr+ietf@sandelman.ca&gt;
-     Author:   Toerless Eckert
-               &lt;mailto:tte+ietf@cs.fau.de&gt;";
+    "Internet Assigned Numbers Authority                                                                Postal: ICANN
+             12025 Waterfront Drive, Suite 300
+             Los Angeles, CA 90094-2536
+             United States of America
+     Tel:    +1 310 301 5800
+     &lt;mailto:iana@iana.org&gt;";
+
   description
     "This module defines the format for a voucher, which is produced by
      a pledge's manufacturer or delegate (MASA) to securely assign a
@@ -1807,7 +1801,7 @@ module ietf-voucher {
   revision 2021-07-04 {
     description
       "updated to support new assertion enumerated type";
-    reference "RFC ZZZZ Voucher Profile for Bootstrapping Protocols";
+    reference "RFC XXXX Voucher Artifact for Bootstrapping Protocols";
   }
 
   // Top-level statement
@@ -2246,6 +2240,7 @@ registry <span>[<a href="#RFC6020" class="xref">RFC6020</a>]</span>.<a href="#se
    name:         iana-voucher-assertion-type
    namespace:    urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
    prefix:       ianavat
+   maintained by IANA: Y
    reference:    RFC XXXX
 </pre><a href="#section-8.2-5" class="pilcrow">¶</a>
 </div>
@@ -2256,8 +2251,7 @@ registry <span>[<a href="#RFC6020" class="xref">RFC6020</a>]</span>.<a href="#se
         <h3 id="name-the-media-types-registry">
 <a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-the-media-types-registry" class="section-name selfRef">The Media Types Registry</a>
         </h3>
-<p id="section-8.3-1">This document registers a new media type in the "Media Types"
-registry <span>[<a href="#RFC6838" class="xref">RFC6838</a>]</span>. IANA has registered the following:<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.3-1">This document requests IANA to update the following "Media Types" entry to point to the RFC number that will be assigned to this document:<a href="#section-8.3-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-8.3-2">
           <dt id="section-8.3-2.1">
 Type name:  </dt>
@@ -2394,13 +2388,12 @@ Provisional registration? (standards tree only):  </dt>
         <h3 id="name-the-smi-security-for-s-mime">
 <a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-the-smi-security-for-s-mime" class="section-name selfRef">The SMI Security for S/MIME CMS Content Type Registry</a>
         </h3>
-<p id="section-8.4-1">IANA has registered the following OID in the "SMI Security for S/MIME
-CMS Content Type (1.2.840.113549.1.9.16.1)" registry:<a href="#section-8.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.4-1">This document requests IANA to update this  registered OID in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry to point to the RFC number to be assigned to this document:<a href="#section-8.4-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-8.4-2">
 <pre>
             Decimal  Description                             References
             -------  --------------------------------------  ----------
-            40       id-ct-animaJSONVoucher                  RFC 8366
+            40       id-ct-animaJSONVoucher                  RFC XXXX
 </pre><a href="#section-8.4-2" class="pilcrow">¶</a>
 </div>
 </section>
