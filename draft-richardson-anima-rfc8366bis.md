@@ -16,7 +16,7 @@ pi:
   inline: 'yes'
   rfcedstyle: 'yes'
 title: A Voucher Artifact for Bootstrapping Protocols
-abbrev: Voucher Profile
+abbrev: Voucher Artifact
 area: Operations
 wg: ANIMA Working Group
 kw: voucher
@@ -689,14 +689,14 @@ IANA is asked to register a second YANG module as follows:
    name:         iana-voucher-assertion-type
    namespace:    urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
    prefix:       ianavat
+   maintained by IANA: Y
    reference:    RFC XXXX
 ~~~~
 
 
 ## The Media Types Registry {#vcj}
 
-This document registers a new media type in the "Media Types"
-registry {{RFC6838}}. IANA has registered the following:
+This document requests IANA to update the following "Media Types" entry to point to the RFC number that will be assigned to this document:
 
 Type name:
 : application
@@ -762,13 +762,12 @@ Provisional registration? (standards tree only):
 
 ## The SMI Security for S/MIME CMS Content Type Registry
 
-IANA has registered the following OID in the "SMI Security for S/MIME
-CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
+This document requests IANA to update this  registered OID in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry to point to the RFC number to be assigned to this document:
 
 ~~~~
             Decimal  Description                             References
             -------  --------------------------------------  ----------
-            40       id-ct-animaJSONVoucher                  RFC 8366
+            40       id-ct-animaJSONVoucher                  RFC XXXX
 ~~~~
 
 
