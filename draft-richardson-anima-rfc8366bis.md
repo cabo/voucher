@@ -674,13 +674,13 @@ IANA is asked to register a second URI as follows:
 This document registers two YANG module in the "YANG Module Names"
 registry {{RFC6020}}.
 
-IANA has registered the following:
+IANA is asked to registrar the following:
 
 ~~~~
    name:         ietf-voucher
    namespace:    urn:ietf:params:xml:ns:yang:ietf-voucher
    prefix:       vch
-   reference:    RFC 8366
+   reference:    RFC XXXX
 ~~~~
 
 IANA is asked to register a second YANG module as follows:
