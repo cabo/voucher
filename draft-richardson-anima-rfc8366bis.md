@@ -76,19 +76,14 @@ informative:
     target: https://www.cl.cam.ac.uk/research/dtg/www/files/publications/public/files/tr.1999.2.pdf
     title: 'The Resurrecting Duckling: Security Issues for Ad-Hoc Wireless Networks'
     author:
-    - ins: F. Stajano
-      name: Frank Stajano
-      org: ''
-    - ins: R. Anderson
-      name: Ross Anderson
-      org: ''
+    - name: Frank Stajano
+    - name: Ross Anderson
     date: 1999
   imprinting:
     target: https://en.wikipedia.org/w/index.php?title=Imprinting_(psychology)&oldid=825757556
     title: 'Wikipedia article: Imprinting'
     author:
-    - surname: Wikipedia
-      org: ''
+    - org: Wikipedia
     date: 2018-02
 
 --- abstract
