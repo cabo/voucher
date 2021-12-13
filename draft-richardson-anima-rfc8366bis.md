@@ -623,14 +623,18 @@ statement to the "voucher-assertion-type" type.
 The assigned name defined by the "enum" statement SHALL be the same as the mnemonic name of the new assertion type.
 The following substatements to the "enum" statement SHALL be defined:
 
-    "value": Use the decimal value from the registry.
-
-    "status": Include only if a class or type registration has been deprecated or obsoleted.
-    IANA "deprecated" maps to YANG status "deprecated", and IANA "obsolete" maps to YANG status   "obsolete".
-
-    "description": Replicate the corresponding information from the registry, namely the full name of the new assertion type.
-
-    "reference": Replicate the reference(s) from the registry.
+> "value":
+> : Use the decimal value from the registry.
+>
+> "status":
+> : Include only if a class or type registration has been deprecated or obsoleted.
+> IANA "deprecated" maps to YANG status "deprecated", and IANA "obsolete" maps to YANG status   "obsolete".
+>
+> "description":
+> : Replicate the corresponding information from the registry, namely the full name of the new assertion type.
+>
+> "reference":
+> : Replicate the reference(s) from the registry.
 
 Each time the "iana-voucher-assertion-type" YANG module is updated, a new "revision" statement SHALL be added before the existing "revision" statements.
 IANA has added this note to the "voucher assertion types" registries:
@@ -650,19 +654,27 @@ This document registers two URIs in the "IETF XML Registry" {{RFC3688}}.
 
 IANA has registered the following:
 
-~~~~
-   URI: urn:ietf:params:xml:ns:yang:ietf-voucher
-   Registrant Contact: The ANIMA WG of the IETF.
-   XML: N/A, the requested URI is an XML namespace.
-~~~~
+> {:compact}
+>    URI:
+>    : urn:ietf:params:xml:ns:yang:ietf-voucher
+>
+>    Registrant Contact:
+>    : The ANIMA WG of the IETF.
+>
+>    XML:
+>    : N/A, the requested URI is an XML namespace.
 
 IANA is asked to register a second URI as follows:
 
-~~~~
-    URI: urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
-    Registrant Contact: The ANIMA WG of the IETF.
-    XML: N/A, the requested URI is an XML namespace.
-~~~~
+> {:compact}
+>    URI:
+>    : urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
+>
+>    Registrant Contact:
+>    : The ANIMA WG of the IETF.
+>
+>    XML:
+>    : N/A, the requested URI is an XML namespace.
 
 ## The YANG Module Names Registry
 
@@ -671,22 +683,33 @@ registry {{RFC6020}}.
 
 IANA has registered the following:
 
-~~~~
-   name:         ietf-voucher
-   namespace:    urn:ietf:params:xml:ns:yang:ietf-voucher
-   prefix:       vch
-   reference:    RFC 8366
-~~~~
+> {:compact}
+>   name:
+>   : ietf-voucher
+>
+>   namespace:
+>   : urn:ietf:params:xml:ns:yang:ietf-voucher
+>
+>   prefix:
+>   : vch
+>
+>   reference:
+>   :RFC 8366
 
 IANA is asked to register a second YANG module as follows:
 
-~~~~
-   name:         iana-voucher-assertion-type
-   namespace:    urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
-   prefix:       ianavat
-   reference:    RFC XXXX
-~~~~
-
+> {:compact}
+>    name:
+>    : iana-voucher-assertion-type
+>
+>    namespace:
+>    : urn:ietf:params:xml:ns:yang:iana-voucher-assertion-type
+>
+>   prefix:
+>   : ianavat
+>
+>   reference:
+>   : RFC XXXX
 
 ## The Media Types Registry {#vcj}
 
@@ -760,12 +783,9 @@ Provisional registration? (standards tree only):
 IANA has registered the following OID in the "SMI Security for S/MIME
 CMS Content Type (1.2.840.113549.1.9.16.1)" registry:
 
-~~~~
-            Decimal  Description                             References
-            -------  --------------------------------------  ----------
-            40       id-ct-animaJSONVoucher                  RFC 8366
-~~~~
-
+| Decimal | Description                            | References |
+| ------- | -------------------------------------- | ---------- |
+| 40      | id-ct-animaJSONVoucher                 | RFC 8366   |
 
 
 
