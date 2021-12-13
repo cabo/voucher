@@ -346,7 +346,7 @@ Please review the YANG module for a detailed description of the
 voucher format.
 
 ~~~~
-{::include yang/ietf-voucher-tree-latest.txt}
+{::include-fold yang/ietf-voucher-tree-latest.txt}
 ~~~~
 
 
@@ -404,7 +404,7 @@ describing the voucher's assertion type.
 
 
 ~~~~ yang
-{::include yang/iana-voucher-assertion-type-latest.yang}
+{::include-fold yang/iana-voucher-assertion-type-latest.yang}
 ~~~~
 {: sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
 
@@ -415,7 +415,7 @@ The revised ietf-voucher YANG module imports the typedef defined in
 
 
 ~~~~ yang
-{::include yang/ietf-voucher-latest.yang}
+{::include-fold yang/ietf-voucher-latest.yang}
 ~~~~
 {: sourcecode-markers="true" sourcecode-name="ietf-voucher@2021-07-02.yang”}
 
