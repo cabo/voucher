@@ -545,7 +545,7 @@ get ephemeral vouchers, and 3) vouchers without expiration times
 may be used, which will appear in the audit log, informing the
 security decision.
 
-This document defines a voucher format that  contains time values
+This document defines a voucher format that contains time values
 for expirations, which require an accurate clock
 in order to be processed correctly.  Vendors planning on
 issuing vouchers with expiration values must ensure that devices
@@ -570,7 +570,7 @@ vouchers for that domain could be used by the attacker.  The domain
 administrator is clearly expected to initiate revocation of any
 domain identity certificates (as is normal in PKI solutions).
 
-Similarly,they are expected to contact the MASA to indicate that
+Similarly, they are expected to contact the MASA to indicate that
 an outstanding (presumably short lifetime) voucher should be blocked from
 automated renewal.
 Protocols for voucher distribution are
